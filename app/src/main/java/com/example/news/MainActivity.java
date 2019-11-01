@@ -13,7 +13,9 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.IOException;
@@ -25,6 +27,7 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     private List<NewsVo> newsVoList;
+    private ListView lv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,34 +45,10 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 //找到控件
-        ListView lv = findViewById(R.id.lv);
+        lv = findViewById(R.id.lv);
 //准备数据 去服务器取数据封装
         initListData();
-        new MyAdapter() {
-            @Override
-            public int getCount() {
-                return newsVoList.size();
-            }
 
-            @Override
-            public Object getItem(int position) {
-                return null;
-            }
-
-            @Override
-            public long getItemId(int position) {
-                return 0;
-            }
-
-            @Override
-            public View getView(int position, View convertView, ViewGroup parent) {
-                View view;
-                if (convertView==null) {
-
-                }
-                return null;
-            }
-        };
 
     }
 
@@ -87,6 +66,53 @@ public class MainActivity extends AppCompatActivity {
                     if (code == 200) {
                         InputStream inputStream = conn.getInputStream();
                         newsVoList = XmlParserUtils.parserXml(inputStream);
+                        System.out.println("aaaa"+newsVoList.size());
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                lv.setAdapter(new MyAdapter() {
+                                    @Override
+                                    public int getCount() {
+                                        return newsVoList.size();
+                                    }
+
+                                    @Override
+                                    public Object getItem(int position) {
+                                        return null;
+                                    }
+
+                                    @Override
+                                    public long getItemId(int position) {
+                                        return 0;
+                                    }
+
+                                    @Override
+                                    public View getView(int position, View convertView, ViewGroup parent) {
+                                        View view;
+                                        if (convertView==null) {
+                                            view = View.inflate(getApplicationContext(), R.layout.item, null);
+
+                                        }else {
+                                            view=convertView;
+                                        }
+                                        ImageView iv_icon = view.findViewById(R.id.iv_icon);
+                                        TextView tv_title = view.findViewById(R.id.tv_title);
+                                        TextView tv_author = view.findViewById(R.id.tv_author);
+                                        TextView tv_pubDate = view.findViewById(R.id.tv_pubDate);
+                                        TextView tv_desc = view.findViewById(R.id.tv_desc);
+
+                                        tv_author.setText(newsVoList.get(position).getAuthor());
+                                        tv_desc.setText(newsVoList.get(position).getDescription());
+                                        tv_pubDate.setText(newsVoList.get(position).getPubDate());
+                                        tv_title.setText(newsVoList.get(position).getTitle());
+                                        String link = newsVoList.get(position).getLink();//链接
+
+                                        return view;
+                                    }
+
+                                });
+                            }
+                        });
 
                     }
                     else {

@@ -27,6 +27,7 @@ public class XmlParserUtils {
                         } else if ("item".equals(parser.getName())) {
                             nv = new NewsVo();
                         } else if ("title".equals(parser.getName())) {
+
                             nv.setTitle(parser.nextText());
 
                         } else if ("link".equals(parser.getName())) {
@@ -40,8 +41,8 @@ public class XmlParserUtils {
                         }
                         break;
 
-                    case XmlPullParser.END_DOCUMENT:
-                        if ("item".equals(parser.next())) {
+                    case XmlPullParser.END_TAG:
+                        if ("item".equals(parser.getName())) {
                             list.add(nv);
                         }
 
