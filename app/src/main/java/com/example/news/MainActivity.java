@@ -11,8 +11,20 @@ import androidx.appcompat.widget.Toolbar;
 import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
+import android.widget.Toast;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
+
+    private List<NewsVo> newsVoList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,7 +41,70 @@ public class MainActivity extends AppCompatActivity {
                         .setAction("Action", null).show();
             }
         });
+//找到控件
+        ListView lv = findViewById(R.id.lv);
+//准备数据 去服务器取数据封装
+        initListData();
+        new MyAdapter() {
+            @Override
+            public int getCount() {
+                return newsVoList.size();
+            }
+
+            @Override
+            public Object getItem(int position) {
+                return null;
+            }
+
+            @Override
+            public long getItemId(int position) {
+                return 0;
+            }
+
+            @Override
+            public View getView(int position, View convertView, ViewGroup parent) {
+                View view;
+                if (convertView==null) {
+
+                }
+                return null;
+            }
+        };
+
     }
+
+    private void initListData() {
+        new Thread(){
+            @Override
+            public void run() {
+                try {
+                    String path="http://172.16.2.94:8080/news.xml";
+                    URL url=new URL(path);
+                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+                    conn.setRequestMethod("GET");
+                    conn.setConnectTimeout(5000);
+                    int code = conn.getResponseCode();
+                    if (code == 200) {
+                        InputStream inputStream = conn.getInputStream();
+                        newsVoList = XmlParserUtils.parserXml(inputStream);
+
+                    }
+                    else {
+                        runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                Toast.makeText(getApplicationContext(), "服务器忙...", Toast.LENGTH_SHORT).show();
+                            }
+                        });
+                    }
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }.start();
+
+    }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
@@ -52,4 +127,10 @@ public class MainActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+ private abstract class MyAdapter extends BaseAdapter
+ {
+
+ }
+
 }
