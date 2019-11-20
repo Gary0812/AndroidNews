@@ -37,7 +37,7 @@
                     android:layout_marginLeft="15dp"
                     android:layout_weight="1"
                     android:gravity="bottom"
-                    android:text="User"
+                    android:text="你的名字"
                     android:textStyle="bold"
                     android:textColor="@color/colorWhite"
                     android:textSize="20sp" />

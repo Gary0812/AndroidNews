@@ -6,7 +6,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="#1D51AC"
+        android:background="#03A9F4"
         android:orientation="horizontal">
         <ImageView
             android:layout_width="0dp"
