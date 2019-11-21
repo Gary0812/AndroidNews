@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#03A9F4"
+        android:background="#F44336"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -23,7 +23,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:text="中国台湾"
+                android:text="融视频"
                 android:textColor="@color/colorWhite"
                 android:textSize="18sp" />
         </LinearLayout>
@@ -40,14 +40,14 @@
         app:tabIndicatorColor="#FF0000"
         app:tabSelectedTextColor="#FF0000"
         app:tabTextAppearance="@style/tablayoutIcon"
-        app:tabTextColor="#000000">
+        app:tabTextColor="#5A5959">
 
     </com.google.android.material.tabs.TabLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="#696969" />
+        android:background="#D3CECACA" />
 
 
     <androidx.viewpager.widget.ViewPager
