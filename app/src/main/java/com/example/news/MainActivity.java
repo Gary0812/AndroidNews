@@ -14,6 +14,7 @@ import androidx.fragment.app.FragmentTransaction;
 import java.util.ArrayList;
 import java.util.List;
 
+/*底部切换控制*/
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     private LinearLayout ll_main, ll_setting, ll_mine;
@@ -90,8 +91,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         transaction.show(fragment).commit();
     }
-
-
 
 
     @Override
