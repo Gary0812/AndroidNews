@@ -13,6 +13,7 @@ import com.google.android.material.tabs.TabLayout;
 import java.util.ArrayList;
 import java.util.List;
 
+/*头部标题切换控制*/
 public class MainFragment extends Fragment {
 
     private View view;
@@ -34,7 +35,6 @@ public class MainFragment extends Fragment {
         view = inflater.inflate(R.layout.fragment_main, container, false);
         initView();
         fragmentChange();
-//        TimeCount.getInstance().setTime(System.currentTimeMillis());
         return view;
     }
 

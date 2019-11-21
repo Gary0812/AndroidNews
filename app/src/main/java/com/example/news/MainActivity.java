@@ -41,7 +41,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         ll_setting.setOnClickListener(this);
         ll_mine.setOnClickListener(this);
 
-//        ApplicationUtil.getInstance().addActivity(this);
     }
 
     private void initView() {
