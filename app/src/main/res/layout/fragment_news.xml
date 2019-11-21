@@ -5,7 +5,7 @@
     android:layout_height="match_parent">
 
         <TextView
-            android:id="@+id/news_content"
+            android:id="@+id/news_list"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:text="新闻列表"
