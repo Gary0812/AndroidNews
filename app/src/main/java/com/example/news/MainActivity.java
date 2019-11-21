@@ -1,162 +1,150 @@
 package com.example.news;
 
+import android.graphics.Color;
 import android.os.Bundle;
-
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
+import android.view.View;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.ImageView;
-import android.widget.ListView;
-import android.widget.TextView;
-import android.widget.Toast;
-
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.net.URL;
+import java.util.ArrayList;
 import java.util.List;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-    private List<NewsVo> newsVoList;
-    private ListView lv;
+    private LinearLayout ll_main, ll_setting, ll_mine;
+
+    private MainFragment mainFragment;
+    private SettingFragment settingFragment;
+    private MineFragment mineFragment;
+
+    private List<Fragment> fragmentList = new ArrayList<>();
+
+    private ImageView img_main, img_seting, img_mine;
+    private TextView text_main, text_setting, text_mine;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        Toolbar toolbar = findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
 
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-            }
-        });
-//找到控件
-        lv = findViewById(R.id.lv);
-//准备数据 去服务器取数据封装
-        initListData();
+        initView();
+        initFragment();
 
+        ll_main.setOnClickListener(this);
+        ll_setting.setOnClickListener(this);
+        ll_mine.setOnClickListener(this);
+
+//        ApplicationUtil.getInstance().addActivity(this);
+    }
+
+    private void initView() {
+        ll_main = (LinearLayout) findViewById(R.id.layout_main);
+        ll_setting = (LinearLayout)findViewById(R.id.layout_setting);
+        ll_mine = (LinearLayout)findViewById(R.id.layout_mine);
+
+        text_main = (TextView) findViewById(R.id.text_main);
+        text_setting = (TextView) findViewById(R.id.text_setting);
+        text_mine = (TextView) findViewById(R.id.text_mine);
+
+        img_main = (ImageView) findViewById(R.id.img_main);
+        img_seting =(ImageView) findViewById(R.id.img_setting);
+        img_mine =(ImageView) findViewById(R.id.img_mine);
+
+        img_main.setImageResource(R.drawable.main_selected);
+        text_main.setTextColor(Color.RED);
 
     }
 
-    private void initListData() {
-        new Thread(){
-            @Override
-            public void run() {
-                try {
-                    String path="http://172.16.2.94:8080/news.xml";
-                    URL url=new URL(path);
-                    HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-                    conn.setRequestMethod("GET");
-                    conn.setConnectTimeout(5000);
-                    int code = conn.getResponseCode();
-                    if (code == 200) {
-                        InputStream inputStream = conn.getInputStream();
-                        newsVoList = XmlParserUtils.parserXml(inputStream);
-                        System.out.println("aaaa"+newsVoList.size());
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                lv.setAdapter(new MyAdapter() {
-                                    @Override
-                                    public int getCount() {
-                                        return newsVoList.size();
-                                    }
-
-                                    @Override
-                                    public Object getItem(int position) {
-                                        return null;
-                                    }
-
-                                    @Override
-                                    public long getItemId(int position) {
-                                        return 0;
-                                    }
-
-                                    @Override
-                                    public View getView(int position, View convertView, ViewGroup parent) {
-                                        View view;
-                                        if (convertView==null) {
-                                            view = View.inflate(getApplicationContext(), R.layout.item, null);
-
-                                        }else {
-                                            view=convertView;
-                                        }
-                                        ImageView iv_icon = view.findViewById(R.id.iv_icon);
-                                        TextView tv_title = view.findViewById(R.id.tv_title);
-                                        TextView tv_author = view.findViewById(R.id.tv_author);
-                                        TextView tv_pubDate = view.findViewById(R.id.tv_pubDate);
-                                        TextView tv_desc = view.findViewById(R.id.tv_desc);
-
-                                        tv_author.setText(newsVoList.get(position).getAuthor());
-                                        tv_desc.setText(newsVoList.get(position).getDescription());
-                                        tv_pubDate.setText(newsVoList.get(position).getPubDate());
-                                        tv_title.setText(newsVoList.get(position).getTitle());
-                                        String link = newsVoList.get(position).getLink();//链接
-
-                                        return view;
-                                    }
-
-                                });
-                            }
-                        });
-
-                    }
-                    else {
-                        runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                Toast.makeText(getApplicationContext(), "服务器忙...", Toast.LENGTH_SHORT).show();
-                            }
-                        });
-                    }
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }.start();
+    private void initFragment() {
+        mainFragment = new MainFragment();
+        addFragment(mainFragment);
+        showFragment(mainFragment);
 
     }
 
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
-        int id = item.getItemId();
-
-        //noinspection SimplifiableIfStatement
-        if (id == R.id.action_settings) {
-            return true;
+    /*添加fragment*/
+    private void addFragment(Fragment fragment) {
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        if (!fragment.isAdded()) {
+            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+            transaction.add(R.id.main_content, fragment).commit();
+            fragmentList.add(fragment);
         }
-
-        return super.onOptionsItemSelected(item);
     }
 
- private abstract class MyAdapter extends BaseAdapter
- {
+    /*显示fragment*/
+    private void showFragment(Fragment fragment) {
+        for (Fragment frag : fragmentList) {
+            if (frag != fragment) {
+                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+                transaction.hide(frag).commit();
+            }
+        }
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        transaction.show(fragment).commit();
+    }
 
- }
 
+
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.layout_main: {
+                if (mainFragment == null) {
+                    mainFragment = new MainFragment();
+                }
+                addFragment(mainFragment);
+                showFragment(mainFragment);
+                text_main.setTextColor(Color.RED);
+                text_setting.setTextColor(Color.BLACK);
+                text_mine.setTextColor(Color.BLACK);
+
+                img_main.setImageResource(R.drawable.main_selected);
+                img_seting.setImageResource(R.drawable.setting);
+                img_mine.setImageResource(R.drawable.mine);
+
+            }
+            break;
+            case R.id.layout_setting: {
+                if (settingFragment == null) {
+                    settingFragment = new SettingFragment();
+                }
+                addFragment(settingFragment);
+                showFragment(settingFragment);
+                text_setting.setTextColor(Color.RED);
+                text_main.setTextColor(Color.BLACK);
+                text_mine.setTextColor(Color.BLACK);
+
+                img_main.setImageResource(R.drawable.main);
+                img_seting.setImageResource(R.drawable.setting_selected);
+                img_mine.setImageResource(R.drawable.mine);
+            }
+            break;
+            case R.id.layout_mine: {
+                if (mineFragment == null) {
+                    mineFragment = new MineFragment();
+                }
+                addFragment(mineFragment);
+                showFragment(mineFragment);
+                text_mine.setTextColor(Color.RED);
+                text_main.setTextColor(Color.BLACK);
+                text_setting.setTextColor(Color.BLACK);
+
+                img_main.setImageResource(R.drawable.main);
+                img_seting.setImageResource(R.drawable.setting);
+                img_mine.setImageResource(R.drawable.mine_selected);
+            }
+            break;
+            default:
+                break;
+        }
+    }
 }
