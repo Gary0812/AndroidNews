@@ -92,7 +92,12 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         transaction.show(fragment).commit();
     }
 
+public  void onClick1(View view)
+{
+    Intent intent = new Intent(this,vitamio.class);
+    startActivity(intent);
 
+}
 
     @Override
     public void onClick(View view) {
