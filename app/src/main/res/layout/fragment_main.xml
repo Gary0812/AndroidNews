@@ -52,7 +52,6 @@
         app:tabSelectedTextColor="#FF0000"
         app:tabTextAppearance="@style/tablayoutIcon"
         app:tabTextColor="#5A5959">
-
     </com.google.android.material.tabs.TabLayout>
 
     <View
@@ -67,7 +66,6 @@
         android:layout_weight="12">
 
     </androidx.viewpager.widget.ViewPager>
-
 </LinearLayout>
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/main_nav"
