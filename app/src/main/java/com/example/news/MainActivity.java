@@ -8,15 +8,20 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+
+import com.example.news.fragment.MainFragment;
+import com.example.news.fragment.MineFragment;
+import com.example.news.fragment.SettingFragment;
+import com.jeremyfeinstein.slidingmenu.lib.SlidingMenu;
+import com.jeremyfeinstein.slidingmenu.lib.app.SlidingActivity;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /*底部切换控制*/
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends SlidingActivity implements View.OnClickListener {
 
     private LinearLayout ll_main, ll_setting, ll_mine;
 
@@ -30,11 +35,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private TextView text_main, text_setting, text_mine;
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
+        setBehindContentView(R.layout.left_menu);
+        SlidingMenu slidingMenu = getSlidingMenu();
+        slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
+        slidingMenu.setAboveOffset(260);
         initView();
         initFragment();
 
@@ -45,6 +53,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
+
+
+
         ll_main = (LinearLayout) findViewById(R.id.layout_main);
         ll_setting = (LinearLayout)findViewById(R.id.layout_setting);
         ll_mine = (LinearLayout)findViewById(R.id.layout_mine);

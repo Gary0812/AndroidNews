@@ -1,2 +1,2 @@
-include ':app', ':vitamio'
+include ':app', ':vitamio', ':SlidingMenuLibrary', ':slidingmenu-master'
 rootProject.name='news'
