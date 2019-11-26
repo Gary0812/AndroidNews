@@ -69,8 +69,6 @@
 
     </androidx.viewpager.widget.ViewPager>
 
-
-
 </LinearLayout>
     <com.google.android.material.navigation.NavigationView
         android:id="@+id/main_nav"
@@ -78,5 +76,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
+        app:headerLayout="@layout/nav_header"
         app:menu="@menu/nav_menu"/>
 </androidx.drawerlayout.widget.DrawerLayout>
