@@ -4,4 +4,8 @@
     <string name="title_activity_vitamio">vitamio</string>
     <string name="title_activity_splash">中国台湾网</string>
     <string name="title_activity_guide">GuideActivity</string>
+    <string name="title_activity_bottom_navigation">bottomNavigationActivity</string>
+    <string name="title_home">首页</string>
+    <string name="title_setting">设置</string>
+    <string name="title_mine">我</string>
 </resources>

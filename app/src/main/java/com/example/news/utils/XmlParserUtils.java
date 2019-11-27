@@ -1,6 +1,8 @@
-package com.example.news;
+package com.example.news.utils;
 
 import android.util.Xml;
+
+import com.example.news.NewsVo;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;

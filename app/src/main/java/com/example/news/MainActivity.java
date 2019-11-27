@@ -1,5 +1,6 @@
 package com.example.news;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -7,6 +8,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -17,10 +19,15 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
+import androidx.navigation.NavController;
+import androidx.navigation.Navigation;
+import androidx.navigation.ui.AppBarConfiguration;
+import androidx.navigation.ui.NavigationUI;
 
 import com.example.news.fragment.MainFragment;
 import com.example.news.fragment.MineFragment;
 import com.example.news.fragment.SettingFragment;
+import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.navigation.NavigationView;
 
 
@@ -30,7 +37,7 @@ import java.util.List;
 import java.util.zip.Inflater;
 
 /*底部切换控制*/
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+public class MainActivity extends AppCompatActivity  {
 
     private LinearLayout ll_main, ll_setting, ll_mine;
 
@@ -48,31 +55,40 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
 
+        setContentView(R.layout.activity_main);
+        BottomNavigationView navView = findViewById(R.id.nav_view);
+        // Passing each menu ID as a set of Ids because each
+        // menu should be considered as top level destinations.
+        AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
+                R.id.navigation_home, R.id.navigation_setting, R.id.navigation_mine)
+                .build();
+        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
+       // NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        //NavigationUI.setupWithNavController(navView, navController);
 
 
 
    /*     setBehindContentView(R.layout.left_menu);
         SlidingMenu slidingMenu = getSlidingMenu();
         slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-        slidingMenu.setAboveOffset(260);*/
+        slidingMenu.setAboveOffset(260);
         initView();
-        initFragment();
+        initFragment();*/
 
-        ll_main.setOnClickListener(this);
+     /*   ll_main.setOnClickListener(this);
         ll_setting.setOnClickListener(this);
-        ll_mine.setOnClickListener(this);
+        ll_mine.setOnClickListener(this);*/
 
     }
 
-    private void initView() {
+    /* private void initView() {
 
 
 
 
 
-        ll_main = (LinearLayout) findViewById(R.id.layout_main);
+       ll_main = (LinearLayout) findViewById(R.id.layout_main);
         ll_setting = (LinearLayout)findViewById(R.id.layout_setting);
         ll_mine = (LinearLayout)findViewById(R.id.layout_mine);
 
@@ -88,17 +104,17 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         text_main.setTextColor(Color.RED);
 
     }
-
+*/
 
     private void initFragment() {
         mainFragment = new MainFragment();
-        addFragment(mainFragment);
+        //addFragment(mainFragment);
         showFragment(mainFragment);
 
     }
 
     /*添加fragment*/
-    private void addFragment(Fragment fragment) {
+/*    private void addFragment(Fragment fragment) {
         //开启事务
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (!fragment.isAdded()) {
@@ -106,7 +122,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             transaction.add(R.id.main_content, fragment).commit();
             fragmentList.add(fragment);
         }
-    }
+    }*/
 
     /*显示fragment*/
     private void showFragment(Fragment fragment) {
@@ -132,7 +148,7 @@ public  void onClick1(View view)
 
 }
 
-    @Override
+ /*   @Override
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.layout_main: {
@@ -184,5 +200,5 @@ public  void onClick1(View view)
             default:
                 break;
         }
-    }
+    }*/
 }

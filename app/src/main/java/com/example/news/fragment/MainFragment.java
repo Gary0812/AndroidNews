@@ -79,6 +79,7 @@ public class MainFragment extends Fragment {
         titleList.add("推荐");
         titleList.add("视频");
 
+
         fragmentAdapter = new FragmentAdapter(getActivity().getSupportFragmentManager(), fragmentList, titleList);
         viewPager.setAdapter(fragmentAdapter);
 
