@@ -2,14 +2,22 @@ package com.example.news.fragment;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.news.FragmentAdapter;
+import com.example.news.MainActivity;
 import com.example.news.R;
+import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
@@ -30,7 +38,10 @@ public class MainFragment extends Fragment {
 
     private NewsFragment news_fragment;
     private VideoFragment video_fragment;
-
+    private NavigationView navigationView;
+    private ImageView app_nav_header_bg;
+    private TextView app_personal;
+    private TextView textView;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -41,6 +52,14 @@ public class MainFragment extends Fragment {
     }
 
     private void initView() {
+        navigationView = view.findViewById(R.id.main_nav);
+        /*navigationView.inflateHeaderView(R.layout.nav_header);
+        navigationView.inflateMenu(R.menu.nav_menu);*/
+        navigationView.setItemIconTintList(null);//菜单项颜色图标
+        View headerView = navigationView.getHeaderView(0);
+        app_nav_header_bg = headerView.findViewById(R.id.app_nav_header_bg);//获取头文件文本id
+        textView = headerView.findViewById(R.id.textView3);
+        app_personal = headerView.findViewById(R.id.app_personal);//获取头文件背景id
         tabLayout = view.findViewById(R.id.tab_layout);
         viewPager = view.findViewById(R.id.view_pager);
 
@@ -67,5 +86,25 @@ public class MainFragment extends Fragment {
         tabLayout.setupWithViewPager(viewPager);
     }
 
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        initEvent();
+    }
+
+    private void initEvent() {
+
+        navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                textView.setText("您选择的是: "+item.getTitle().toString());
+                Toast.makeText(getActivity(), "选择的是："+item.getGroupId(), Toast.LENGTH_SHORT).show();
+                //获取menu菜单事件
+                item.getGroupId();
+                item.getTitle().toString();
+                return true;
+            }
+        });
+    }
 
 }

@@ -3,11 +3,17 @@ package com.example.news;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+
+import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
@@ -15,11 +21,13 @@ import androidx.fragment.app.FragmentTransaction;
 import com.example.news.fragment.MainFragment;
 import com.example.news.fragment.MineFragment;
 import com.example.news.fragment.SettingFragment;
+import com.google.android.material.navigation.NavigationView;
 
 
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.zip.Inflater;
 
 /*底部切换控制*/
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -35,11 +43,16 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private ImageView img_main, img_seting, img_mine;
     private TextView text_main, text_setting, text_mine;
 
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+
+
+
    /*     setBehindContentView(R.layout.left_menu);
         SlidingMenu slidingMenu = getSlidingMenu();
         slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
@@ -54,6 +67,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     }
 
     private void initView() {
+
+
 
 
 
@@ -74,6 +89,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+
     private void initFragment() {
         mainFragment = new MainFragment();
         addFragment(mainFragment);
@@ -83,6 +99,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     /*添加fragment*/
     private void addFragment(Fragment fragment) {
+        //开启事务
         FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
         if (!fragment.isAdded()) {
             transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
@@ -103,7 +120,11 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
         transaction.show(fragment).commit();
     }
-
+ /*   public boolean onPrepareOptionsMenu(Menu menu)
+    {
+        menu.findItem(R.id.nav_home).setChecked(true);
+        return true;
+    }*/
 public  void onClick1(View view)
 {
     Intent intent = new Intent(this,vitamio.class);
