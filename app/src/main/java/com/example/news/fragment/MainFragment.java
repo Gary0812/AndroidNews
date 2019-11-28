@@ -11,6 +11,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.widget.Toolbar;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
@@ -43,6 +45,9 @@ public class MainFragment extends Fragment {
     private TextView app_personal;
     private TextView textView;
 
+    DrawerLayout mDrawerLayout;
+
+    Toolbar mToolbar;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_main, container, false);
@@ -52,6 +57,7 @@ public class MainFragment extends Fragment {
     }
 
     private void initView() {
+        mToolbar=view.findViewById(R.id.toolbar);
         navigationView = view.findViewById(R.id.main_nav);
         /*navigationView.inflateHeaderView(R.layout.nav_header);
         navigationView.inflateMenu(R.menu.nav_menu);*/

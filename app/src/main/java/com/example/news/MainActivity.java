@@ -1,6 +1,5 @@
 package com.example.news;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -8,7 +7,6 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -55,7 +53,6 @@ public class MainActivity extends AppCompatActivity  {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_main);
         BottomNavigationView navView = findViewById(R.id.nav_view);
         // Passing each menu ID as a set of Ids because each
@@ -64,141 +61,14 @@ public class MainActivity extends AppCompatActivity  {
                 R.id.navigation_home, R.id.navigation_setting, R.id.navigation_mine)
                 .build();
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-       // NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
-        //NavigationUI.setupWithNavController(navView, navController);
+       /* NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);*/
+        NavigationUI.setupWithNavController(navView, navController);
 
 
 
-   /*     setBehindContentView(R.layout.left_menu);
-        SlidingMenu slidingMenu = getSlidingMenu();
-        slidingMenu.setTouchModeAbove(SlidingMenu.TOUCHMODE_FULLSCREEN);
-        slidingMenu.setAboveOffset(260);
-        initView();
-        initFragment();*/
-
-     /*   ll_main.setOnClickListener(this);
-        ll_setting.setOnClickListener(this);
-        ll_mine.setOnClickListener(this);*/
+ 
 
     }
 
-    /* private void initView() {
 
-
-
-
-
-       ll_main = (LinearLayout) findViewById(R.id.layout_main);
-        ll_setting = (LinearLayout)findViewById(R.id.layout_setting);
-        ll_mine = (LinearLayout)findViewById(R.id.layout_mine);
-
-        text_main = (TextView) findViewById(R.id.text_main);
-        text_setting = (TextView) findViewById(R.id.text_setting);
-        text_mine = (TextView) findViewById(R.id.text_mine);
-
-        img_main = (ImageView) findViewById(R.id.img_main);
-        img_seting =(ImageView) findViewById(R.id.img_setting);
-        img_mine =(ImageView) findViewById(R.id.img_mine);
-
-        img_main.setImageResource(R.drawable.main_selected);
-        text_main.setTextColor(Color.RED);
-
-    }
-*/
-
-    private void initFragment() {
-        mainFragment = new MainFragment();
-        //addFragment(mainFragment);
-        showFragment(mainFragment);
-
-    }
-
-    /*添加fragment*/
-/*    private void addFragment(Fragment fragment) {
-        //开启事务
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        if (!fragment.isAdded()) {
-            transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-            transaction.add(R.id.main_content, fragment).commit();
-            fragmentList.add(fragment);
-        }
-    }*/
-
-    /*显示fragment*/
-    private void showFragment(Fragment fragment) {
-        for (Fragment frag : fragmentList) {
-            if (frag != fragment) {
-                FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-                transaction.hide(frag).commit();
-            }
-        }
-        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
-        transaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        transaction.show(fragment).commit();
-    }
- /*   public boolean onPrepareOptionsMenu(Menu menu)
-    {
-        menu.findItem(R.id.nav_home).setChecked(true);
-        return true;
-    }*/
-public  void onClick1(View view)
-{
-    Intent intent = new Intent(this,vitamio.class);
-    startActivity(intent);
-
-}
-
- /*   @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.layout_main: {
-                if (mainFragment == null) {
-                    mainFragment = new MainFragment();
-                }
-                addFragment(mainFragment);
-                showFragment(mainFragment);
-                text_main.setTextColor(Color.RED);
-                text_setting.setTextColor(Color.BLACK);
-                text_mine.setTextColor(Color.BLACK);
-
-                img_main.setImageResource(R.drawable.main_selected);
-                img_seting.setImageResource(R.drawable.setting);
-                img_mine.setImageResource(R.drawable.mine);
-
-            }
-            break;
-            case R.id.layout_setting: {
-                if (settingFragment == null) {
-                    settingFragment = new SettingFragment();
-                }
-                addFragment(settingFragment);
-                showFragment(settingFragment);
-                text_setting.setTextColor(Color.RED);
-                text_main.setTextColor(Color.BLACK);
-                text_mine.setTextColor(Color.BLACK);
-
-                img_main.setImageResource(R.drawable.main);
-                img_seting.setImageResource(R.drawable.setting_selected);
-                img_mine.setImageResource(R.drawable.mine);
-            }
-            break;
-            case R.id.layout_mine: {
-                if (mineFragment == null) {
-                    mineFragment = new MineFragment();
-                }
-                addFragment(mineFragment);
-                showFragment(mineFragment);
-                text_mine.setTextColor(Color.RED);
-                text_main.setTextColor(Color.BLACK);
-                text_setting.setTextColor(Color.BLACK);
-
-                img_main.setImageResource(R.drawable.main);
-                img_seting.setImageResource(R.drawable.setting);
-                img_mine.setImageResource(R.drawable.mine_selected);
-            }
-            break;
-            default:
-                break;
-        }
-    }*/
 }
