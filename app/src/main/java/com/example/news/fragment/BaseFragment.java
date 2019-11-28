@@ -26,7 +26,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        mRootView = initViews();
+        mRootView = initView();
         return mRootView;
     }
 //fragment所在的activity创建完成
@@ -36,7 +36,7 @@ public abstract class BaseFragment extends Fragment {
         initData();
     }
 //必须有子类实现
-   public abstract View initViews();
+   public abstract View initView();
     //初始化数据,子类可以不实现
     public  void  initData(){
 
