@@ -10,16 +10,16 @@
         android:name="com.example.news.fragment.MainFragment"
         android:label="@string/title_home"
         tools:layout="@layout/activity_main" >
-        <action
+       <!-- <action
             android:id="@+id/action_navigation_home_to_navigation_setting"
-            app:destination="@id/navigation_setting" />
+            app:destination="@id/navigation_setting" />-->
     </fragment>
 
     <fragment
-        android:id="@+id/navigation_setting"
-        android:name="com.example.news.fragment.SettingFragment"
-        android:label="@string/title_setting"
-        tools:layout="@layout/activity_setting" />
+        android:id="@+id/navigation_video"
+        android:name="com.example.news.fragment.VideoFragment"
+        android:label="@string/title_video"
+        tools:layout="@layout/activity_video" />
 
     <fragment
         android:id="@+id/navigation_mine"
