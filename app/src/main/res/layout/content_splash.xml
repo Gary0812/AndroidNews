@@ -18,6 +18,14 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="109dp"
         android:src="@mipmap/man" />
+    <TextView
+        android:id="@+id/tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="20dp"
+        android:layout_marginTop="10dp"
+        android:textSize="20sp" />
 
     <TextView
         android:layout_width="wrap_content"
