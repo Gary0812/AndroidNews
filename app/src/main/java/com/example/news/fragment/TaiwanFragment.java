@@ -12,9 +12,21 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.example.news.NewsVo;
 import com.example.news.R;
+import com.example.news.adapter.CommonAdapter;
+import com.example.news.adapter.MyAdapter;
 import com.example.news.utils.DummyContent;
 import com.example.news.utils.DummyContent.DummyItem;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
+import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
+import com.scwang.smartrefresh.layout.header.TwoLevelHeader;
+import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
+import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A fragment representing a list of Items.
@@ -29,6 +41,13 @@ public class TaiwanFragment extends Fragment {
     // TODO: Customize parameters
     private int mColumnCount = 1;
     private OnListFragmentInteractionListener mListener;
+    private View view;
+
+    private CommonAdapter recycleAdapter;
+    private List<NewsVo> stringList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    RefreshLayout refreshLayout ;
+    private MyAdapter adapter;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -59,23 +78,65 @@ public class TaiwanFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_taiwan_list, container, false);
+        view = inflater.inflate(R.layout.fragment_taiwan_list, container, false);
 
-        // Set the adapter
+initView();
+
+  /*      // Set the adapter
         if (view instanceof RecyclerView) {
             Context context = view.getContext();
-            RecyclerView recyclerView = (RecyclerView) view;
+            RecyclerView  recyclerView = (RecyclerView) view;
             if (mColumnCount <= 1) {
                 recyclerView.setLayoutManager(new LinearLayoutManager(context));
             } else {
                 recyclerView.setLayoutManager(new GridLayoutManager(context, mColumnCount));
             }
+            setAdapter();
             recyclerView.setAdapter(new TaiwanRecyclerViewAdapter(DummyContent.ITEMS, mListener));
-        }
+            setRefresh();
+        }*/
+
+
+
+
         return view;
     }
 
+  private void initView() {
+      recyclerView=view.findViewById(R.id.list);
+      refreshLayout  = view.findViewById(R.id.refreshLayout);
+      //设置数据
+      setData();
+      //设置ReCycleView
+      setReCycleView();
 
+    }
+
+
+
+    private void setData() {
+        if (stringList.size() == 0) {
+            for (int i = 1; i < 21; i++) {
+                NewsVo newsVo=new NewsVo();
+                newsVo.setTitle("第" + i + "条数据");
+                newsVo.setLink("www.taiwan.cn");
+                stringList.add(newsVo);
+            }
+        }
+
+
+    }
+
+    private void setReCycleView() {
+        //设置ReCycleView
+        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(linearLayoutManager);
+        //设置ReCycleView所需的adapter
+        adapter = new MyAdapter(getActivity(),R.layout.taiwan_item,stringList);
+        recyclerView.setAdapter(adapter);
+        setRefresh();
+    }
 
 
     @Override
@@ -98,4 +159,43 @@ public class TaiwanFragment extends Fragment {
         // TODO: Update argument type and name
         void onListFragmentInteraction(DummyItem item);
     }
+
+    /**
+     * 设置适配器
+     *
+     * @param
+     */
+    private void setAdapter() {
+
+
+    }
+
+    private void setRefresh() {
+        refreshLayout  = view.findViewById(R.id.refreshLayout);
+        refreshLayout.setRefreshHeader(new TwoLevelHeader(getActivity()));
+        refreshLayout.setEnableRefresh(true);
+        refreshLayout.setOnRefreshListener(new OnRefreshListener() {
+            @Override
+            public void onRefresh(RefreshLayout refreshlayout) {
+              NewsVo newsVo=new NewsVo();
+                newsVo.setTitle("下拉刷新");
+                newsVo.setLink("aaa");
+                stringList.add(0,newsVo);
+                adapter.notifyDataSetChanged();
+                refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
+            }
+        });
+        refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
+            @Override
+            public void onLoadMore(RefreshLayout refreshlayout) {
+                NewsVo newsVo=new NewsVo();
+                newsVo.setTitle("上拉加载");
+                newsVo.setLink("bbb");
+                stringList.add(newsVo);
+                adapter.notifyDataSetChanged();
+                refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
+            }
+        });
+    }
+
 }

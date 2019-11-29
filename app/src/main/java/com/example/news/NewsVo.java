@@ -18,7 +18,14 @@ public class NewsVo {
                 '}';
     }
 
-
+/*public  NewsVo (String title,String link,String pubDate,String author,String description)
+{
+    this.title=title;
+    this.link= link;
+    this.pubDate=pubDate;
+    this.author=author;
+    this.description=description;
+}*/
 
     public String getTitle() {
         return title;
