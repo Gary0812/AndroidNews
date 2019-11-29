@@ -3,7 +3,7 @@
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#3F51B5">
+    android:background="#065575">
 
     <View
         android:layout_width="match_parent"
@@ -51,5 +51,14 @@
         android:layout_marginTop="40dp"
         android:layout_marginRight="50dp"
         android:text="登录" />
+
+    <Button
+        android:id="@+id/btn_register"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginRight="50dp"
+        android:text="注册" />
 
 </LinearLayout>
