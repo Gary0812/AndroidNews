@@ -23,9 +23,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:background="@drawable/textview_style"
         android:layout_marginRight="20dp"
         android:layout_marginTop="10dp"
-        android:textSize="20sp" />
+        android:textColor="#464545"
+        android:textSize="18sp" />
 
     <TextView
         android:layout_width="wrap_content"
