@@ -40,7 +40,7 @@ public class ViewHolder {
     }
 
     /**
-     * 通过控件的Id获取对于的控件，如果没有则加入views
+     * 通过控件的Id获取对应的控件，如果没有则加入views
      *
      * @param viewId
      * @return

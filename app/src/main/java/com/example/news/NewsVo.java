@@ -7,6 +7,16 @@ public class NewsVo {
     private  String pubDate;
     private  String author;
     private  String description;
+    private int type;
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
     @Override
     public String toString() {
         return "NewsVo{" +
@@ -15,6 +25,7 @@ public class NewsVo {
                 ", pubDate='" + pubDate + '\'' +
                 ", author='" + author + '\'' +
                 ", description='" + description + '\'' +
+                ", type=" + type +
                 '}';
     }
 

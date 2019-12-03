@@ -25,6 +25,9 @@ import com.scwang.smartrefresh.layout.header.TwoLevelHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
+
+
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -48,6 +51,7 @@ public class TaiwanFragment extends Fragment {
     private RecyclerView recyclerView;
     RefreshLayout refreshLayout ;
     private MyAdapter adapter;
+    private  int type;
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -103,8 +107,10 @@ initView();
     }
 
   private void initView() {
+
       recyclerView=view.findViewById(R.id.list);
       refreshLayout  = view.findViewById(R.id.refreshLayout);
+
       //设置数据
       setData();
       //设置ReCycleView
@@ -120,6 +126,7 @@ initView();
                 NewsVo newsVo=new NewsVo();
                 newsVo.setTitle("第" + i + "条数据");
                 newsVo.setLink("www.taiwan.cn");
+                newsVo.setType(i);
                 stringList.add(newsVo);
             }
         }
@@ -133,7 +140,8 @@ initView();
         linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(linearLayoutManager);
         //设置ReCycleView所需的adapter
-        adapter = new MyAdapter(getActivity(),R.layout.taiwan_item,stringList);
+        adapter = new MyAdapter(getActivity(),R.layout.taiwan_item,stringList, type);
+        adapter.notifyDataSetChanged();
         recyclerView.setAdapter(adapter);
         setRefresh();
     }
