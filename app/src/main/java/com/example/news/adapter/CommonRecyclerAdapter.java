@@ -20,6 +20,7 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Recy
     private OnItemClickListener listener;//点击事件监听器
     private OnItemLongClickListener longClickListener;//长按监听器
     private RecyclerView recyclerView;
+    private  int type ;// 布局类型
 
     //在RecyclerView提供数据的时候调用
     @Override
@@ -45,9 +46,10 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Recy
         boolean onItemLongClick(RecyclerView parent, View view, int position);
     }
 
-    public CommonRecyclerAdapter(Context context, int itemLayoutId, List<T> list) {
+    public CommonRecyclerAdapter(Context context, int itemLayoutId, List<T> list ,int type) {
         this.context = context;
         this.list = list;
+        this.type=type;
         this.itemLayoutId = itemLayoutId;
         inflater = LayoutInflater.from(context);
     }

@@ -17,8 +17,7 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
 
-import com.example.news.FragmentAdapter;
-import com.example.news.MainActivity;
+import com.example.news.adapter.FragmentAdapter;
 import com.example.news.R;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;

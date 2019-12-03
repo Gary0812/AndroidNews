@@ -1,4 +1,4 @@
-package com.example.news;
+package com.example.news.adapter;
 
 
 import androidx.fragment.app.Fragment;

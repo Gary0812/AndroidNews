@@ -28,7 +28,7 @@
                 android:layout_weight="1"
                 android:scaleType="fitXY"
 
-                android:src="@drawable/out" />
+                android:src="@drawable/background" />
             <View
                 android:layout_width="6dp"
                 android:layout_height="0dp"/>
