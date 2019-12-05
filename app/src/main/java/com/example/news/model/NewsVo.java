@@ -1,4 +1,4 @@
-package com.example.news;
+package com.example.news.model;
 
 public class NewsVo {
 

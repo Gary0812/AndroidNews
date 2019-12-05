@@ -3,7 +3,7 @@ package com.example.news.adapter;
 import android.content.Context;
 import android.text.TextUtils;
 
-import com.example.news.NewsVo;
+import com.example.news.model.NewsVo;
 import com.example.news.R;
 
 import java.util.List;

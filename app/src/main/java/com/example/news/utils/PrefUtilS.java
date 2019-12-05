@@ -36,4 +36,17 @@ public class PrefUtilS {
         SharedPreferences pref = ctx.getSharedPreferences(SHARE_PREFS_NAME, Context.MODE_PRIVATE);
         return  pref.getInt(key,defaultValue);
     }
+
+
+    public  static void putUser(Context ctx, String key, String value)
+    {
+        SharedPreferences pref = ctx.getSharedPreferences("user", Context.MODE_PRIVATE);
+        pref.edit().putString(key,value).commit();
+    }
+
+    public static String getUser(Context ctx, String key, String defaultValue) {
+        SharedPreferences pref = ctx.getSharedPreferences("user", Context.MODE_PRIVATE);
+        return pref.getString(key, defaultValue);
+
+    }
 }

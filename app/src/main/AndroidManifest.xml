@@ -7,8 +7,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+
 
     <application
 
@@ -57,3 +56,5 @@
 </manifest>
 
     <!-- android:networkSecurityConfig="@xml/network_security_config"-->
+<!--
+<uses-permission android:name="android.permission.READ_PHONE_STATE"/>-->

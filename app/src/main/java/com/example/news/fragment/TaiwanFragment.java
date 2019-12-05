@@ -1,10 +1,8 @@
 package com.example.news.fragment;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
-import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,22 +10,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.example.news.NewsVo;
+import com.example.news.model.NewsVo;
 import com.example.news.R;
 import com.example.news.adapter.CommonAdapter;
 import com.example.news.adapter.MyAdapter;
-import com.example.news.utils.DummyContent;
 import com.example.news.utils.DummyContent.DummyItem;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.constant.SpinnerStyle;
-import com.scwang.smartrefresh.layout.footer.BallPulseFooter;
 import com.scwang.smartrefresh.layout.header.TwoLevelHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 
-
-import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.List;
 
