@@ -99,35 +99,11 @@
         android:layout_height="300dp"
         android:background="@color/colorGrey" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:orientation="horizontal">
 
-        <ImageView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_margin="8dp"
-            android:layout_weight="1"
-            android:src="@drawable/exit" />
-
-        <TextView
-            android:id="@+id/exit_login"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="2"
-            android:gravity="center_vertical"
-            android:text="退出账号"
-            android:textColor="@color/colorRed"
-            android:textSize="20sp" />
-
-
-    </LinearLayout>
 
     <View
         android:layout_width="match_parent"
-        android:layout_height="60dp"
+        android:layout_height="100dp"
         android:background="@color/colorGrey" />
 
 </LinearLayout>
