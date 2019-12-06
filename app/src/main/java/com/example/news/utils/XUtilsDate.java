@@ -31,7 +31,9 @@ import org.xutils.x;
         x.http().request(HttpMethod.POST, params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                Toast.makeText(x.app(),result+"请两分钟内填写",Toast.LENGTH_LONG).show();
+                if(mList!=null){
+                    mList.start();
+                }
             }
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
@@ -126,6 +128,16 @@ import org.xutils.x;
                 }
             });
 
+        }
+        public interface LisData {
+            void start();
+
+        }
+
+        private XUtilsDate.LisData mList;
+
+        public void setmList(LisData mList) {
+            this.mList = mList;
         }
 
 }
