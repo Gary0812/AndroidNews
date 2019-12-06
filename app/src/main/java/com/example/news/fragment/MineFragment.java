@@ -1,6 +1,7 @@
 package com.example.news.fragment;
 
 import android.Manifest;
+import android.app.Activity;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
@@ -18,6 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 
@@ -34,8 +36,10 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.ProtocolException;
 import java.net.URL;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
-public class MineFragment extends BaseFragment implements View.OnClickListener {
+public class MineFragment extends BaseFragment implements View.OnClickListener,XUtilsDate.LisData{
     public static Handler handler=new Handler(){
         @Override
         public void handleMessage(@NonNull Message msg) {
@@ -65,7 +69,21 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
     private EditText register_repassword;
     private EditText register_yzm;
     private Context context;
-
+    private int countSeconds = 120;//倒计时秒数
+    private Handler mCountHandler = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            if (countSeconds > 0) {
+                --countSeconds;
+                myButton.setText("(" + countSeconds + ")后获取验证码");
+                mCountHandler.sendEmptyMessageDelayed(0, 1000);
+            } else {
+                countSeconds = 120;
+                myButton.setText("请重新获取验证码");
+            }
+        }
+    };
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         if (a == 0) {
@@ -97,7 +115,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         return view;
     }
 
-
     @Override
     public void onClick(View v) {
 
@@ -105,13 +122,11 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
         switch (id) {
             case R.id.btn_code:
                 String mobile = register_phone.getText().toString().trim();
-                if (TextUtils.isEmpty(mobile)) {
-                    Toast.makeText(mActivity, "手机号不能是空", Toast.LENGTH_SHORT).show();
+                if (countSeconds == 120) {
+                    getMobiile(mobile);
                 } else {
-                    String data = "name=";
-                    //  initListData1(data);
-                    XUtilsDate xUtils = new XUtilsDate();
-                    xUtils.onSmsPost(view, mobile);
+                    new AlertDialog.Builder(getActivity()).setTitle("提示").setMessage("不能重复发送").setPositiveButton("确定", null).setCancelable(true).show();
+
                 }
                 break;
 
@@ -123,6 +138,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
                 //String IMEI=getIMEI(context);
                 String IMEI= XmlParserUtils.getMacFromHardware();
                 XUtilsDate xUtils = new XUtilsDate();
+                xUtils.setmList(MineFragment.this);
                 UserVo userVo=new UserVo();
                 userVo.setCode(code);
                 userVo.setIMEI(IMEI);
@@ -138,6 +154,42 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
 
 
     }
+    //获取验证码信息，判断是否有手机号码
+ public void getMobiile(String mobile) {
+        if ("".equals(mobile)) {
+            Log.e("tag", "mobile=" + mobile);
+            new AlertDialog.Builder(getActivity()).setTitle("提示").setMessage("手机号码不能为空").setPositiveButton("确定", null).setCancelable(true).show();
+        } else if (isMobileNO(mobile) == false) {
+            new AlertDialog.Builder(getActivity()).setTitle("提示").setMessage("请输入正确的手机号码").setPositiveButton("确定", null).setCancelable(true).show();
+        } else {
+            Toast.makeText(mActivity, "发送成功", Toast.LENGTH_SHORT).show();
+            //获取验证码信息
+            String data = "name=";
+                 //  initListData1(data);
+                  XUtilsDate xUtils = new XUtilsDate();
+                  xUtils.setmList(MineFragment.this);
+                  xUtils.onSmsPost(view, mobile);
+        }
+    }
+
+    //使用正则表达式判断电话号码(港澳台）
+    public static boolean isMobileNO(String tel) {
+        Pattern p = Pattern.compile("^[1][3-8]\\d{9}$|^([6|9])\\d{7}$|^[0][9]\\d{8}$|^6\\d{5}$");
+        Matcher m = p.matcher(tel);
+        System.out.println(m.matches() + "---");
+        return m.matches();
+    }
+
+    //获取验证码信息,进行计时操作
+   public void startCountBack() {
+        (getActivity()).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                myButton.setText(countSeconds + "");
+                mCountHandler.sendEmptyMessage(0);
+            }
+        });
+    }
 
     public static String getIMEI(Context context) {
         TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(context.TELEPHONY_SERVICE);
@@ -146,9 +198,11 @@ public class MineFragment extends BaseFragment implements View.OnClickListener {
             return null;
         }
         String imei = telephonyManager.getDeviceId();
-
         return imei;
+    }
 
-
+    @Override
+    public void start() {
+        startCountBack();
     }
 }
