@@ -12,7 +12,9 @@ import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.example.news.adapter.CommonRecyclerAdapter;
 import com.example.news.model.NewsVo;
 import com.example.news.R;
 import com.example.news.adapter.CommonAdapter;
@@ -195,6 +197,19 @@ public class TaiwanFragment extends BaseFragment {
                 adapter = new MyAdapter(getActivity(),R.layout.taiwan_item,list, type);
                 adapter.notifyDataSetChanged();
                 recyclerView.setAdapter(adapter);
+                adapter.setOnItemClickListener(new CommonRecyclerAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(RecyclerView parent, View view, int position) {
+                        Toast.makeText(mActivity,"点击事件"+position,Toast.LENGTH_SHORT).show();
+                    }
+                });
+                adapter.setOnItemLongClickListener(new CommonRecyclerAdapter.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(RecyclerView parent, View view, int position) {
+                        Toast.makeText(mActivity,"长按事件"+position, Toast.LENGTH_SHORT).show();
+                        return false;
+                    }
+                });
 
 
             }

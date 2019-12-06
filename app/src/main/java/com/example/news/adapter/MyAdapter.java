@@ -27,6 +27,8 @@ public class MyAdapter extends CommonRecyclerAdapter<NewsVo> {
     }
 
 
+
+
     @Override
     public void convert(RecyclerHolder holder, NewsVo item, int position) {
 
