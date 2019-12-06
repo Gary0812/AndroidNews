@@ -7,11 +7,11 @@ import android.os.Message;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.fragment.app.Fragment;
-
+import com.example.news.GuideActivity;
 import com.example.news.MainActivity;
 import com.example.news.fragment.MineFragment;
 import com.example.news.model.UserVo;
+
 import org.xutils.common.Callback;
 import org.xutils.http.HttpMethod;
 import org.xutils.http.RequestParams;
@@ -23,8 +23,7 @@ import org.xutils.x;
         final private int NOT=0;
         private Context mContext;
     private  String url="http://172.16.2.94:8080/wcmInf/";
-
-    public   void onSmsPost(View v, final String mobile) {
+    public   void onSmsPost(View v,String mobile) {
       String path=url+"sms";
         RequestParams params = new RequestParams(path);
         params.addParameter("mobile", mobile);
@@ -32,9 +31,7 @@ import org.xutils.x;
         x.http().request(HttpMethod.POST, params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                if(mList!=null){
-                    mList.start();
-                }
+                Toast.makeText(x.app(),result+"请两分钟内填写",Toast.LENGTH_LONG).show();
             }
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
@@ -48,6 +45,7 @@ import org.xutils.x;
             }
         });
     }
+
 
         public   void onUserPost(View v, final UserVo userVo) {
             String path=url+"regtistUser";
@@ -102,7 +100,7 @@ import org.xutils.x;
             x.http().request(HttpMethod.POST, params, new Callback.CommonCallback<String>() {
                 @Override
                 public void onSuccess(String result) {
-                  Handler handler=new Handler();
+                    Handler handler=new Handler();
                     Message msg=Message.obtain();
                     if (result.equals("已存在\r\n")) {
                         msg.what= SUCESS;
@@ -113,7 +111,6 @@ import org.xutils.x;
 
                     //发送一条消息
                     MineFragment.handler.sendMessage(msg);
-
 
                     }
 
@@ -131,14 +128,4 @@ import org.xutils.x;
 
         }
 
-        public interface LisData {
-            void start();
-
-        }
-
-        private XUtilsDate.LisData mList;
-
-        public void setmList(LisData mList) {
-            this.mList = mList;
-        }
-    }
+}

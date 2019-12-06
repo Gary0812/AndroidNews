@@ -7,15 +7,6 @@ public class NewsVo {
     private  String pubDate;
     private  String author;
     private  String description;
-    private int type;
-
-    public int getType() {
-        return type;
-    }
-
-    public void setType(int type) {
-        this.type = type;
-    }
 
     @Override
     public String toString() {
@@ -26,10 +17,149 @@ public class NewsVo {
                 ", author='" + author + '\'' +
                 ", description='" + description + '\'' +
                 ", type=" + type +
+                ", CRTIME='" + CRTIME + '\'' +
+                ", doctitle='" + doctitle + '\'' +
+                ", DOCID='" + DOCID + '\'' +
+                ", CANSORT='" + CANSORT + '\'' +
+                ", DOCPUBURL='" + DOCPUBURL + '\'' +
+                ", VIEWDOCUMENT='" + VIEWDOCUMENT + '\'' +
+                ", DOCOUTUPID='" + DOCOUTUPID + '\'' +
+                ", CHNLDOCCRUSER='" + CHNLDOCCRUSER + '\'' +
+                ", DOCSTATUS='" + DOCSTATUS + '\'' +
+                ", RECID='" + RECID + '\'' +
+                ", DOCCHANNEL='" + DOCCHANNEL + '\'' +
+                ", ID='" + ID + '\'' +
                 '}';
     }
 
-/*public  NewsVo (String title,String link,String pubDate,String author,String description)
+    public String getDoctitle() {
+        return doctitle;
+    }
+
+    public void setDoctitle(String doctitle) {
+        this.doctitle = doctitle;
+    }
+
+    private int type;
+
+    public String getCRTIME() {
+        return CRTIME;
+    }
+
+    public void setCRTIME(String CRTIME) {
+        this.CRTIME = CRTIME;
+    }
+
+
+
+    public String getDOCID() {
+        return DOCID;
+    }
+
+    public void setDOCID(String DOCID) {
+        this.DOCID = DOCID;
+    }
+
+    private  String  CRTIME;
+
+    public String getCANSORT() {
+        return CANSORT;
+    }
+
+
+
+    public void setCANSORT(String CANSORT) {
+        this.CANSORT = CANSORT;
+    }
+
+    public String getVIEWDOCUMENT() {
+        return VIEWDOCUMENT;
+    }
+
+    public void setVIEWDOCUMENT(String VIEWDOCUMENT) {
+        this.VIEWDOCUMENT = VIEWDOCUMENT;
+    }
+
+    public String getDOCOUTUPID() {
+        return DOCOUTUPID;
+    }
+
+    public void setDOCOUTUPID(String DOCOUTUPID) {
+        this.DOCOUTUPID = DOCOUTUPID;
+    }
+
+    public String getCHNLDOCCRUSER() {
+        return CHNLDOCCRUSER;
+    }
+
+    public void setCHNLDOCCRUSER(String CHNLDOCCRUSER) {
+        this.CHNLDOCCRUSER = CHNLDOCCRUSER;
+    }
+
+    public String getDOCSTATUS() {
+        return DOCSTATUS;
+    }
+
+    public void setDOCSTATUS(String DOCSTATUS) {
+        this.DOCSTATUS = DOCSTATUS;
+    }
+
+    public String getRECID() {
+        return RECID;
+    }
+
+    public void setRECID(String RECID) {
+        this.RECID = RECID;
+    }
+
+    public String getDOCCHANNEL() {
+        return DOCCHANNEL;
+    }
+
+    public void setDOCCHANNEL(String DOCCHANNEL) {
+        this.DOCCHANNEL = DOCCHANNEL;
+    }
+
+    public String getDOCPUBURL() {
+        return DOCPUBURL;
+    }
+
+    public void setDOCPUBURL(String DOCPUBURL) {
+        this.DOCPUBURL = DOCPUBURL;
+    }
+
+    private  String doctitle;
+     private  String DOCID;
+    private  String  CANSORT;
+    private  String DOCPUBURL;
+
+    public String getID() {
+        return ID;
+    }
+
+    public void setID(String ID) {
+        this.ID = ID;
+    }
+
+    private  String  VIEWDOCUMENT;
+    private  String  DOCOUTUPID;
+    private  String  CHNLDOCCRUSER;
+    private  String  DOCSTATUS;
+    private  String  RECID;
+    private  String  DOCCHANNEL;
+    private  String  ID;
+
+
+
+    public int getType() {
+        return type;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
+
+    /*public  NewsVo (String title,String link,String pubDate,String author,String description)
 {
     this.title=title;
     this.link= link;

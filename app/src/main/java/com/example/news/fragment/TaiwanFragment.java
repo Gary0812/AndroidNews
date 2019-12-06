@@ -2,10 +2,13 @@ package com.example.news.fragment;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.os.Handler;
+import android.os.Message;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +18,26 @@ import com.example.news.R;
 import com.example.news.adapter.CommonAdapter;
 import com.example.news.adapter.MyAdapter;
 import com.example.news.utils.DummyContent.DummyItem;
+import com.example.news.utils.GsonUtil;
+import com.example.news.utils.XUtilsDate;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.TwoLevelHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
 
+import org.xutils.common.Callback;
+import org.xutils.http.HttpMethod;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
 
 /**
  * A fragment representing a list of Items.
@@ -42,9 +57,11 @@ public class TaiwanFragment extends Fragment {
     private CommonAdapter recycleAdapter;
     private List<NewsVo> stringList = new ArrayList<>();
     private RecyclerView recyclerView;
-    RefreshLayout refreshLayout ;
+    RefreshLayout refreshLayout;
     private MyAdapter adapter;
-    private  int type;
+    private int type;
+    private String result;
+ private  final  String CHANNELID="59991";
 
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
@@ -76,8 +93,12 @@ public class TaiwanFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_taiwan_list, container, false);
-
-initView();
+  /*      XUtilsDate xUtilsDate=new XUtilsDate();
+        xUtilsDate.querynewsItem("59990");*/
+        initView();
+        //设置数据
+        setData();
+        setRefresh();
 
   /*      // Set the adapter
         if (view instanceof RecyclerView) {
@@ -94,27 +115,39 @@ initView();
         }*/
 
 
-
-
         return view;
     }
+/*    public  Handler handler= new Handler(){
+        @Override
+        public void handleMessage(@NonNull Message msg) {
+            // 获取我们携带的数据
+            Bundle data=msg.getData();
+            result = data.getString("result");
+            List  list=new ArrayList();
+            list=  GsonUtil.GsonToListMaps(result);
+            setReCycleView(list);
+        }
+    };*/
 
-  private void initView() {
 
-      recyclerView=view.findViewById(R.id.list);
-      refreshLayout  = view.findViewById(R.id.refreshLayout);
 
-      //设置数据
-      setData();
-      //设置ReCycleView
-      setReCycleView();
+
+    private void initView() {
+
+        recyclerView = view.findViewById(R.id.list);
+        refreshLayout = view.findViewById(R.id.refreshLayout);
+
+        querynewsItem(CHANNELID);
+        //设置ReCycleView
+
 
     }
-
 
 
     private void setData() {
-        if (stringList.size() == 0) {
+
+
+ /*       if (stringList.size() == 0) {
             for (int i = 1; i < 21; i++) {
                 NewsVo newsVo=new NewsVo();
                 newsVo.setTitle("第" + i + "条数据");
@@ -123,20 +156,71 @@ initView();
                 stringList.add(newsVo);
             }
         }
+*/
+
+    }
+
+
+    public void querynewsItem(String channelId) {
+
+        String path = "http://172.16.2.94:8080/wcmInf/querynewsItem";
+        RequestParams params = new RequestParams(path);
+        params.addParameter("channelId", channelId);
+
+
+        // params.addParameter("password", "123");
+        x.http().request(HttpMethod.POST, params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                List list=new ArrayList ();
+
+            list=GsonUtil.jsonToList(result,NewsVo.class);
+               /* List <Map<String, String>> list=new ArrayList <Map<String, String>>();
+                list=  GsonUtil.GsonToListMaps(result);
+                for (Map <String, String>m :list){
+                    for (String k :m.keySet()){
+                        Object ob = m.get(k);
+                        String string=ob.toString();
+                        String str =string.substring(string.indexOf("=")+1,string.lastIndexOf("}"));
+                        lists.add(str);
+                        //截取字符串
+                    }
+                }*/
+
+
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+                linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                recyclerView.setLayoutManager(linearLayoutManager);
+                //设置ReCycleView所需的adapter
+                adapter = new MyAdapter(getActivity(),R.layout.taiwan_item,list, type);
+                adapter.notifyDataSetChanged();
+                recyclerView.setAdapter(adapter);
+
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(Callback.CancelledException cex) {
+            }
+
+            @Override
+            public void onFinished() {
+            }
+        });
 
 
     }
 
+
     private void setReCycleView() {
+
         //设置ReCycleView
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
-        linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-        recyclerView.setLayoutManager(linearLayoutManager);
-        //设置ReCycleView所需的adapter
-        adapter = new MyAdapter(getActivity(),R.layout.taiwan_item,stringList, type);
-        adapter.notifyDataSetChanged();
-        recyclerView.setAdapter(adapter);
-        setRefresh();
+
     }
 
 
@@ -172,16 +256,17 @@ initView();
     }
 
     private void setRefresh() {
-        refreshLayout  = view.findViewById(R.id.refreshLayout);
+        refreshLayout = view.findViewById(R.id.refreshLayout);
         refreshLayout.setRefreshHeader(new TwoLevelHeader(getActivity()));
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
-              NewsVo newsVo=new NewsVo();
+          /*      NewsVo newsVo = new NewsVo();
                 newsVo.setTitle("下拉刷新");
                 newsVo.setLink("aaa");
-                stringList.add(0,newsVo);
+                stringList.add(0, newsVo);*/
+                querynewsItem(CHANNELID);
                 adapter.notifyDataSetChanged();
                 refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
             }
@@ -189,10 +274,8 @@ initView();
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(RefreshLayout refreshlayout) {
-                NewsVo newsVo=new NewsVo();
-                newsVo.setTitle("上拉加载");
-                newsVo.setLink("bbb");
-                stringList.add(newsVo);
+
+
                 adapter.notifyDataSetChanged();
                 refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
             }
