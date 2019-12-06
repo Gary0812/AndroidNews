@@ -2,22 +2,38 @@ package com.example.news.utils;
 
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
 import android.widget.Toast;
 
-import com.example.news.GuideActivity;
+
 import com.example.news.MainActivity;
 import com.example.news.fragment.MineFragment;
+import com.example.news.fragment.TaiwanFragment;
+import com.example.news.model.NewsVo;
 import com.example.news.model.UserVo;
+import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
+
+import com.google.gson.reflect.TypeToken;
 
 import org.xutils.common.Callback;
 import org.xutils.http.HttpMethod;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
-    public class XUtilsDate {
+import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+public class XUtilsDate {
 
         final private int SUCESS=1;
         final private int NOT=0;
@@ -128,4 +144,99 @@ import org.xutils.x;
 
         }
 
-}
+
+        public void querynewsItem(String channelId ) {
+
+            String path=url+"querynewsItem";
+            RequestParams params = new RequestParams(path);
+            params.addParameter("channelId", channelId);
+
+
+            // params.addParameter("password", "123");
+            x.http().request(HttpMethod.POST, params, new Callback.CommonCallback<String>() {
+                @Override
+                public void onSuccess(String result) {
+
+
+/*                    JsonObject jsonObject = JsonParser.parseString(result).getAsJsonObject();
+//需要遍历的数组
+                    JsonArray jsonArray = jsonObject.getAsJsonArray("DOCOUTUPID");
+
+
+
+                    System.out.println("aaaaa"+jsonArray);*/
+
+
+
+                    Handler handler=new Handler();
+                    Message msg=Message.obtain();
+
+
+                    Bundle bundle=new Bundle();
+                    bundle.putString("result",result);
+                    /*  bundle.putSerializable("list", (Serializable) list);*/
+                    msg.setData(bundle);
+                    //发送一条消息
+                    TaiwanFragment taiwanFragment=new TaiwanFragment();
+              //     taiwanFragment.handler.sendMessage(msg);
+
+
+
+
+
+
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+
+                }
+                @Override
+                public void onCancelled(CancelledException cex) {
+                }
+                @Override
+                public void onFinished() {
+                }
+            });
+
+        }
+
+    public static void jsonTree(JsonElement e)
+    {
+        if (e.isJsonNull())
+        {
+            System.out.println(e.toString());
+            return;
+        }
+
+        if (e.isJsonPrimitive())
+        {
+            System.out.println(e.toString());
+            return;
+        }
+
+        if (e.isJsonArray())
+        {
+            JsonArray ja = e.getAsJsonArray();
+            if (null != ja)
+            {
+                for (JsonElement ae : ja)
+                {
+                    jsonTree(ae);
+                }
+            }
+            return;
+        }
+
+        if (e.isJsonObject())
+        {
+            Set<Map.Entry<String, JsonElement>> es = e.getAsJsonObject().entrySet();
+            for (Map.Entry<String, JsonElement> en : es)
+            {
+                jsonTree(en.getValue());
+            }
+        }
+    }
+
+
+    }
