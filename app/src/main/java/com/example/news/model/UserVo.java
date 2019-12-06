@@ -4,20 +4,14 @@ public class UserVo {
     String username;
     String password;
     String code;
+
     public String getUsername() {
         return username;
     }
 
-    @Override
-    public String toString() {
-        return "UserVo{" +
-                "username='" + username + '\'' +
-                ", password='" + password + '\'' +
-                ", code='" + code + '\'' +
-                ", IMEI='" + IMEI + '\'' +
-                ", moblie='" + moblie + '\'' +
-                '}';
-    }
+
+
+
 
     public void setUsername(String username) {
         this.username = username;
@@ -45,6 +39,17 @@ public class UserVo {
 
     public void setIMEI(String IMEI) {
         this.IMEI = IMEI;
+    }
+
+    @Override
+    public String toString() {
+        return "UserVo{" +
+                "username='" + username + '\'' +
+                ", password='" + password + '\'' +
+                ", code='" + code + '\'' +
+                ", IMEI='" + IMEI + '\'' +
+                ", moblie='" + moblie + '\'' +
+                '}';
     }
 
     public String getMoblie() {

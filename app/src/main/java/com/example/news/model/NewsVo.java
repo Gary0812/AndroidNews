@@ -7,6 +7,10 @@ public class NewsVo {
     private  String pubDate;
     private  String author;
     private  String description;
+    String imglink;
+    public void setImglink(String imglink) {
+        this.imglink = imglink;
+    }
 
     @Override
     public String toString() {
@@ -16,6 +20,7 @@ public class NewsVo {
                 ", pubDate='" + pubDate + '\'' +
                 ", author='" + author + '\'' +
                 ", description='" + description + '\'' +
+                ", imglink='" + imglink + '\'' +
                 ", type=" + type +
                 ", CRTIME='" + CRTIME + '\'' +
                 ", doctitle='" + doctitle + '\'' +
@@ -30,6 +35,10 @@ public class NewsVo {
                 ", DOCCHANNEL='" + DOCCHANNEL + '\'' +
                 ", ID='" + ID + '\'' +
                 '}';
+    }
+
+    public String getImglink() {
+        return imglink;
     }
 
     public String getDoctitle() {

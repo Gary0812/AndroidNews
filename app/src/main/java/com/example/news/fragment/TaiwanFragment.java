@@ -45,7 +45,7 @@ import java.util.Map;
  * Activities containing this fragment MUST implement the {@link OnListFragmentInteractionListener}
  * interface.
  */
-public class TaiwanFragment extends Fragment {
+public class TaiwanFragment extends BaseFragment {
 
     // TODO: Customize parameter argument names
     private static final String ARG_COLUMN_COUNT = "column-count";
@@ -117,6 +117,15 @@ public class TaiwanFragment extends Fragment {
 
         return view;
     }
+
+    @Override
+    public View initView() {
+        recyclerView = view.findViewById(R.id.list);
+        refreshLayout = view.findViewById(R.id.refreshLayout);
+
+        querynewsItem(CHANNELID);
+        return  view;
+    }
 /*    public  Handler handler= new Handler(){
         @Override
         public void handleMessage(@NonNull Message msg) {
@@ -132,16 +141,7 @@ public class TaiwanFragment extends Fragment {
 
 
 
-    private void initView() {
 
-        recyclerView = view.findViewById(R.id.list);
-        refreshLayout = view.findViewById(R.id.refreshLayout);
-
-        querynewsItem(CHANNELID);
-        //设置ReCycleView
-
-
-    }
 
 
     private void setData() {
