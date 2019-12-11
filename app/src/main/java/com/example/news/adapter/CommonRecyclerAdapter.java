@@ -40,6 +40,7 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Recy
      */
     public interface OnItemClickListener {
         void onItemClick(RecyclerView parent, View view, int position);
+
     }
 
     public interface OnItemLongClickListener {
@@ -63,9 +64,9 @@ public abstract class CommonRecyclerAdapter<T> extends RecyclerView.Adapter<Recy
     @Override
     public void onBindViewHolder(final RecyclerHolder holder, int position) {
 
-        if (listener != null) {
-            holder.itemView.setBackgroundResource(R.mipmap.ic_launcher);//设置背景
-        }
+//        if (listener != null) {
+//            holder.itemView.setBackgroundResource(R.mipmap.ic_launcher);//设置背景
+//        }
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

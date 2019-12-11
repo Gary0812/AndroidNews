@@ -40,9 +40,12 @@ public class MyAdapter extends CommonRecyclerAdapter<NewsVo> {
         holder.setText(R.id.item_number, TextUtils.isEmpty(title) ? "-" : title);//三木判断下返回是否为空
         //图片地址
         String url = item.getDOCPUBURL();
-         String img=  item.getImglink();
+      String img=  item.getImglink();
+        if (!img.equals("") ) {
+            holder.setImageByUrl(R.id.item_image, TextUtils.isEmpty(img) ? "-" : img);
+        }
            holder.setText(R.id.content, TextUtils.isEmpty(url) ? "-" : url);
-         holder.setImageByUrl(R.id.item_image, TextUtils.isEmpty(img) ? "-" : img);
+
 
     }
 }
