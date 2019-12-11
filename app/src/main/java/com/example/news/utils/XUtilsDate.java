@@ -9,7 +9,9 @@ import android.widget.Toast;
 
 import com.example.news.GuideActivity;
 import com.example.news.MainActivity;
+import com.example.news.fragment.LoginFragment;
 import com.example.news.fragment.MineFragment;
+import com.example.news.fragment.SignInManager;
 import com.example.news.model.UserVo;
 
 import org.xutils.common.Callback;
@@ -17,31 +19,37 @@ import org.xutils.http.HttpMethod;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
-    public class XUtilsDate {
+import java.util.Map;
 
-        final private int SUCESS=1;
-        final private int NOT=0;
-        private Context mContext;
-    private  String url="http://172.16.2.94:8080/wcmInf/";
-    public   void onSmsPost(View v,String mobile) {
-      String path=url+"sms";
+public class XUtilsDate {
+
+    final private int SUCESS = 1;
+    final private int NOT = 0;
+    private Context mContext;
+    private String url = "http://172.16.2.94:8080/wcmInf/";
+
+    public void onSmsPost(View v, String mobile) {
+        String path = url + "sms";
         RequestParams params = new RequestParams(path);
         params.addParameter("mobile", mobile);
-       // params.addParameter("password", "123");
+        // params.addParameter("password", "123");
         x.http().request(HttpMethod.POST, params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                if(mList!=null){
+                if (mList != null) {
                     mList.start();
                 }
             }
+
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                Toast.makeText(x.app(),"发送失败",Toast.LENGTH_LONG).show();
+                Toast.makeText(x.app(), "发送失败", Toast.LENGTH_LONG).show();
             }
+
             @Override
             public void onCancelled(CancelledException cex) {
             }
+
             @Override
             public void onFinished() {
             }
@@ -49,95 +57,163 @@ import org.xutils.x;
     }
 
 
-        public   void onUserPost(View v, final UserVo userVo) {
-            String path=url+"regtistUser";
-            RequestParams params = new RequestParams(path);
-            params.addParameter("mobile", userVo.getMoblie());
-            params.addParameter("IMEI", userVo.getIMEI());
-            params.addParameter("username", userVo.getUsername());
-            params.addParameter("password", userVo.getPassword());
-            params.addParameter("code", userVo.getCode());
-            // params.addParameter("password", "123");
-            x.http().request(HttpMethod.POST, params, new Callback.CommonCallback<String>() {
-                @Override
-                public void onSuccess(String result) {
-                    Toast.makeText(x.app(),result,Toast.LENGTH_LONG).show();
-                    if (result.equals("注册成功\r\n")) {
-                        PrefUtilS.putUser(x.app(),"username",userVo.getUsername());
-                        PrefUtilS.putUser(x.app(),"password",userVo.getPassword());
-                        PrefUtilS.putUser(x.app(),"IMEI",userVo.getIMEI());
-                        intent();
-                    }
+    public void onUserPost(View v, final UserVo userVo) {
+        String path = url + "regtistUser";
+        RequestParams params = new RequestParams(path);
+        params.addParameter("mobile", userVo.getMoblie());
+        params.addParameter("IMEI", userVo.getIMEI());
+        params.addParameter("username", userVo.getUsername());
+        params.addParameter("password", userVo.getPassword());
+        params.addParameter("code", userVo.getCode());
+        // params.addParameter("password", "123");
+        x.http().request(HttpMethod.POST, params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Toast.makeText(x.app(), result, Toast.LENGTH_LONG).show();
+                if (result.equals("注册成功\r\n")) {
+                    PrefUtilS.putUserBoolean(x.app(), "is_user", true);
+                    PrefUtilS.putUser(x.app(), "mobile", userVo.getMoblie());
+                    PrefUtilS.putUser(x.app(), "username", userVo.getUsername());
+                    PrefUtilS.putUser(x.app(), "password", userVo.getPassword());
+                    PrefUtilS.putUser(x.app(), "IMEI", userVo.getIMEI());
+                    intent();
                 }
-                @Override
-                public void onError(Throwable ex, boolean isOnCallback) {
-                    Toast.makeText(x.app(),"发送失败",Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                Toast.makeText(x.app(), "发送失败", Toast.LENGTH_LONG).show();
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+            }
+
+            @Override
+            public void onFinished() {
+            }
+        });
+    }
+
+    public void intent() {
+        Intent intent = new Intent();
+        intent.setClass(x.app(), MainActivity.class);
+        x.app().startActivity(intent);//载入主窗口
+    }
+
+
+    public void queryLogin(final UserVo userVo) {
+
+        String path = url + "queryLogin";
+        RequestParams params = new RequestParams(path);
+        params.addParameter("IMEI", userVo.getIMEI());
+        params.addParameter("mobile", userVo.getMoblie());
+        params.addParameter("password", userVo.getPassword());
+
+        // params.addParameter("password", "123");
+        x.http().request(HttpMethod.POST, params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Handler handler = new Handler();
+                Message msg = Message.obtain();
+                if (result.equals("已存在\r\n")) {
+                    msg.what = SUCESS;
+                } else {
+                    msg.what = NOT;
                 }
-                @Override
-                public void onCancelled(CancelledException cex) {
-                }
-                @Override
-                public void onFinished() {
-                }
-            });
-        }
-        public  void intent()
-        {
-            Intent intent = new Intent();
-            intent.setClass(x.app(), MainActivity.class);
-            x.app().startActivity(intent);//载入主窗口
-        }
+
+                //发送一条消息
+                SignInManager signInManager = new SignInManager();
+                signInManager.handler.sendMessage(msg);
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+            }
+
+            @Override
+            public void onFinished() {
+            }
+        });
+
+    }
 
 
+    public void login(final UserVo userVo) {
 
-        public void queryLogin( final UserVo userVo) {
+        String path = url + "loginAndroid";
+        RequestParams params = new RequestParams(path);
 
-            String path=url+"queryLogin";
-            RequestParams params = new RequestParams(path);
-            params.addParameter("IMEI", userVo.getIMEI());
-            params.addParameter("username", userVo.getUsername());
-            params.addParameter("password", userVo.getPassword());
+        params.addParameter("mobile", userVo.getMoblie());
+        params.addParameter("password", userVo.getPassword());
 
-            // params.addParameter("password", "123");
-            x.http().request(HttpMethod.POST, params, new Callback.CommonCallback<String>() {
-                @Override
-                public void onSuccess(String result) {
-                    Handler handler=new Handler();
-                    Message msg=Message.obtain();
-                    if (result.equals("已存在\r\n")) {
-                        msg.what= SUCESS;
-                    }else
-                    {
-                        msg.what=NOT;
-                    }
+        // params.addParameter("password", "123");
+        x.http().request(HttpMethod.POST, params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Map map = GsonUtil.GsonToMaps(result);
+                String message = map.get("message").toString();
+                String username = map.get("username").toString().trim();
+                if (message.equals("登录成功")) {
+                    PrefUtilS.putUserBoolean(x.app(), "is_user", true);
+                    PrefUtilS.putUser(x.app(), "username", username);
+                    PrefUtilS.putUser(x.app(), "mobile", userVo.getMoblie());
+                    PrefUtilS.putUser(x.app(), "password", userVo.getPassword());
+                    PrefUtilS.putUser(x.app(), "IMEI", userVo.getIMEI());
+                  /*  Handler handler = new Handler();
+                    Message msg = Message.obtain();
+                    msg.what = SUCESS;
+
 
                     //发送一条消息
-                    MineFragment.handler.sendMessage(msg);
+                    SignInManager signInManager = new SignInManager();
+                    signInManager.handler.sendMessage(msg);*/
+                    intent();
+                    Toast.makeText(x.app(), message, Toast.LENGTH_SHORT).show();
 
-                    }
 
-                @Override
-                public void onError(Throwable ex, boolean isOnCallback) {
+                } else {
 
+                    Toast.makeText(x.app(), message, Toast.LENGTH_SHORT).show();
                 }
-                @Override
-                public void onCancelled(CancelledException cex) {
-                }
-                @Override
-                public void onFinished() {
-                }
-            });
 
-        }
-        public interface LisData {
-            void start();
+                //发送一条消息
+                //  LoginFragment.handler.sendMessage(msg);
 
-        }
+            }
 
-        private XUtilsDate.LisData mList;
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
 
-        public void setmList(LisData mList) {
-            this.mList = mList;
-        }
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+            }
+
+            @Override
+            public void onFinished() {
+            }
+        });
+
+    }
+
+
+    public interface LisData {
+        void start();
+
+    }
+
+    private XUtilsDate.LisData mList;
+
+    public void setmList(LisData mList) {
+        this.mList = mList;
+    }
 
 }

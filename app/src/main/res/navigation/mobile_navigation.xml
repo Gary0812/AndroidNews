@@ -22,8 +22,8 @@
         tools:layout="@layout/activity_video" />
 
     <fragment
-        android:id="@+id/navigation_mine"
-        android:name="com.example.news.fragment.MineFragment"
+        android:id="@+id/navigation_SignIn"
+        android:name="com.example.news.fragment.SignInManager"
         android:label="@string/title_mine"
-        tools:layout="@layout/activity_mine" />
+        tools:layout="@layout/activity_login_register" />
 </navigation>

@@ -19,10 +19,13 @@ import androidx.viewpager.widget.ViewPager;
 
 import com.example.news.adapter.FragmentAdapter;
 import com.example.news.R;
+import com.example.news.utils.PrefUtilS;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 /*头部标题切换控制*/
@@ -46,18 +49,21 @@ public class MainFragment extends BaseFragment {
     private TextView textView;
     boolean isChanged = false;
     DrawerLayout mDrawerLayout;
-
+private  TextView app_collect_info;
     Toolbar mToolbar;
     private ImageView imageView;
     private  LocalityFragment localityFragment;
      private  ThirtyOneFragment thirtyOneFragment;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_main, container, false);
-        initView();
-        fragmentChange();
-        imageClick();
-        initEvent();
+
+        if (view == null) {
+            view = inflater.inflate(R.layout.fragment_main, container, false);
+            initView();
+            fragmentChange();
+            imageClick();
+            initEvent();
+        }
         return view;
     }
 
@@ -76,6 +82,20 @@ public class MainFragment extends BaseFragment {
         });
     }
 
+
+
+    @Override
+    public void onHiddenChanged(boolean hidden) {
+        if (hidden) {
+            //相当于Fragment的onPause
+            System.out.println("界面不可见");
+        } else {
+            // 相当于Fragment的onResume
+            fragmentChange();
+            System.out.println("界面可见");
+
+        }
+    }
     private void fragmentChange() {
         fragmentList = new ArrayList<>();
         localityFragment=new LocalityFragment();
@@ -120,7 +140,18 @@ public class MainFragment extends BaseFragment {
         View headerView = navigationView.getHeaderView(0);
         app_nav_header_bg = headerView.findViewById(R.id.app_nav_header_bg);//获取头文件文本id
         textView = headerView.findViewById(R.id.textView3);
+        boolean show= PrefUtilS.getUserBoolean(mActivity,"is_user",false);
         app_personal = headerView.findViewById(R.id.app_personal);//获取头文件背景id
+        if (show) {
+            String username=PrefUtilS.getUser(mActivity,"username",null);
+            app_personal.setText(username);
+        }
+        app_collect_info=headerView.findViewById(R.id.app_collect_info);
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy年MM月dd日");// HH:mm:ss
+//获取当前时间
+        Date date = new Date(System.currentTimeMillis());
+        app_collect_info.setText("今天是："+simpleDateFormat.format(date));
+
         tabLayout = view.findViewById(R.id.tab_layout);
         viewPager = view.findViewById(R.id.view_pager);
         return headerView;

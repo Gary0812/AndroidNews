@@ -66,7 +66,7 @@ public class MainActivity extends AppCompatActivity  {
     private ImageView img_main, img_seting, img_mine;
     private TextView text_main, text_setting, text_mine;
     private TextView mTextMessage;
-    private UserVo userVo;
+
     private static int a;
 
 
@@ -104,18 +104,21 @@ public class MainActivity extends AppCompatActivity  {
         }
 
     };*/
+@Override
+protected void onResume() {
 
+    super.onResume();
+
+}
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+
         setContentView(R.layout.activity_main);
-         init();
-        if (userVo != null) {
-            XUtilsDate xUtils = new XUtilsDate();
-             xUtils.queryLogin(userVo);
-        }
+
+
 
 
 
@@ -126,10 +129,11 @@ public class MainActivity extends AppCompatActivity  {
         // Passing each menu ID as a set of Ids because each
         // menu should be considered as top level destinations.
         AppBarConfiguration appBarConfiguration = new AppBarConfiguration.Builder(
-                R.id.navigation_home, R.id.navigation_video,R.id.navigation_mine)
+                R.id.navigation_home, R.id.navigation_video,R.id.navigation_SignIn)
                 .build();
+
         navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-       // NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+     // NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
 
@@ -154,22 +158,7 @@ public class MainActivity extends AppCompatActivity  {
     }
 
 
-     public void init()
-     {
-         String username=PrefUtilS.getUser(this,"username",null);
-         String password=PrefUtilS.getUser(this,"password",null);
-         String IMEI=PrefUtilS.getUser(this,"IMEI",null);
-         if (IMEI != null) {
-             userVo = new UserVo();
-             userVo.setUsername(username);
-             userVo.setPassword(password);
-             userVo.setIMEI(IMEI);
-         }else
-         {
-             userVo=null;
-         }
 
-     }
 
 
     // 设置默认进来是tab 显示的页面
