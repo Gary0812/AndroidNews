@@ -92,16 +92,20 @@ public class TaiwanFragment extends BaseFragment {
         }
     }
 
+
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        view = inflater.inflate(R.layout.fragment_taiwan_list, container, false);
+        if (view == null) {
+            view = inflater.inflate(R.layout.fragment_taiwan_list, container, false);
+            initView();
+            setRefresh();
+        }
+
   /*      XUtilsDate xUtilsDate=new XUtilsDate();
         xUtilsDate.querynewsItem("59990");*/
-        initView();
-        //设置数据
-        setData();
-        setRefresh();
+
 
   /*      // Set the adapter
         if (view instanceof RecyclerView) {

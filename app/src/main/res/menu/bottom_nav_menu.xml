@@ -11,7 +11,7 @@
         android:title="@string/title_video" />
 
     <item
-        android:id="@+id/navigation_mine"
+        android:id="@+id/navigation_SignIn"
         android:icon="@drawable/mine"
         android:title="@string/title_mine" />
 
