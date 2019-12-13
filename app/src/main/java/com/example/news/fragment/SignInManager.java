@@ -24,28 +24,9 @@ import com.example.news.utils.XUtilsDate;
 
 
 public class SignInManager extends BaseFragment implements View.OnClickListener, XUtilsDate.LisData{
-    public  Handler handler=new Handler(){
-        @Override
-        public void handleMessage(@NonNull Message msg) {
-            // 获取我们携带的数据
-            switch ( msg.what)
-            {
-                case 0:
-                    a=0;
 
-                    break;
-                case 1:
-                    a=1;
-
-                    break;
-            }
-
-
-
-        }
-    };
     private UserVo userVo;
- int a;
+    int a;
     private View view;
     private Button myButton;
     private EditText register_phone;
@@ -61,27 +42,13 @@ public class SignInManager extends BaseFragment implements View.OnClickListener,
         if (show) {
             MineFragment mineFragment=new MineFragment();
             showFragment(SignInManager.this,mineFragment );
-          /*    //init();
-            if (a == 1) {
 
-              view = inflater.inflate(R.layout.activity_mine, container, false);
-                context = mActivity.getApplicationContext();
-                initView();*/
-        /*    }else if (a==0) {
-                LoginFragment loginFragment=new LoginFragment();
-                showFragment(SignInManager.this,loginFragment);
-              *//*  view = inflater.inflate(R.layout.activity_login, container, false);
-                context = mActivity.getApplicationContext();*//*
-            }*/
 
         }
         else {
             LoginFragment loginFragment=new LoginFragment();
             showFragment(SignInManager.this,loginFragment);
-         /*   view = inflater.inflate(R.layout.activity_login, container, false);
-            btn_register = view.findViewById(R.id.btn_register);
-            btn_register.setOnClickListener(this);
-            context = mActivity.getApplicationContext();*/
+
         }
         return  view;
     }

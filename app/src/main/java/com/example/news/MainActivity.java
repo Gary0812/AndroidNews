@@ -160,6 +160,7 @@ protected void onResume() {
 
 
 
+/*
 
     // 设置默认进来是tab 显示的页面
     private void setDefaultFragment(){
@@ -168,6 +169,7 @@ protected void onResume() {
         transaction.replace(R.id.container,new MainFragment());
         transaction.commit();
     }
+*/
 
 
 }

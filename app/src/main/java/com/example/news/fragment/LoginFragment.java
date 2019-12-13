@@ -13,12 +13,22 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.news.R;
 import com.example.news.model.UserVo;
 import com.example.news.utils.AESUtil;
+import com.example.news.utils.GsonUtil;
+import com.example.news.utils.PrefUtilS;
 import com.example.news.utils.XUtilsDate;
 import com.example.news.utils.XmlParserUtils;
+
+import org.xutils.common.Callback;
+import org.xutils.http.HttpMethod;
+import org.xutils.http.RequestParams;
+import org.xutils.x;
+
+import java.util.Map;
 
 
 public class LoginFragment extends BaseFragment implements View.OnClickListener,XUtilsDate.LisData {
@@ -28,7 +38,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     private Button check_user;
     private EditText login_mobile;
     private EditText login_password;
-
+    private String url = "http://172.16.2.94:8080/wcmInf/";
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -65,7 +75,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
                 userVo.setIMEI(IMEI);
                 userVo.setMoblie(mobile);
                 userVo.setPassword(AESUtil.encrypt(password));
-                xUtils.login(userVo);
+               login(userVo);
                 break;
             case R.id.btn_register:
                 RegistFragment registFragment = new RegistFragment();
@@ -116,6 +126,68 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
 
     @Override
     public void start() {
+
+    }
+
+
+    public void login(final UserVo userVo) {
+
+        String path = url + "loginAndroid";
+        RequestParams params = new RequestParams(path);
+
+        params.addParameter("mobile", userVo.getMoblie());
+        params.addParameter("password", userVo.getPassword());
+
+        // params.addParameter("password", "123");
+        x.http().request(HttpMethod.POST, params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Map map = GsonUtil.GsonToMaps(result);
+                String message = map.get("message").toString();
+                String username = map.get("username").toString().trim();
+                if (message.equals("登录成功")) {
+                    PrefUtilS.putUserBoolean(mActivity, "is_user", true);
+                    PrefUtilS.putUser(mActivity, "username", username);
+                    PrefUtilS.putUser(mActivity, "mobile", userVo.getMoblie());
+                    PrefUtilS.putUser(mActivity, "password", userVo.getPassword());
+                    PrefUtilS.putUser(mActivity, "IMEI", userVo.getIMEI());
+
+                  /*  Handler handler = new Handler();
+                    Message msg = Message.obtain();
+                    msg.what = SUCESS;
+
+
+                    //发送一条消息
+                    SignInManager signInManager = new SignInManager();
+                    signInManager.handler.sendMessage(msg);*/
+                    MineFragment mineFragment=new MineFragment();
+                    showFragment(LoginFragment.this,mineFragment );
+                    Toast.makeText(mActivity, message, Toast.LENGTH_SHORT).show();
+
+
+                } else {
+
+                    Toast.makeText(mActivity, message, Toast.LENGTH_SHORT).show();
+                }
+
+                //发送一条消息
+                //  LoginFragment.handler.sendMessage(msg);
+
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+            }
+
+            @Override
+            public void onFinished() {
+            }
+        });
 
     }
 }

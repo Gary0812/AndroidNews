@@ -1,5 +1,7 @@
 package com.example.news.fragment;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +16,13 @@ public abstract class BaseFragment extends Fragment {
 
     public FragmentActivity mActivity;//当context去使用
     private View mRootView;//fragment的根布局
+    private Context mContext;
+    private boolean isFirstLoad = true; // 是否第一次加载
+
+    private ProgressDialog mProgressDialog; // 加载进度对话框
+
+    protected BaseFragment() {
+    }
 
     //fragment 创建
     @Override
@@ -26,7 +35,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-        mRootView = initView();
+
         return mRootView;
     }
 //fragment所在的activity创建完成
@@ -34,6 +43,14 @@ public abstract class BaseFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         initData();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (isFirstLoad) {
+            initData();
+            isFirstLoad = false;
+        }
     }
 //必须有子类实现
    public abstract View initView();
