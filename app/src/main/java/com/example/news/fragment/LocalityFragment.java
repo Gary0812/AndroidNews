@@ -1,6 +1,7 @@
 package com.example.news.fragment;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
 import androidx.fragment.app.Fragment;
@@ -12,9 +13,13 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.news.R;
+import com.example.news.ShowNewsActivity;
 import com.example.news.adapter.CommonAdapter;
+import com.example.news.adapter.CommonRecyclerAdapter;
 import com.example.news.adapter.MyAdapter;
 import com.example.news.model.NewsVo;
 import com.example.news.utils.DummyContent;
@@ -157,6 +162,20 @@ public class LocalityFragment extends BaseFragment {
                 adapter = new MyAdapter(getActivity(),R.layout.taiwan_item,list, type);
                 adapter.notifyDataSetChanged();
                 recyclerView.setAdapter(adapter);
+                adapter.setOnItemClickListener(new CommonRecyclerAdapter.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(RecyclerView parent, View view, int position) {
+                        TextView textView= (TextView) view.findViewById(R.id.content);
+                        textView.getText().toString();
+//                        System.out.println(2222+textView.getText().toString());
+                        Intent i = new Intent(getContext(), ShowNewsActivity.class);
+                        System.out.println();
+                        i.putExtra("share_url", textView.getText().toString());
+                        startActivity(i);
+
+                        Toast.makeText(mActivity,"点击事件"+textView.getText().toString(),Toast.LENGTH_SHORT).show();
+                    }
+                });
 
             }
 

@@ -25,11 +25,11 @@ import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
-public class ShowNewsActivity extends AppCompatActivity {
+public class VideoActivity extends AppCompatActivity {
     private WebView show_news;
     private Intent data;
     private String share_url;
-//    private Toolbar toolbar;
+    //    private Toolbar toolbar;
     private ImageView image_drawer_home;
 
     private String pageDescription="";
@@ -49,7 +49,7 @@ public class ShowNewsActivity extends AppCompatActivity {
         image_drawer_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ShowNewsActivity.this.finish();
+                finish();
             }
         });
 
@@ -104,7 +104,7 @@ public class ShowNewsActivity extends AppCompatActivity {
 //            }
         });
 
-}
+    }
 
     private void initView() {
         show_news =(WebView) findViewById(R.id.show_news);
@@ -195,18 +195,13 @@ public class ShowNewsActivity extends AppCompatActivity {
     {
         @JavascriptInterface
         public void showSource(String html) {
-//            Document document = Jsoup.parse(html);
-//            String elements = document.getElementsByTag("video").attr("src");
-//            Log.d("LOGCAT","description:"+elements);
-//            Intent intent = new Intent(ShowNewsActivity.this,vitamio.class);
-//            intent.putExtra("url",elements);
-//            startActivity(intent);
+            Document document = Jsoup.parse(html);
+            String elements = document.getElementsByTag("video").attr("src");
+            Log.d("LOGCAT","description:"+elements);
+            Intent intent = new Intent(VideoActivity.this,vitamio.class);
+            intent.putExtra("videourl",elements);
+            startActivity(intent);
 
-        }
-
-        @JavascriptInterface
-        public void showDescription(String str) {
-            System.out.println("====>html=" + str);
         }
 
     }

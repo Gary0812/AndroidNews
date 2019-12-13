@@ -1,5 +1,6 @@
 package com.example.news;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -18,7 +19,7 @@ import io.vov.vitamio.widget.VideoView;
 
 public class vitamio extends AppCompatActivity {
 
-
+    private Intent data;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,10 +37,13 @@ public class vitamio extends AppCompatActivity {
             }
         });
         final VideoView  vov = findViewById(R.id.vov);
+        data = getIntent();
+        String svideo = data.getStringExtra("videourl");
+System.out.println("222222"+svideo);
 
 
         Vitamio.isInitialized(getApplicationContext());
-        vov.setVideoPath("http://172.16.2.94:8080/111.mp4");
+        vov.setVideoPath(svideo);
         vov.setMediaController(new MediaController(this));
         vov.requestFocus();
         vov.setOnPreparedListener(new MediaPlayer.OnPreparedListener() {
