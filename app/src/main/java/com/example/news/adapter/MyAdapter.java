@@ -43,8 +43,10 @@ public class MyAdapter extends CommonRecyclerAdapter<NewsVo> {
       String img=  item.getImglink();
       String author=item.getAuthor();
       String CRTIME=item.getCRTIME();
-
+        if (!TextUtils.isEmpty(img)) {
             holder.setImageByUrl(R.id.item_image, TextUtils.isEmpty(img) ? "-" : img);
+        }
+
 
            holder.setText(R.id.content, TextUtils.isEmpty(url) ? "-" : url);
         holder.setText(R.id.tv_author, TextUtils.isEmpty(author) ? "-" : author);
