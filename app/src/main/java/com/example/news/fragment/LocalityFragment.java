@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -55,7 +56,7 @@ public class LocalityFragment extends BaseFragment {
     private int type;
     private String result;
     private  final  String CHANNELID="59992";
-
+    private boolean isFirstLoad = true; // 是否第一次加载
 
     public LocalityFragment() {
     }
@@ -84,15 +85,30 @@ public class LocalityFragment extends BaseFragment {
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_locality_list, container, false);
         initView();
-        setRefresh();
         return  view;
     }
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e("TAG", "LocalityFragment onResume()");
+        if (isFirstLoad) {
+            // 将数据加载逻辑放到onResume()方法中
 
+            querynewsItem(CHANNELID);
+
+            isFirstLoad = false;
+        }
+        setRefresh();
+    }
+/*    public  void  initData(){
+        setRefresh();
+        querynewsItem(CHANNELID);
+    }*/
     @Override
     public View initView() {
         recyclerView = view.findViewById(R.id.list);
         refreshLayout = view.findViewById(R.id.refreshLayout);
-        querynewsItem(CHANNELID);
+        recyclerView.setAdapter(adapter);
 
         return null;
     }
@@ -122,7 +138,7 @@ public class LocalityFragment extends BaseFragment {
     }
 
     public void querynewsItem(String channelId) {
-
+        recyclerView = view.findViewById(R.id.list);
         String path = "http://172.16.2.94:8080/wcmInf/querynewsItem";
         RequestParams params = new RequestParams(path);
         params.addParameter("channelId", channelId);
@@ -133,21 +149,7 @@ public class LocalityFragment extends BaseFragment {
             @Override
             public void onSuccess(String result) {
                 List list=new ArrayList ();
-
                 list= GsonUtil.jsonToList(result,NewsVo.class);
-               /* List <Map<String, String>> list=new ArrayList <Map<String, String>>();
-                list=  GsonUtil.GsonToListMaps(result);
-                for (Map <String, String>m :list){
-                    for (String k :m.keySet()){
-                        Object ob = m.get(k);
-                        String string=ob.toString();
-                        String str =string.substring(string.indexOf("=")+1,string.lastIndexOf("}"));
-                        lists.add(str);
-                        //截取字符串
-                    }
-                }*/
-
-
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
                 linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerView.setLayoutManager(linearLayoutManager);
@@ -155,7 +157,6 @@ public class LocalityFragment extends BaseFragment {
                 adapter = new MyAdapter(getActivity(),R.layout.taiwan_item,list, type);
                 adapter.notifyDataSetChanged();
                 recyclerView.setAdapter(adapter);
-
 
             }
 

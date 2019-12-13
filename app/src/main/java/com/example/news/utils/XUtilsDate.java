@@ -5,24 +5,44 @@ import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+
 import android.widget.Toast;
 
-import com.example.news.GuideActivity;
+import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.news.MainActivity;
-import com.example.news.fragment.LoginFragment;
-import com.example.news.fragment.MineFragment;
+
+import com.example.news.adapter.CommonAdapter;
+
+import com.example.news.adapter.MyAdapter;
+
 import com.example.news.fragment.SignInManager;
+import com.example.news.model.NewsVo;
 import com.example.news.model.UserVo;
+import com.scwang.smartrefresh.layout.api.RefreshLayout;
+
 
 import org.xutils.common.Callback;
 import org.xutils.http.HttpMethod;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class XUtilsDate {
 
+
+
+
+    private CommonAdapter recycleAdapter;
+    private List<NewsVo> stringList = new ArrayList<>();
+    private RecyclerView recyclerView;
+    RefreshLayout refreshLayout;
+    private MyAdapter adapter;
+    private int type;
+    private String result;
     final private int SUCESS = 1;
     final private int NOT = 0;
     private Context mContext;
@@ -96,9 +116,10 @@ public class XUtilsDate {
     }
 
     public void intent() {
+        Context context = x.app().getApplicationContext();
         Intent intent = new Intent();
-        intent.setClass(x.app(), MainActivity.class);
-        x.app().startActivity(intent);//载入主窗口
+        intent.setClass(context, MainActivity.class);
+        context.startActivity(intent);//载入主窗口
     }
 
 
@@ -122,9 +143,9 @@ public class XUtilsDate {
                     msg.what = NOT;
                 }
 
-                //发送一条消息
+           /*     //发送一条消息
                 SignInManager signInManager = new SignInManager();
-                signInManager.handler.sendMessage(msg);
+                signInManager.handler.sendMessage(msg);*/
 
             }
 
@@ -166,6 +187,7 @@ public class XUtilsDate {
                     PrefUtilS.putUser(x.app(), "mobile", userVo.getMoblie());
                     PrefUtilS.putUser(x.app(), "password", userVo.getPassword());
                     PrefUtilS.putUser(x.app(), "IMEI", userVo.getIMEI());
+
                   /*  Handler handler = new Handler();
                     Message msg = Message.obtain();
                     msg.what = SUCESS;
@@ -215,5 +237,15 @@ public class XUtilsDate {
     public void setmList(LisData mList) {
         this.mList = mList;
     }
+
+
+
+
+
+
+
+
+
+
 
 }

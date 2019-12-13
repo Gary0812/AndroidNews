@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,7 +69,7 @@ public class TaiwanFragment extends BaseFragment {
     private int type;
     private String result;
  private  final  String CHANNELID="59991";
-
+    private boolean isFirstLoad = true; // 是否第一次加载
     /**
      * Mandatory empty constructor for the fragment manager to instantiate the
      * fragment (e.g. upon screen orientation changes).
@@ -100,11 +101,11 @@ public class TaiwanFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        if (view == null) {
+
             view = inflater.inflate(R.layout.fragment_taiwan_list, container, false);
             initView();
-            setRefresh();
-        }
+        recyclerView.setAdapter(adapter);
+
 
   /*      XUtilsDate xUtilsDate=new XUtilsDate();
         xUtilsDate.querynewsItem("59990");*/
@@ -133,8 +134,22 @@ public class TaiwanFragment extends BaseFragment {
         recyclerView = view.findViewById(R.id.list);
         refreshLayout = view.findViewById(R.id.refreshLayout);
 
-        querynewsItem(CHANNELID);
+
         return  view;
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e("TAG", "TaiwanFragment onResume()");
+        if (isFirstLoad) {
+            // 将数据加载逻辑放到onResume()方法中
+
+            querynewsItem(CHANNELID);
+
+            isFirstLoad = false;
+        }
+        setRefresh();
     }
 /*    public  Handler handler= new Handler(){
         @Override
@@ -202,7 +217,7 @@ public class TaiwanFragment extends BaseFragment {
                 }*/
 
 
-                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getActivity());
+                LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity);
                 linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerView.setLayoutManager(linearLayoutManager);
                 //设置ReCycleView所需的adapter

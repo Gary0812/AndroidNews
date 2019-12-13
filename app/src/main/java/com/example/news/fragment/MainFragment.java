@@ -15,6 +15,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.viewpager.widget.ViewPager;
 
 import com.example.news.adapter.FragmentAdapter;
@@ -67,20 +68,6 @@ private  TextView app_collect_info;
         return view;
     }
 
-    private void imageClick() {
-        imageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                if (!isChanged) {
-                    /*重点，LEFT是xml布局文件中侧边栏布局所设置的方向*/
-                    mDrawerLayout.openDrawer(Gravity.LEFT);
-                }
-
-            }
-        });
-    }
 
 
 
@@ -114,8 +101,8 @@ private  TextView app_collect_info;
         titleList.add("地方");
         titleList.add("31条");
 
-
-        fragmentAdapter = new FragmentAdapter(mActivity.getSupportFragmentManager(), fragmentList, titleList);
+        fragmentAdapter = new FragmentAdapter(getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,fragmentList, titleList);
+       // fragmentAdapter = new FragmentAdapter(mActivity.getSupportFragmentManager(), fragmentList, titleList);
         viewPager.setAdapter(fragmentAdapter);
 
         //将tabLayout与viewPager连起来
@@ -151,7 +138,6 @@ private  TextView app_collect_info;
 //获取当前时间
         Date date = new Date(System.currentTimeMillis());
         app_collect_info.setText("今天是："+simpleDateFormat.format(date));
-
         tabLayout = view.findViewById(R.id.tab_layout);
         viewPager = view.findViewById(R.id.view_pager);
         return headerView;
@@ -170,6 +156,20 @@ private  TextView app_collect_info;
                 item.getGroupId();
                 item.getTitle().toString();
                 return true;
+            }
+        });
+    }
+    private void imageClick() {
+        imageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+
+                if (!isChanged) {
+                    /*重点，LEFT是xml布局文件中侧边栏布局所设置的方向*/
+                    mDrawerLayout.openDrawer(Gravity.LEFT);
+                }
+
             }
         });
     }
