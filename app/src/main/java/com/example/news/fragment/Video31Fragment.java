@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.news.R;
 import com.example.news.ShowNewsActivity;
+import com.example.news.VideoActivity;
 import com.example.news.adapter.CommonRecyclerAdapter;
 import com.example.news.adapter.MyAdapter;
 import com.example.news.model.NewsVo;
@@ -100,7 +101,7 @@ public class Video31Fragment extends BaseFragment {
                         TextView textView= (TextView) view.findViewById(R.id.content);
                         textView.getText().toString();
 //                        System.out.println(2222+textView.getText().toString());
-                        Intent i = new Intent(getContext(), ShowNewsActivity.class);
+                        Intent i = new Intent(getContext(), VideoActivity.class);
                         System.out.println();
                         i.putExtra("share_url", textView.getText().toString());
                         startActivity(i);
