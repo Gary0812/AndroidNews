@@ -11,6 +11,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
 import android.view.View;
+import android.widget.ImageView;
+import android.widget.Toast;
+
 import io.vov.vitamio.MediaPlayer.OnPreparedListener;
 
 import io.vov.vitamio.MediaPlayer;
@@ -21,22 +24,30 @@ import io.vov.vitamio.widget.VideoView;
 public class vitamio extends AppCompatActivity {
 
     private Intent data;
+    private ImageView collect_news;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_vitamio);
+        collect_news =(ImageView) findViewById(R.id.collect_news);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
+        collect_news.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                collect_news.setImageResource(R.mipmap.favorite_selected);
+                Toast.makeText(vitamio.this, "收藏成功！", Toast.LENGTH_SHORT).show();
             }
         });
+//        FloatingActionButton fab = findViewById(R.id.fab);
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+//            }
+//        });
         final VideoView  vov = findViewById(R.id.vov);
         data = getIntent();
         String svideo = data.getStringExtra("videourl");

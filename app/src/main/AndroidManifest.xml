@@ -52,6 +52,10 @@
             android:label="详情页"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".CollectionActivity"
+            android:label="收藏夹"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
             android:name=".VideoActivity"
             android:label="视频详情页"
             android:theme="@style/AppTheme.NoActionBar" />
