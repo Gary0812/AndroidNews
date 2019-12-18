@@ -39,6 +39,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     private EditText login_mobile;
     private EditText login_password;
     private String url = "http://172.16.2.94:8080/wcmInf/";
+    private TextView user_forget;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -49,13 +51,14 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
 
     @Override
     public View initView() {
-
+        user_forget = view.findViewById(R.id.user_forget);
         login_mobile = view.findViewById(R.id.login_mobile);
         login_password = view.findViewById(R.id.login_password);
         myButton = view.findViewById(R.id.btn_register);
         check_user = view.findViewById(R.id.check_user);
         myButton.setOnClickListener(this);
         check_user.setOnClickListener(this);
+        user_forget.setOnClickListener(this);
 
         return view;
     }
@@ -66,7 +69,6 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
         int id = v.getId();
         switch (id) {
             case R.id.check_user:
-
                 String mobile = login_mobile.getText().toString().trim();
                 String password = login_password.getText().toString().trim();
                 XUtilsDate xUtils = new XUtilsDate();
@@ -81,9 +83,10 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
                 RegistFragment registFragment = new RegistFragment();
                 showFragment(LoginFragment.this, registFragment);
                 break;
-          /*  case R.id.btn_register:
-
-                break;*/
+            case R.id.user_forget:
+               UpdatePswFragment updatePswFragment=new UpdatePswFragment();
+                showFragment(LoginFragment.this, updatePswFragment);
+                break;
             default:
                 throw new IllegalStateException("Unexpected value: " + id);
         }

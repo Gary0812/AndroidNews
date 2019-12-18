@@ -12,6 +12,8 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentActivity;
 
+import com.example.news.R;
+
 public abstract class BaseFragment extends Fragment {
 
     public FragmentActivity mActivity;//当context去使用
@@ -35,7 +37,7 @@ public abstract class BaseFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-
+        mRootView = initView();
         return mRootView;
     }
 //fragment所在的activity创建完成
@@ -52,7 +54,11 @@ public abstract class BaseFragment extends Fragment {
             isFirstLoad = false;
         }
     }
-//必须有子类实现
+
+
+
+
+    //必须有子类实现
    public abstract View initView();
     //初始化数据,子类可以不实现
     public  void  initData(){
