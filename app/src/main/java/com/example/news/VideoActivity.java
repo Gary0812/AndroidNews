@@ -37,6 +37,7 @@ public class VideoActivity extends AppCompatActivity {
             Intent intent = new Intent(VideoActivity.this, vitamio.class);
             intent.putExtra("videourl", video);
             startActivity(intent);
+            finish();
         }
 
 

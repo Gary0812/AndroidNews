@@ -1,5 +1,6 @@
 package com.example.news;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
@@ -39,7 +40,7 @@ public class vitamio extends AppCompatActivity {
         final VideoView  vov = findViewById(R.id.vov);
         data = getIntent();
         String svideo = data.getStringExtra("videourl");
-System.out.println("222222"+svideo);
+
 
 
         Vitamio.isInitialized(getApplicationContext());
@@ -55,5 +56,9 @@ System.out.println("222222"+svideo);
             }
         });
     }
+    @Override
+    public void onBackPressed() {
+        vitamio.this.finish();
 
+    }
 }
