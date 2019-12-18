@@ -1,30 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@mipmap/loginbck">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
         android:background="#F44336"
         android:orientation="horizontal">
         <ImageView
-            android:layout_width="0dp"
+            android:id="@+id/image_drawer_home"
+            android:layout_width="27dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:layout_marginTop="8dp"
-            android:layout_marginBottom="8dp"
-            android:layout_marginRight="10dp"
-            android:src="@drawable/left"/>
+            android:src="@mipmap/fanhui" />
+
         <TextView
-            android:layout_width="0dp"
-            android:layout_weight="1"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
+            android:layout_weight="8"
             android:gravity="center"
-            android:text="注册页面"
-            android:textColor="#D3D3D3"
-            android:textSize="20sp" />
+            android:text="注册页"
+            android:textColor="@color/colorWhite"
+            android:textSize="15sp" />
 
         <TextView
             android:id="@+id/save_user"
@@ -95,7 +93,7 @@
         android:id="@+id/checkbox_tiaokuan"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="我已同意News使用条款"
+        android:text="我已同意融视频使用条款"
         android:layout_marginTop="10dp"
         android:layout_gravity="center"
         android:textColor="#ff0000"

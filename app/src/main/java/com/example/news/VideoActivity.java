@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.webkit.WebView;
 import android.widget.ImageView;
@@ -31,40 +32,57 @@ public class VideoActivity extends AppCompatActivity {
         @Override
         public void handleMessage(@NonNull Message msg) {
 
-
-            String video = (String) msg.obj;
-
+            Bundle bundle = msg.getData();
+            String video = bundle.getString("videourl");
+            String title = bundle.getString("titles");
+            String author = bundle.getString("authors");
+            String publishdate = bundle.getString("publishdates");
+            System.out.println("7777"+video);
             Intent intent = new Intent(VideoActivity.this, vitamio.class);
-            intent.putExtra("videourl", video);
+            intent.putExtra("videourl",video);
+            intent.putExtra("titles",title);
+            intent.putExtra("authors",author);
+            intent.putExtra("publishdates",publishdate);
+
             startActivity(intent);
             finish();
         }
 
 
     };
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_show_news);
-
-        data = getIntent();
-        share_url = data.getStringExtra("share_url");
-
-        image_drawer_home = (ImageView) findViewById(R.id.image_drawer_home);
-//        toolbar = (Toolbar) findViewById(R.id.contentToolbar);
-//        toolbar.setTitle("融视频 - 文章内容");
-        image_drawer_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+    protected void onResume() {
+        super.onResume();
+        Intent intent = getIntent();
+        String share_url = intent.getStringExtra("share_url");
         initDate(share_url);
 
-
     }
+
+
+//   @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+////
+//       super.onCreate(savedInstanceState);
+//////     setContentView(R.layout.activity_show_news);
+////
+//      data = getIntent();
+//      share_url = data.getStringExtra("share_url");
+////
+//image_drawer_home = (ImageView) findViewById(R.id.image_drawer_home);
+////////        toolbar = (Toolbar) findViewById(R.id.contentToolbar);
+////////        toolbar.setTitle("融视频 - 文章内容");
+//        image_drawer_home.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
+//      initDate(share_url);
+////
+////
+//   }
     public void initDate(final String url) {
+
         //只有主线程才能更新UI
         new Thread()
         {
@@ -79,12 +97,17 @@ public class VideoActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
                 String video = doc.select("video").attr("src");
-                //创建message对象
-                Message message = new Message();
+                String title = doc.select("h1#title").text();
+                String author = doc.select("p.editor").text();
+                String publishdate = doc.select("meta[name=publishdate]").attr("content");
 
-                //把数据放到message里面
-                message.obj=video;
-                //通过handler发送消息 handlemessage方法就会执行
+                Message message = new Message();
+                Bundle bundle = new Bundle();
+                bundle.putString("titles", title);
+                bundle.putString("authors", author);
+                bundle.putString("publishdates", publishdate);
+                bundle.putString("videourl", video);
+                message.setData(bundle);
                 handler.sendMessage(message);
 
             }

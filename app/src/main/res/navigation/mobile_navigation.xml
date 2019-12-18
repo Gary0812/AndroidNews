@@ -9,7 +9,7 @@
         android:id="@+id/navigation_home"
         android:name="com.example.news.fragment.MainFragment"
         android:label="@string/title_home"
-        tools:layout="@layout/activity_main" >
+        tools:layout="@layout/fragment_main" >
        <!-- <action
             android:id="@+id/action_navigation_home_to_navigation_setting"
             app:destination="@id/navigation_setting" />-->

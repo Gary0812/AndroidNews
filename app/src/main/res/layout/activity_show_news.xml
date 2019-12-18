@@ -62,18 +62,12 @@
             android:layout_weight="8"
             android:hint="写评论..."
             android:textSize="12sp" />
+
         <ImageView
-            android:id="@+id/zan_news"
+            android:id="@+id/collect_news"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:src="@drawable/xiaoxinxin"
-            android:layout_margin="5dp"
-            android:layout_weight="1"/>
-        <ImageView
-            android:id="@+id/collect"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:src="@drawable/collection"
+            android:src="@mipmap/favorite"
             android:layout_margin="5dp"
             android:layout_weight="1"/>
     </LinearLayout>

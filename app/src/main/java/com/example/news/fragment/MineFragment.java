@@ -3,6 +3,7 @@ package com.example.news.fragment;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,8 +26,10 @@ import androidx.core.app.ActivityCompat;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.example.news.CollectionActivity;
 import com.example.news.R;
 
+import com.example.news.ShowNewsActivity;
 import com.example.news.model.UserVo;
 import com.example.news.utils.AESUtil;
 import com.example.news.utils.PrefUtilS;
@@ -91,6 +94,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,X
     private Button btn_register;
     private TextView mine_user_name;
     private ImageView navigation_setting;
+    private ImageView collection;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -100,6 +104,12 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,X
         mine_user_name = view.findViewById(R.id.mine_user_name);
         mine_user_name.setText(username);
   initView();
+        collection.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
 
        /* if (show) {
             init();
@@ -162,6 +172,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,X
 
     @Override
     public View initView() {
+        collection = view.findViewById(R.id.collection);
         navigation_setting = view.findViewById(R.id.navigation_setting);
        /* myButton = view.findViewById(R.id.btn_code);
         save_user = view.findViewById(R.id.save_user);
@@ -173,13 +184,26 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,X
         save_user.setOnClickListener(this);
         register_phone = view.findViewById(R.id.register_phone);*/
        navigation_setting.setOnClickListener(this);
+       collection.setOnClickListener(this);
         return view;
     }
 
     @Override
     public void onClick(View v) {
-SettingFragment settingFragment=new SettingFragment();
-        showFragment(MineFragment.this, settingFragment);
+        int id = v.getId();
+        switch (id) {
+            case R.id.collection:
+                Intent intent = new Intent(getActivity(), CollectionActivity.class);
+                startActivity(intent);
+                break;
+            case R.id.navigation_setting:
+                SettingFragment settingFragment=new SettingFragment();
+                showFragment(MineFragment.this, settingFragment);
+                break;
+        }
+
+
+
 
        /* int id = v.getId();
         switch (id) {

@@ -16,6 +16,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -25,6 +26,7 @@ public class ShowNewsActivity extends AppCompatActivity {
     private WebView show_news;
     private Intent data;
     private String share_url;
+    private ImageView collect_news;
 //    private Toolbar toolbar;
     private ImageView image_drawer_home;
 
@@ -40,6 +42,7 @@ public class ShowNewsActivity extends AppCompatActivity {
         share_url = data.getStringExtra("share_url");
         show_news.loadUrl(share_url);
         image_drawer_home =(ImageView) findViewById(R.id.image_drawer_home);
+        collect_news =(ImageView) findViewById(R.id.collect_news);
 //        toolbar = (Toolbar) findViewById(R.id.contentToolbar);
 //        toolbar.setTitle("融视频 - 文章内容");
         image_drawer_home.setOnClickListener(new View.OnClickListener() {
@@ -98,6 +101,14 @@ public class ShowNewsActivity extends AppCompatActivity {
 //                    contentt.setText("100%");
 //                }
 //            }
+        });
+
+        collect_news.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                collect_news.setImageResource(R.mipmap.favorite_selected);
+                Toast.makeText(ShowNewsActivity.this, "收藏成功！", Toast.LENGTH_SHORT).show();
+            }
         });
 
 }
