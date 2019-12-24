@@ -94,7 +94,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,X
     private Button btn_register;
     private TextView mine_user_name;
     private ImageView navigation_setting;
-    private ImageView collection;
+    private TextView collection;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -104,12 +104,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,X
         mine_user_name = view.findViewById(R.id.mine_user_name);
         mine_user_name.setText(username);
   initView();
-        collection.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
 
-            }
-        });
 
        /* if (show) {
             init();
@@ -174,15 +169,6 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,X
     public View initView() {
         collection = view.findViewById(R.id.collection);
         navigation_setting = view.findViewById(R.id.navigation_setting);
-       /* myButton = view.findViewById(R.id.btn_code);
-        save_user = view.findViewById(R.id.save_user);
-        register_password = view.findViewById(R.id.register_password);
-        register_username = view.findViewById(R.id.register_username);
-        register_repassword = view.findViewById(R.id.register_repassword);
-        register_yzm = view.findViewById(R.id.register_yzm);
-        myButton.setOnClickListener(this);
-        save_user.setOnClickListener(this);
-        register_phone = view.findViewById(R.id.register_phone);*/
        navigation_setting.setOnClickListener(this);
        collection.setOnClickListener(this);
         return view;
