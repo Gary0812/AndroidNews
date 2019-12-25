@@ -86,7 +86,7 @@ public class NewsFragment extends BaseFragment implements OnBannerListener {
         //放标题的集合
         list_title = new ArrayList<>();
 
-        list_path.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic21363tj30ci08ct96.jpg");
+        list_path.add("http://www.taiwan.cn/xwzx/la/201912/W020191225454951233530.jpg");
         list_path.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic259ohaj30ci08c74r.jpg");
         list_path.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2b16zuj30ci08cwf4.jpg");
         list_path.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2e7vsaj30ci08cglz.jpg");
@@ -123,6 +123,25 @@ public class NewsFragment extends BaseFragment implements OnBannerListener {
     //轮播图的监听方法
     @Override
     public void OnBannerClick(int position) {
+        switch (position){
+            case 0:
+                Intent i = new Intent(getContext(),ShowNewsActivity.class);
+                String share_url ="http://www.taiwan.cn/xwzx/la/201912/t20191225_12227837.htm";
+                i.putExtra("share_url", share_url);
+                startActivity(i);
+                break;
+            case 1:
+                Toast.makeText(mActivity, "hhhhh...", Toast.LENGTH_SHORT).show();
+                break;
+            case 2:
+                Toast.makeText(mActivity, "333...", Toast.LENGTH_SHORT).show();
+                break;
+            case 3:
+                Toast.makeText(mActivity, "44444...", Toast.LENGTH_SHORT).show();
+                break;
+
+        }
+
         Log.i("tag", "你点了第"+position+"张轮播图");
     }
     //自定义的图片加载器
@@ -156,11 +175,18 @@ public class NewsFragment extends BaseFragment implements OnBannerListener {
                     @Override
                     public void onItemClick(RecyclerView parent, View view, int position) {
                         TextView textView= (TextView) view.findViewById(R.id.content);
+                        TextView docid= (TextView) view.findViewById(R.id.docid);
+                        TextView share_title= (TextView) view.findViewById(R.id.share_title);
+                        TextView share_time= (TextView) view.findViewById(R.id.tv_pubDate);
+                        share_title.getText().toString();
+                        share_time.getText().toString();
                         textView.getText().toString();
-//                        System.out.println(2222+textView.getText().toString());
-                        Intent i = new Intent(getContext(), ShowNewsActivity.class);
-                        System.out.println();
+                        docid.getText().toString();
+                        Intent i = new Intent(getContext(),ShowNewsActivity.class);
+                        i.putExtra("share_docid", docid.getText().toString());
                         i.putExtra("share_url", textView.getText().toString());
+                        i.putExtra("share_time", share_time.getText().toString());
+                        i.putExtra("share_title", share_title.getText().toString());
                         startActivity(i);
 
                         Toast.makeText(mActivity,"点击事件"+textView.getText().toString(),Toast.LENGTH_SHORT).show();

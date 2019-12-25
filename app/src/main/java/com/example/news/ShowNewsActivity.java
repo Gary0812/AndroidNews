@@ -1,7 +1,11 @@
 package com.example.news;
 
 import android.app.Activity;
+import android.content.ContentValues;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
@@ -21,25 +25,43 @@ import android.widget.Toast;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
+import com.example.news.model.NewsInfo;
+import com.example.news.utils.MyDatabaseHelper;
+import com.example.news.utils.NewsInfoDao;
 
-public class ShowNewsActivity extends AppCompatActivity {
+
+public class ShowNewsActivity extends AppCompatActivity implements View.OnClickListener {
     private WebView show_news;
     private Intent data;
     private String share_url;
+    private String share_title;
+    private String share_time;
+    private String share_docid;
     private ImageView collect_news;
 //    private Toolbar toolbar;
     private ImageView image_drawer_home;
 
     private String pageDescription="";
     private String video;
+    private Context context;
+    private NewsInfoDao mNewsInfoDao;
+    private MyDatabaseHelper helper;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_news);
         show_news =(WebView) findViewById(R.id.show_news);
+        mNewsInfoDao = new NewsInfoDao();
+        helper = new MyDatabaseHelper(this, "TaiDB.db", null, 1);
         data = getIntent();
         share_url = data.getStringExtra("share_url");
+        share_docid = data.getStringExtra("share_docid");
+        share_title = data.getStringExtra("share_title");
+        share_time = data.getStringExtra("share_time");
+
+
         show_news.loadUrl(share_url);
         image_drawer_home =(ImageView) findViewById(R.id.image_drawer_home);
         collect_news =(ImageView) findViewById(R.id.collect_news);
@@ -103,13 +125,7 @@ public class ShowNewsActivity extends AppCompatActivity {
 //            }
         });
 
-        collect_news.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                collect_news.setImageResource(R.mipmap.favorite_selected);
-                Toast.makeText(ShowNewsActivity.this, "收藏成功！", Toast.LENGTH_SHORT).show();
-            }
-        });
+        collect_news.setOnClickListener(this);
 
 }
 
@@ -118,6 +134,13 @@ public class ShowNewsActivity extends AppCompatActivity {
         data = getIntent();
         share_url = data.getStringExtra("share_url");
         show_news.loadUrl(share_url);
+        SharedPreferences sp = this.getSharedPreferences("show_news", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+        if(sp.getString(share_url, "0").equals(share_url)) {
+            collect_news.setImageResource(R.mipmap.favorite_selected);
+        }else {
+            collect_news.setImageResource(R.mipmap.favorite);
+        }
         show_news.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
@@ -217,5 +240,57 @@ public class ShowNewsActivity extends AppCompatActivity {
         }
 
     }
+
+
+
+    @Override
+    public void onClick(View v) {
+        SharedPreferences sp = this.getSharedPreferences("show_news", Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sp.edit();
+
+      switch(v.getId()) {
+          case R.id.collect_news:
+               if (sp.getString(share_url,"0").equals(share_url)){
+                   //根据id移除收藏夹对应文章
+                   SQLiteDatabase db = helper.getReadableDatabase();
+                   db.execSQL("delete from Collection_News where news_docid=?",
+                           new String[]{share_docid});
+                   db.close();
+//                   mNewsInfoDao.deleteDataById(share_docid);
+                  editor.putString(share_url,"0");
+                  editor.commit();
+                   collect_news.setImageResource(R.mipmap.favorite);
+                  Toast.makeText(this,"取消收藏",Toast.LENGTH_SHORT).show();
+                  return;
+             }
+
+        editor.putString(share_url, share_url);
+//              List<NewsInfo> list = new ArrayList<>();
+//              NewsInfo newsInfo;
+//              newsInfo = new NewsInfo();
+//              newsInfo.setId(share_docid);
+//              newsInfo.setTitle(share_title);
+//              newsInfo.setTime(share_time);
+//              newsInfo.setType(share_url);
+//              list.add(newsInfo);
+//        mNewsInfoDao.addData(list);
+              SQLiteDatabase db = helper.getWritableDatabase();
+
+              ContentValues values = new ContentValues();
+              //组装数据
+              values.put("news_url", share_url);
+              values.put("news_title", share_title);
+              values.put("news_date", share_time);
+              values.put("news_docid", share_docid);
+              db.insert("Collection_News", null, values);
+              db.close();
+        editor.commit();
+        collect_news.setImageResource(R.mipmap.favorite_selected);
+           Toast.makeText(ShowNewsActivity.this, "收藏成功！", Toast.LENGTH_SHORT).show();
+               break;
+        }
+
+   }
+
 
 }

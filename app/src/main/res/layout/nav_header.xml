@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:scaleType="centerCrop"
-        android:src="@drawable/share_card_default_bg"/>
+        android:src="@mipmap/bgmine"/>
 
 
     <RelativeLayout
@@ -28,10 +28,10 @@
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
-            android:background="@drawable/background_add_personal_sentences"
             android:text="你的名字"
             android:textColor="@color/white"
-            android:padding="10dp" />
+            android:padding="10dp"
+            android:textSize="16sp"/>
 
     </RelativeLayout>
 
@@ -46,7 +46,7 @@
         android:gravity="center"
         android:text="今天是：2019年11月26日"
         android:textColor="@color/white"
-        android:textSize="16sp" />
+        android:textSize="10sp" />
 
     <TextView
         android:layout_marginTop="20dp"

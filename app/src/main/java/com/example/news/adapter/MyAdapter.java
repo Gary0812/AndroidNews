@@ -2,7 +2,6 @@ package com.example.news.adapter;
 
 import android.content.Context;
 import android.text.TextUtils;
-
 import com.example.news.model.NewsVo;
 import com.example.news.R;
 
@@ -41,6 +40,7 @@ public class MyAdapter extends CommonRecyclerAdapter<NewsVo> {
         //图片地址
         String url = item.getDOCPUBURL();
       String img=  item.getImglink();
+        String docid =  item.getDocid();
       String author=item.getAuthor();
       String CRTIME=item.getCRTIME();
         if (!TextUtils.isEmpty(img)) {
@@ -51,7 +51,8 @@ public class MyAdapter extends CommonRecyclerAdapter<NewsVo> {
            holder.setText(R.id.content, TextUtils.isEmpty(url) ? "-" : url);
         holder.setText(R.id.tv_author, TextUtils.isEmpty(author) ? "-" : author);
         holder.setText(R.id.tv_pubDate, TextUtils.isEmpty(CRTIME) ? "-" : CRTIME);
-
+        holder.setText(R.id.docid, TextUtils.isEmpty(docid) ? "-" : docid);
+        holder.setText(R.id.share_title, TextUtils.isEmpty(title) ? "-" : title);
 
     }
 }

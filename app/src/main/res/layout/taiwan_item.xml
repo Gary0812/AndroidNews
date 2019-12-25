@@ -27,6 +27,31 @@
             android:text="内容"
             android:textColor="#000"
             android:textSize="16sp" />
+        <TextView
+            android:id="@+id/docid"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0"
+            android:text="文章id"
+            android:textColor="#000"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/share_title"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0"
+            android:text="文章标题"
+            android:textColor="#000"
+            android:textSize="16sp" />
+        <TextView
+            android:id="@+id/share_time"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="0"
+            android:text="文章时间"
+            android:textColor="#000"
+            android:textSize="16sp" />
+
 
         <ImageView
             android:id="@+id/item_image"

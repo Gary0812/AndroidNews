@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -26,11 +27,18 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
     private TextView clear_cache;
     private TextView exit_login;
     private TextView app_shouye;
-
+    private ImageView image_drawer_home;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.activity_setting, container, false);
+        image_drawer_home =view.findViewById(R.id.image_drawer_home);
+        image_drawer_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().onBackPressed();
+            }
+        });
         initView();
 
         cache.setText(caches);
@@ -93,7 +101,6 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                 Intent intent=new Intent();
                 intent.setClass(mActivity,MainActivity.class);
                 mActivity.startActivity(intent);
-
                 break;
         }
     }

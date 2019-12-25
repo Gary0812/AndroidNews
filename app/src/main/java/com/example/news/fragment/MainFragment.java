@@ -1,5 +1,6 @@
 package com.example.news.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -16,8 +17,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentPagerAdapter;
+import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.news.CollectionActivity;
+import com.example.news.MainActivity;
 import com.example.news.adapter.FragmentAdapter;
 import com.example.news.R;
 import com.example.news.utils.PrefUtilS;
@@ -150,10 +154,21 @@ private  TextView app_collect_info;
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-                textView.setText("您选择的是: " + item.getTitle().toString());
-                Toast.makeText(mActivity, "选择的是：" + item.getGroupId(), Toast.LENGTH_SHORT).show();
-                //获取menu菜单事件
-                item.getGroupId();
+                switch (item.getItemId()) {
+                    case R.id.nav_home :
+                        Intent mainIntent = new Intent(getContext(), MainActivity.class);
+                        startActivity(mainIntent);
+                        break;
+                    case R.id.nav_sousiba :
+                        Intent collectionIntent = new Intent(getContext(), CollectionActivity.class);
+                        startActivity(collectionIntent);
+                        break;
+                    case R.id.nav_wait :
+                        Toast.makeText(mActivity, "敬请期待...", Toast.LENGTH_SHORT).show();
+                        break;
+                }
+           //获取menu菜单事件
+                item.getItemId();
                 item.getTitle().toString();
                 return true;
             }

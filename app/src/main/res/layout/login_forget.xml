@@ -43,7 +43,8 @@
         android:layout_marginTop="50dp"
         android:layout_marginLeft="50dp"
         android:layout_marginRight="50dp"
-        android:hint="请输入已绑定手机号" />
+        android:hint="请输入已绑定手机号"
+        android:editable="false"/>
 
 
     <EditText

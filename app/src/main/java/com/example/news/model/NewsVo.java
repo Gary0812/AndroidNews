@@ -41,6 +41,7 @@ public class NewsVo {
         return imglink;
     }
 
+
     public String getDoctitle() {
         return doctitle;
     }
@@ -145,7 +146,9 @@ public class NewsVo {
     public String getID() {
         return ID;
     }
-
+    public String getDocid() {
+        return DOCID;
+    }
     public void setID(String ID) {
         this.ID = ID;
     }

@@ -203,6 +203,8 @@ public class TaiwanFragment extends BaseFragment {
                 List list=new ArrayList ();
 
             list=GsonUtil.jsonToList(result,NewsVo.class);
+//          System.out.println("555555"+result);
+
 
                /* List <Map<String, String>> list=new ArrayList <Map<String, String>>();
                 list=  GsonUtil.GsonToListMaps(result);
@@ -218,24 +220,31 @@ public class TaiwanFragment extends BaseFragment {
 
 
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity);
+
                 linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerView.setLayoutManager(linearLayoutManager);
                 //设置ReCycleView所需的adapter
                 adapter = new MyAdapter(getActivity(),R.layout.taiwan_item,list, type);
+
                 adapter.notifyDataSetChanged();
                 recyclerView.setAdapter(adapter);
                 adapter.setOnItemClickListener(new CommonRecyclerAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(RecyclerView parent, View view, int position) {
                         TextView textView= (TextView) view.findViewById(R.id.content);
+                        TextView docid= (TextView) view.findViewById(R.id.docid);
+                        TextView share_title= (TextView) view.findViewById(R.id.share_title);
+                        TextView share_time= (TextView) view.findViewById(R.id.tv_pubDate);
+                        share_title.getText().toString();
+                        share_time.getText().toString();
                         textView.getText().toString();
-//                        System.out.println(2222+textView.getText().toString());
+                        docid.getText().toString();
                         Intent i = new Intent(getContext(),ShowNewsActivity.class);
-                        System.out.println();
+                        i.putExtra("share_docid", docid.getText().toString());
                         i.putExtra("share_url", textView.getText().toString());
+                        i.putExtra("share_time", share_time.getText().toString());
+                        i.putExtra("share_title", share_title.getText().toString());
                         startActivity(i);
-
-                        Toast.makeText(mActivity,"点击事件"+textView.getText().toString(),Toast.LENGTH_SHORT).show();
                     }
                 });
                 adapter.setOnItemLongClickListener(new CommonRecyclerAdapter.OnItemLongClickListener() {
