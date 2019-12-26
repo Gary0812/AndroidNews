@@ -83,7 +83,7 @@ public class CollectionActivity  extends AppCompatActivity implements NewsAdapte
             @Override
             public void run() {
                 SQLiteDatabase db = helper.getReadableDatabase();
-                Cursor cursor = db.rawQuery("select * from Collection_News", null);
+                Cursor cursor = db.rawQuery("select * from Collection_News order by id desc", null);
                 if (cursor.getCount() != 0) {
                     if (cursor.moveToFirst()) {
                         do {
