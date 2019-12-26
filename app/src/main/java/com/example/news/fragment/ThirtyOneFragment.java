@@ -140,7 +140,7 @@ public class ThirtyOneFragment extends BaseFragment {
                 adapter.setOnItemLongClickListener(new CommonRecyclerAdapter.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClick(RecyclerView parent, View view, int position) {
-                        Toast.makeText(mActivity,"长按事件"+position, Toast.LENGTH_SHORT).show();
+
                         return false;
                     }
                 });

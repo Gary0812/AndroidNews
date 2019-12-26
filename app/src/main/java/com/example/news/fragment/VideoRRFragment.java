@@ -43,7 +43,7 @@ public class VideoRRFragment extends BaseFragment {
     private int type;
     private String result;
     private RecyclerView recyclerView;
-    RefreshLayout refreshLayout;
+    private RefreshLayout refreshLayout;
     private  final  String CHANNELID="59994";
     private View view;
     private MyAdapter adapter;
@@ -52,7 +52,6 @@ public class VideoRRFragment extends BaseFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_rritem_list, container, false);
-
         initView();
         return view;
     }
@@ -64,7 +63,6 @@ public class VideoRRFragment extends BaseFragment {
             // 将数据加载逻辑放到onResume()方法中
             initData();
             querynewsItem(CHANNELID);
-
             isFirstLoad = false;
         }
         setRefresh();
@@ -100,13 +98,10 @@ public class VideoRRFragment extends BaseFragment {
                     public void onItemClick(RecyclerView parent, View view, int position) {
                         TextView textView= (TextView) view.findViewById(R.id.content);
                         textView.getText().toString();
-//                        System.out.println(2222+textView.getText().toString());
                         Intent i = new Intent(getContext(), VideoActivity.class);
                         System.out.println();
                         i.putExtra("share_url", textView.getText().toString());
                         startActivity(i);
-
-                        Toast.makeText(mActivity,"点击事件"+textView.getText().toString(),Toast.LENGTH_SHORT).show();
                     }
                 });
                 adapter.setOnItemLongClickListener(new CommonRecyclerAdapter.OnItemLongClickListener() {

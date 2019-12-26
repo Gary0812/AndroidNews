@@ -100,13 +100,13 @@ public class Video31Fragment extends BaseFragment {
                     public void onItemClick(RecyclerView parent, View view, int position) {
                         TextView textView= (TextView) view.findViewById(R.id.content);
                         textView.getText().toString();
-//                        System.out.println(2222+textView.getText().toString());
+//
                         Intent i = new Intent(getContext(), VideoActivity.class);
                         System.out.println();
                         i.putExtra("share_url", textView.getText().toString());
                         startActivity(i);
 
-                        Toast.makeText(mActivity,"点击事件"+textView.getText().toString(),Toast.LENGTH_SHORT).show();
+
                     }
                 });
                 adapter.setOnItemLongClickListener(new CommonRecyclerAdapter.OnItemLongClickListener() {

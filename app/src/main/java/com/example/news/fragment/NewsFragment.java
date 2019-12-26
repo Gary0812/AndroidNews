@@ -189,7 +189,7 @@ public class NewsFragment extends BaseFragment implements OnBannerListener {
                         i.putExtra("share_title", share_title.getText().toString());
                         startActivity(i);
 
-                        Toast.makeText(mActivity,"点击事件"+textView.getText().toString(),Toast.LENGTH_SHORT).show();
+
                     }
                 });
                 adapter.setOnItemLongClickListener(new CommonRecyclerAdapter.OnItemLongClickListener() {
