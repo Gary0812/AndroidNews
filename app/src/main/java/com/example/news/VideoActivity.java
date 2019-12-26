@@ -37,7 +37,6 @@ public class VideoActivity extends AppCompatActivity {
             String title = bundle.getString("titles");
             String author = bundle.getString("authors");
             String publishdate = bundle.getString("publishdates");
-            System.out.println("7777"+video);
             Intent intent = new Intent(VideoActivity.this, vitamio.class);
             intent.putExtra("videourl",video);
             intent.putExtra("titles",title);
@@ -58,8 +57,7 @@ public class VideoActivity extends AppCompatActivity {
 
     }
 
-
-//   @Override
+    //   @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 ////
 //       super.onCreate(savedInstanceState);

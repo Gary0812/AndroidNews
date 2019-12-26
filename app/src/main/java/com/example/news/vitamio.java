@@ -51,6 +51,10 @@ public class vitamio extends AppCompatActivity {
         final VideoView  vov = findViewById(R.id.vov);
         data = getIntent();
         String svideo = data.getStringExtra("videourl");
+//        String share_docid = data.getStringExtra("share_docid");
+//        String share_time = data.getStringExtra("share_time");
+//        String share_title = data.getStringExtra("share_title");
+//        System.out.println("666666"+share_docid+share_time+share_title);
 
 
 

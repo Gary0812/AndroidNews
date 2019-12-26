@@ -55,14 +55,9 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
         show_news =(WebView) findViewById(R.id.show_news);
         mNewsInfoDao = new NewsInfoDao();
         helper = new MyDatabaseHelper(this, "TaiDB.db", null, 1);
-        data = getIntent();
-        share_url = data.getStringExtra("share_url");
-        share_docid = data.getStringExtra("share_docid");
-        share_title = data.getStringExtra("share_title");
-        share_time = data.getStringExtra("share_time");
-
-
-        show_news.loadUrl(share_url);
+//        data = getIntent();
+//        share_url = data.getStringExtra("share_url");
+//        show_news.loadUrl(share_url);
         image_drawer_home =(ImageView) findViewById(R.id.image_drawer_home);
         collect_news =(ImageView) findViewById(R.id.collect_news);
 //        toolbar = (Toolbar) findViewById(R.id.contentToolbar);
@@ -133,6 +128,9 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
         show_news =(WebView) findViewById(R.id.show_news);
         data = getIntent();
         share_url = data.getStringExtra("share_url");
+        share_docid = data.getStringExtra("share_docid");
+        share_title = data.getStringExtra("share_title");
+        share_time = data.getStringExtra("share_time");
         show_news.loadUrl(share_url);
         SharedPreferences sp = this.getSharedPreferences("show_news", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
@@ -146,16 +144,6 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 // 在开始加载网页时会回调
                 super.onPageStarted(view, url, favicon);
-                view.loadUrl("javascript:window.java_obj.showSource("
-                        + "document.getElementById('footerG').style.display='none');");
-                view.loadUrl("javascript:window.java_obj.showSource("
-                        + "document.getElementById('relatedInfo').style.display='none');");
-                view.loadUrl("javascript:window.java_obj.showSource("
-                        + "document.getElementById('mainNav').style.display='none');");
-                view.loadUrl("javascript:window.java_obj.showSource("
-                        + "document.getElementById('breadCrumbs').style.display='none');");
-                view.loadUrl("javascript:window.java_obj.showSource("
-                        + "document.getElementById('footer').style.display='none');");
             }
 
             @Override
@@ -253,8 +241,8 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
                if (sp.getString(share_url,"0").equals(share_url)){
                    //根据id移除收藏夹对应文章
                    SQLiteDatabase db = helper.getReadableDatabase();
-                   db.execSQL("delete from Collection_News where news_docid=?",
-                           new String[]{share_docid});
+                   db.execSQL("delete from Collection_News where news_url=?",
+                           new String[]{share_url});
                    db.close();
 //                   mNewsInfoDao.deleteDataById(share_docid);
                   editor.putString(share_url,"0");

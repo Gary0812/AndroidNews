@@ -24,6 +24,7 @@ import com.example.news.fragment.dummy.DummyContent;
 import com.example.news.fragment.dummy.DummyContent.DummyItem;
 import com.example.news.model.NewsVo;
 import com.example.news.utils.GsonUtil;
+import com.example.news.vitamio;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.TwoLevelHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
@@ -100,13 +101,11 @@ public class VideoRRFragment extends BaseFragment {
                     public void onItemClick(RecyclerView parent, View view, int position) {
                         TextView textView= (TextView) view.findViewById(R.id.content);
                         textView.getText().toString();
-//                        System.out.println(2222+textView.getText().toString());
                         Intent i = new Intent(getContext(), VideoActivity.class);
-                        System.out.println();
                         i.putExtra("share_url", textView.getText().toString());
                         startActivity(i);
 
-                        Toast.makeText(mActivity,"点击事件"+textView.getText().toString(),Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(mActivity,"点击事件"+textView.getText().toString(),Toast.LENGTH_SHORT).show();
                     }
                 });
                 adapter.setOnItemLongClickListener(new CommonRecyclerAdapter.OnItemLongClickListener() {

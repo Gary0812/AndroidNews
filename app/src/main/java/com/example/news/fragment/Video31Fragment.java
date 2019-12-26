@@ -106,7 +106,7 @@ public class Video31Fragment extends BaseFragment {
                         i.putExtra("share_url", textView.getText().toString());
                         startActivity(i);
 
-                        Toast.makeText(mActivity,"点击事件"+textView.getText().toString(),Toast.LENGTH_SHORT).show();
+//                        Toast.makeText(mActivity,"点击事件"+textView.getText().toString(),Toast.LENGTH_SHORT).show();
                     }
                 });
                 adapter.setOnItemLongClickListener(new CommonRecyclerAdapter.OnItemLongClickListener() {
