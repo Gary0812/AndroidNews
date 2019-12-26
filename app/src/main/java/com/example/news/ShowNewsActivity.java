@@ -1,6 +1,7 @@
 package com.example.news;
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -27,7 +28,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.news.model.NewsInfo;
 import com.example.news.utils.MyDatabaseHelper;
-import com.example.news.utils.NewsInfoDao;
+
 
 
 public class ShowNewsActivity extends AppCompatActivity implements View.OnClickListener {
@@ -44,7 +45,8 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
     private String pageDescription="";
     private String video;
     private Context context;
-    private NewsInfoDao mNewsInfoDao;
+
+    private ProgressDialog progressDialog;
     private MyDatabaseHelper helper;
 
     @Override
@@ -52,29 +54,17 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_show_news);
-        show_news =(WebView) findViewById(R.id.show_news);
-        mNewsInfoDao = new NewsInfoDao();
-        helper = new MyDatabaseHelper(this, "TaiDB.db", null, 1);
-        data = getIntent();
-        share_url = data.getStringExtra("share_url");
-        share_docid = data.getStringExtra("share_docid");
-        share_title = data.getStringExtra("share_title");
-        share_time = data.getStringExtra("share_time");
 
 
-        show_news.loadUrl(share_url);
-        image_drawer_home =(ImageView) findViewById(R.id.image_drawer_home);
-        collect_news =(ImageView) findViewById(R.id.collect_news);
-//        toolbar = (Toolbar) findViewById(R.id.contentToolbar);
-//        toolbar.setTitle("融视频 - 文章内容");
-        image_drawer_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ShowNewsActivity.this.finish();
-            }
-        });
+
 
         initView();
+}
+
+    private void initView() {
+        show_news =(WebView) findViewById(R.id.show_news);
+
+        helper = new MyDatabaseHelper(this, "TaiDB.db", null, 1);
         // 启用支持JavaScript
         WebSettings webSettings = show_news.getSettings();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
@@ -107,33 +97,22 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
 
         webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
         webSettings.setSupportMultipleWindows(true);
-        show_news.setWebChromeClient(new WebChromeClient() {
-
-//            @Override
-//
-//            public void onReceivedTitle(WebView view, String title) {
-//                tv_title.setText(title);
-//            }
-//            //加载进度显示
-//            @Override
-//            public void onProgressChanged(WebView view, int newProgress) {
-//                if (newProgress < 100) {
-//                    contentt.setText(newProgress + "%");
-//                } else {
-//                    contentt.setText("100%");
-//                }
-//            }
-        });
-
-        collect_news.setOnClickListener(this);
-
-}
-
-    private void initView() {
-        show_news =(WebView) findViewById(R.id.show_news);
         data = getIntent();
         share_url = data.getStringExtra("share_url");
+        share_docid = data.getStringExtra("share_docid");
+        share_title = data.getStringExtra("share_title");
+        share_time = data.getStringExtra("share_time");
         show_news.loadUrl(share_url);
+        image_drawer_home =(ImageView) findViewById(R.id.image_drawer_home);
+        image_drawer_home.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ShowNewsActivity.this.finish();
+            }
+        });
+
+        collect_news =(ImageView) findViewById(R.id.collect_news);
+        collect_news.setOnClickListener(this);
         SharedPreferences sp = this.getSharedPreferences("show_news", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         if(sp.getString(share_url, "0").equals(share_url)) {
@@ -141,26 +120,21 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
         }else {
             collect_news.setImageResource(R.mipmap.favorite);
         }
+        show_news.loadUrl(share_url);
         show_news.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 // 在开始加载网页时会回调
+
+
                 super.onPageStarted(view, url, favicon);
-                view.loadUrl("javascript:window.java_obj.showSource("
-                        + "document.getElementById('footerG').style.display='none');");
-                view.loadUrl("javascript:window.java_obj.showSource("
-                        + "document.getElementById('relatedInfo').style.display='none');");
-                view.loadUrl("javascript:window.java_obj.showSource("
-                        + "document.getElementById('mainNav').style.display='none');");
-                view.loadUrl("javascript:window.java_obj.showSource("
-                        + "document.getElementById('breadCrumbs').style.display='none');");
-                view.loadUrl("javascript:window.java_obj.showSource("
-                        + "document.getElementById('footer').style.display='none');");
+                showProgress("页面加载中");//开始加载动画
             }
 
             @Override
             public void onPageFinished(WebView view, String url) {
                 // 在结束加载网页时会回调
+                super.onPageFinished(view, url);
 
                 // 获取页面内容
                 view.loadUrl("javascript:window.java_obj.showSource("
@@ -182,23 +156,9 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
                 view.loadUrl("javascript:window.java_obj.showDescription("
                         + "document.querySelector('meta[name=\"share-description\"]').getAttribute('content')"
                         + ");");
-                view.loadUrl("javascript:window.java_obj.showDescription("
-                        + "document.querySelector('meta[name=\"share-description\"]').getAttribute('content')"
-                        + ");");
 
+                removeProgress();//当加载结束时移除动画
 
-//                String javascript =  "javascript:function hideOther() {"+
-//                        "document.getElementsById('header')[0].remove();" +
-//                        "document.getElementById('contentArea').style.display='none'"+
-//                        "document.getElementsByClassName('contentArea')[0].remove();}";
-//
-//                //创建方法
-//                view.loadUrl(javascript);
-//
-//                //加载方法
-//                view.loadUrl("javascript:hideOther();");
-
-                super.onPageFinished(view, url);
             }
 
             @Override
@@ -219,6 +179,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
                 return true;
             }
         });
+
     }
 
     public final class InJavaScriptLocalObj
@@ -292,5 +253,28 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
 
    }
 
+    //-----显示ProgressDialog
+    public void showProgress(String message) {
+        if (progressDialog == null) {
+            progressDialog = new ProgressDialog(ShowNewsActivity.this, ProgressDialog.STYLE_SPINNER);
+            progressDialog.setCancelable(false);//设置点击不消失
+        }
+        if (progressDialog.isShowing()) {
+            progressDialog.setMessage(message);
+        } else {
+            progressDialog.setMessage(message);
+            progressDialog.show();
+        }
+    }
+    //------取消ProgressDialog
+    public void removeProgress(){
+        if (progressDialog==null){
+            return;
+        }
+        if (progressDialog.isShowing()){
+            progressDialog.dismiss();
+        }
+
+    }
 
 }
