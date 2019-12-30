@@ -1,6 +1,6 @@
 package com.example.news;
 
-import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.os.Build;
 import android.os.Bundle;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.webkit.JavascriptInterface;
 import android.webkit.WebChromeClient;
@@ -19,13 +19,12 @@ import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 
-import com.example.news.model.NewsInfo;
+import com.example.news.utils.LoadingDialog;
 import com.example.news.utils.MyDatabaseHelper;
 import com.example.news.utils.NewsInfoDao;
 
@@ -40,7 +39,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
     private ImageView collect_news;
 //    private Toolbar toolbar;
     private ImageView image_drawer_home;
-
+    private ProgressDialog dialog = null;
     private String pageDescription="";
     private String video;
     private Context context;
@@ -83,55 +82,80 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
         //设置自适应屏幕，两者合用
 
         webSettings.setUseWideViewPort(true); //将图片调整到适合webview的大小
-
         webSettings.setLoadWithOverviewMode(true); // 缩放至屏幕的大小
-
         webSettings.setSupportZoom(true); //支持缩放，默认为true。是下面那个的前提。
-
         webSettings.setBuiltInZoomControls(true); //设置内置的缩放控件。若为false，则该WebView不可缩放
-
         webSettings.setDisplayZoomControls(false); //隐藏原生的缩放控件
-
-        webSettings.setCacheMode(WebSettings.LOAD_CACHE_ELSE_NETWORK); //关闭webview中缓存
-
+        webSettings.setCacheMode(WebSettings.LOAD_DEFAULT); //关闭webview中缓存LOAD_CACHE_ELSE_NETWORK
         webSettings.setAllowFileAccess(true); //设置可以访问文件
-
         webSettings.setJavaScriptCanOpenWindowsAutomatically(true); //支持通过JS打开新窗口
-
         webSettings.setLoadsImagesAutomatically(true); //支持自动加载图片
-
         webSettings.setDefaultTextEncodingName("utf-8");//设置编码格式
         webSettings.setSupportMultipleWindows(true);
-        show_news.setWebChromeClient(new WebChromeClient() {
 
-//            @Override
-//
-//            public void onReceivedTitle(WebView view, String title) {
-//                tv_title.setText(title);
-//            }
-//            //加载进度显示
-//            @Override
-//            public void onProgressChanged(WebView view, int newProgress) {
-//                if (newProgress < 100) {
-//                    contentt.setText(newProgress + "%");
-//                } else {
-//                    contentt.setText("100%");
-//                }
-//            }
-        });
-
+        // 进度条显示网页的加载过程
+      download();
+//        new LoadingDialog(this).setMessage("正在加载...").show();
         collect_news.setOnClickListener(this);
 
 }
+    private void download() {
+        show_news.setWebChromeClient(new WebChromeClient() {
+            @Override
+            public void onProgressChanged(WebView view, int newProgress) {
+
+                if (newProgress == 100) {
+                    // 加载完毕
+
+                    closeDialog(newProgress);
+
+                } else {
+
+                    openDialog(newProgress);
+                }
+                super.onProgressChanged(view, newProgress);
+            }
+
+            private void openDialog(int newProgress) {
+                if (dialog == null) {
+                 dialog = new ProgressDialog(ShowNewsActivity.this,R.style.dialog);
+//                    dialog.setTitle("提示");
+//                 dialog.setMessage("正在加载...");
+                 dialog.setProgressStyle(ProgressDialog.STYLE_SPINNER);
+                  dialog.setCancelable(true); // 能够返回
+                 dialog.setCanceledOnTouchOutside(true); // 点击外部返回
+                    dialog.setProgress(newProgress);
+
+                 dialog.show();
+                    dialog.setContentView(R.layout.view_progress);
+//                    dialog.setContentView(R.layout.loading);
+//                    WindowManager.LayoutParams attrs = dialog.getWindow().getAttributes();
+                    //attrs.setTitle("Title");
+//                    attrs.width =900;// attrs.width =580;
+//                    attrs.height =1600;// attrs.height = 600;
+//                    dialog.getWindow().setAttributes(attrs);
+                } else {
+                    dialog.setProgress(newProgress);
+                }
+            }
+            private void closeDialog(int newProgress) {
+                if (dialog != null && dialog.isShowing()) {
+                    dialog.dismiss();
+                    dialog = null;
+                }
+            }
+   });
+   }
 
     private void initView() {
+
         show_news =(WebView) findViewById(R.id.show_news);
         data = getIntent();
         share_url = data.getStringExtra("share_url");
         share_docid = data.getStringExtra("share_docid");
         share_title = data.getStringExtra("share_title");
         share_time = data.getStringExtra("share_time");
-        show_news.loadUrl(share_url);
+            show_news.loadUrl(share_url);
         SharedPreferences sp = this.getSharedPreferences("show_news", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
         if(sp.getString(share_url, "0").equals(share_url)) {
@@ -144,12 +168,12 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 // 在开始加载网页时会回调
                 super.onPageStarted(view, url, favicon);
+
             }
 
             @Override
             public void onPageFinished(WebView view, String url) {
                 // 在结束加载网页时会回调
-
                 // 获取页面内容
                 view.loadUrl("javascript:window.java_obj.showSource("
                         + "document.getElementsByTagName('html')[0].innerHTML);");
@@ -279,6 +303,5 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
         }
 
    }
-
 
 }
