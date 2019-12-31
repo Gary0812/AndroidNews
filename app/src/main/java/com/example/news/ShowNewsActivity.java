@@ -263,7 +263,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
       switch(v.getId()) {
           case R.id.collect_news:
                if (sp.getString(share_url,"0").equals(share_url)){
-                   //根据id移除收藏夹对应文章
+                   //根据share_url移除收藏夹对应文章
                    SQLiteDatabase db = helper.getReadableDatabase();
                    db.execSQL("delete from Collection_News where news_url=?",
                            new String[]{share_url});

@@ -156,7 +156,9 @@ private  TextView app_collect_info;
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.nav_home :
+                        getActivity().finish();
                         Intent mainIntent = new Intent(getContext(), MainActivity.class);
+                        mainIntent.addCategory(Intent.CATEGORY_HOME);
                         startActivity(mainIntent);
                         break;
                     case R.id.nav_sousiba :
