@@ -65,6 +65,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="20dp"
         android:text="中国台湾网"
+        android:textStyle="bold"
         android:textColor="@color/colorBlack"
         android:textSize="18dp"
         app:layout_constraintEnd_toEndOf="@+id/activity_splash"
