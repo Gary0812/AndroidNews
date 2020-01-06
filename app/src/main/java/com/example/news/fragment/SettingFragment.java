@@ -18,6 +18,7 @@ import com.example.news.MainActivity;
 import com.example.news.R;
 import com.example.news.utils.DataCleanManager;
 import com.example.news.utils.PrefUtilS;
+import com.example.news.utils.ThemeUtil;
 
 public class SettingFragment extends BaseFragment implements View.OnClickListener {
     private View view;
@@ -31,6 +32,7 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        ThemeUtil.setBaseTheme(getContext());
         view = inflater.inflate(R.layout.activity_setting, container, false);
         image_drawer_home =view.findViewById(R.id.image_drawer_home);
         image_drawer_home.setOnClickListener(new View.OnClickListener() {
