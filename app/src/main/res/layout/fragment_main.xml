@@ -13,7 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:background="#F44336"
+            android:background="?attr/mainColor"
             android:orientation="horizontal">
 
             <LinearLayout
@@ -47,8 +47,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="#FFFFFF"
-            app:tabIndicatorColor="#FF0000"
-            app:tabSelectedTextColor="#FF0000"
+            app:tabIndicatorColor="?attr/mainBgColor"
+            app:tabSelectedTextColor="?attr/mainBgColor"
             app:tabTextAppearance="@style/tablayoutIcon"
             app:tabTextColor="#5A5959">
 

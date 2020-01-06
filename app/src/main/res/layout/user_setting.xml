@@ -10,10 +10,10 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/toolbar"
-        app:navigationIcon="@drawable/background"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
+        app:navigationIcon="@drawable/background"
         app:titleTextColor="#fff"></androidx.appcompat.widget.Toolbar>
 
     <LinearLayout
@@ -32,15 +32,17 @@
             android:textSize="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:layout_width="30dp"
-            android:src="@mipmap/man"
-            android:layout_height="30dp" />
+            android:layout_height="30dp"
+            android:src="@mipmap/man" />
+
         <ImageView
-            android:layout_gravity="center"
-            android:src="@drawable/background"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/background" />
     </LinearLayout>
     <LinearLayout
         android:id="@+id/lineinfo"

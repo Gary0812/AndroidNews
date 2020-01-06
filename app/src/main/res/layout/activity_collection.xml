@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#F44336"
+        android:background="?attr/mainColor"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -33,6 +33,12 @@
                 android:text="收藏夹"
                 android:textColor="@color/colorWhite"
                 android:textSize="15sp" />
+            <View
+                android:id="@+id/menu_pop"
+                android:layout_width="1dp"
+                android:layout_height="1dp"
+                android:layout_gravity="right"
+                android:layout_marginRight="10dp" />
         </LinearLayout>
 
     </LinearLayout>

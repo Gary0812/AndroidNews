@@ -5,13 +5,19 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.PopupWindow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +30,8 @@ import com.example.news.model.NewsVo;
 import com.example.news.utils.GsonUtil;
 import com.example.news.utils.MyDatabaseHelper;
 import com.example.news.utils.NewsInfoDao;
+import com.example.news.utils.ThemeUtil;
+
 import java.util.ArrayList;
 import java.util.List;
 import org.xutils.x;
@@ -39,10 +47,13 @@ public class CollectionActivity  extends AppCompatActivity implements NewsAdapte
     private ImageView image_drawer_home;
     private NewsAdapter adapter;
     private MyDatabaseHelper helper;
-
+    private CollectionActivity mContext;
+    private PopupWindow popupWindow;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ThemeUtil.setBaseTheme(this);
+        mContext = this;
         setContentView(R.layout.activity_collection);
         helper = new MyDatabaseHelper(this, "TaiDB.db", null, 1);
 
@@ -160,4 +171,6 @@ public class CollectionActivity  extends AppCompatActivity implements NewsAdapte
 //        adapter.notifyDataSetChanged();
 //        Toast.makeText(this, "该新闻已被移除收藏夹！", Toast.LENGTH_SHORT).show();
     }
+
+
 }

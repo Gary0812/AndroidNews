@@ -22,8 +22,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/nav_host_fragment"
         android:layout_alignParentBottom="true"
-
-        android:background="?android:attr/windowBackground"
+        android:background="?attr/mainColor"
         app:menu="@menu/bottom_nav_menu" />
 
 

@@ -7,7 +7,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:background="#F44336"
+        android:background="?attr/mainColor"
         android:orientation="horizontal">
         <ImageView
             android:id="@+id/image_drawer_home"
@@ -37,28 +37,33 @@
 
     <ImageView
         android:id="@+id/shangchuan_head"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
         android:layout_gravity="center"
         android:layout_margin="10dp"
         android:src="@drawable/shangchuan"/>
     <EditText
         android:id="@+id/register_phone"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
-        android:hint="请输入手机号" />
+        android:hint="请输入手机号"
+
+        />
 
     <EditText
         android:id="@+id/register_username"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:hint="请输入用户名" />
 
     <EditText
         android:id="@+id/register_password"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
         android:layout_margin="10dp"
         android:layout_height="wrap_content"
         android:hint="请输入用户密码"
@@ -66,7 +71,8 @@
 
     <EditText
         android:id="@+id/register_repassword"
-        android:layout_width="match_parent"
+        android:layout_width="300dp"
+        android:layout_gravity="center"
         android:layout_height="wrap_content"
         android:layout_margin="10dp"
         android:hint="请再次输入密码"
@@ -87,6 +93,8 @@
         android:id="@+id/btn_code"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:background="?attr/mainBgColor"
+        android:textColor="?attr/colorAccent"
         android:text="获取验证码"></Button>
     </LinearLayout>
     <CheckBox

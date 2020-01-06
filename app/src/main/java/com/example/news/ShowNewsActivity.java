@@ -27,6 +27,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.example.news.utils.LoadingDialog;
 import com.example.news.utils.MyDatabaseHelper;
 import com.example.news.utils.NewsInfoDao;
+import com.example.news.utils.ThemeUtil;
 
 
 public class ShowNewsActivity extends AppCompatActivity implements View.OnClickListener {
@@ -50,6 +51,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        ThemeUtil.setBaseTheme(this);
         setContentView(R.layout.activity_show_news);
         show_news =(WebView) findViewById(R.id.show_news);
         mNewsInfoDao = new NewsInfoDao();
@@ -125,8 +127,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
                   dialog.setCancelable(true); // 能够返回
                  dialog.setCanceledOnTouchOutside(true); // 点击外部返回
                     dialog.setProgress(newProgress);
-
-                 dialog.show();
+                     dialog.show();
                     dialog.setContentView(R.layout.view_progress);
 //                    dialog.setContentView(R.layout.loading);
 //                    WindowManager.LayoutParams attrs = dialog.getWindow().getAttributes();

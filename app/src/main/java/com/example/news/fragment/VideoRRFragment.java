@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,6 +25,7 @@ import com.example.news.fragment.dummy.DummyContent;
 import com.example.news.fragment.dummy.DummyContent.DummyItem;
 import com.example.news.model.NewsVo;
 import com.example.news.utils.GsonUtil;
+import com.example.news.utils.ThemeUtil;
 import com.example.news.vitamio;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 import com.scwang.smartrefresh.layout.header.TwoLevelHeader;
@@ -48,10 +50,12 @@ public class VideoRRFragment extends BaseFragment {
     private  final  String CHANNELID="59994";
     private View view;
     private MyAdapter adapter;
+    private ImageView collect_news;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ThemeUtil.setBaseTheme(getContext());
         view = inflater.inflate(R.layout.fragment_rritem_list, container, false);
 
         initView();
@@ -76,7 +80,6 @@ public class VideoRRFragment extends BaseFragment {
 
         recyclerView = view.findViewById(R.id.list);
         refreshLayout = view.findViewById(R.id.refreshLayout);
-
         return null;
     }
     public void querynewsItem(String channelId) {
@@ -99,15 +102,18 @@ public class VideoRRFragment extends BaseFragment {
                 adapter.setOnItemClickListener(new CommonRecyclerAdapter.OnItemClickListener() {
                     @Override
                     public void onItemClick(RecyclerView parent, View view, int position) {
+
                         TextView textView= (TextView) view.findViewById(R.id.content);
-                        textView.getText().toString();
-                        Intent i = new Intent(getContext(), VideoActivity.class);
-                        i.putExtra("share_url", textView.getText().toString());
+                        String urll= textView.getText().toString();
+                        Intent i = new Intent(getContext(),VideoActivity.class);
+                        i.putExtra("share_url", urll);
                         startActivity(i);
 
 //                        Toast.makeText(mActivity,"点击事件"+textView.getText().toString(),Toast.LENGTH_SHORT).show();
                     }
                 });
+
+
                 adapter.setOnItemLongClickListener(new CommonRecyclerAdapter.OnItemLongClickListener() {
                     @Override
                     public boolean onItemLongClick(RecyclerView parent, View view, int position) {

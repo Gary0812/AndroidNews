@@ -21,6 +21,7 @@ import android.widget.Toast;
 import com.example.news.R;
 import com.example.news.model.UserVo;
 import com.example.news.utils.AESUtil;
+import com.example.news.utils.ThemeUtil;
 import com.example.news.utils.XUtilsDate;
 import com.example.news.utils.XmlParserUtils;
 
@@ -54,7 +55,7 @@ public class RegistFragment extends BaseFragment implements View.OnClickListener
     };
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        ThemeUtil.setBaseTheme(getContext());
         view = inflater.inflate(R.layout.activity_register, container, false);
 
 initView();

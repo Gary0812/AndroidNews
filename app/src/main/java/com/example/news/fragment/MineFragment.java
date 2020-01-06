@@ -33,6 +33,7 @@ import com.example.news.ShowNewsActivity;
 import com.example.news.model.UserVo;
 import com.example.news.utils.AESUtil;
 import com.example.news.utils.PrefUtilS;
+import com.example.news.utils.ThemeUtil;
 import com.example.news.utils.XUtilsDate;
 import com.example.news.utils.XmlParserUtils;
 
@@ -97,7 +98,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,X
     private TextView collection;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        ThemeUtil.setBaseTheme(getContext());
         boolean show= PrefUtilS.getUserBoolean(mActivity,"is_user",false);
         view = inflater.inflate(R.layout.activity_mine, container, false);
         String username=PrefUtilS.getUser(mActivity,"username",null);

@@ -43,7 +43,13 @@
         <item name="colorControlNormal">#4E4D4D</item>
         <item name="colorControlActivated">@android:color/holo_orange_dark</item>
     </style>
-
+    <style name="aboutDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="android:windowBackground">@color/white_dark</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowIsFloating">true</item>
+        <item name="android:backgroundDimEnabled">true</item>
+    </style>
     <style name="dialog" parent="@android:style/Theme.Dialog">
         <item name="android:windowFrame">@null</item>边框
         <item name="android:windowIsFloating">true</item><!--是否浮现在activity之上-->
@@ -53,8 +59,73 @@
         <!-- <item name="android:windowContentOverlay">@null</item> -->
     </style>
 
+    <!--白天主题-->
+      <style name="dayTheme" parent="AppTheme">
+          <item name="android:textColor">#525252</item>
+          <item name="android:background">#f7f7f7</item>
+    </style>
+
+    <!--夜间主题-->
+      <style name="nightTheme" parent="AppTheme">
+          <item name="android:textColor">#868a96</item>
+         <item name="android:background">#1e1e2a </item>
+    </style>
 
 
+    <style name="AppThemeNoAction" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="mainBgColor">#BBDEFB</item>
+        <item name="mainColor">#2196F3</item>
+    </style>
+    <!--换肤-->
+    <style name="AppThemeNoAction.Green">
+        <item name="colorPrimary">#005803</item>
+        <item name="colorPrimaryDark">#388E3C</item>
+        <item name="colorAccent">#014601</item>
+        <item name="mainBgColor">#78D87D</item>
+        <item name="mainColor">#4CAF50</item>
+    </style>
+
+    <style name="AppThemeNoAction.Blue">
+        <item name="colorPrimary">#003761</item>
+        <item name="colorPrimaryDark">#1976D2</item>
+        <item name="colorAccent">#F3F5F3</item>
+        <item name="mainBgColor">#5094C7</item>
+        <item name="mainColor">#2196F3</item>
+    </style>
+
+    <style name="AppThemeNoAction.Yellow">
+        <item name="colorPrimary">#FF5722</item>
+        <item name="colorPrimaryDark">#FFC107</item>
+        <item name="colorAccent">#631801</item>
+        <item name="mainBgColor">#FFEB3B</item>
+        <item name="mainColor">#FFC107</item>
+    </style>
+
+    <style name="AppThemeNoAction.Grey">
+        <item name="colorPrimary">#3F4547</item>
+        <item name="colorPrimaryDark">#455A64</item>
+        <item name="colorAccent">#58575A</item>
+        <item name="mainBgColor">#CFD8DC</item>
+        <item name="mainColor">#607D8B</item>
+    </style>
+    <style name="AppThemeNoAction.Red">
+        <item name="colorPrimary">#550000</item>
+        <item name="colorPrimaryDark">#F32020</item>
+        <item name="colorAccent">#F3F5F3</item>
+        <item name="mainBgColor">#DB3A3A</item>
+        <item name="mainColor">#F32020</item>
+    </style>
+    <style name="AppThemeNoAction.White">
+        <item name="colorPrimary">#C24141</item>
+        <item name="colorPrimaryDark">#F08080</item>
+        <item name="colorAccent">#070707</item>
+        <item name="mainBgColor">#DFC5C5</item>
+        <item name="mainColor">#F08080</item>
+    </style>
 
 
 

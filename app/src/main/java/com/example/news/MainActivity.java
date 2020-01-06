@@ -20,6 +20,7 @@ import com.example.news.fragment.SettingFragment;
 import com.example.news.fragment.VideoFragment;
 import com.example.news.model.UserVo;
 import com.example.news.utils.PrefUtilS;
+import com.example.news.utils.ThemeUtil;
 import com.example.news.utils.XUtilsDate;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -95,7 +96,7 @@ protected void onResume() {
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
+        ThemeUtil.setBaseTheme(this);
         setContentView(R.layout.activity_main);
 
 

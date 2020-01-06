@@ -95,12 +95,14 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                 LoginFragment loginFragment=new LoginFragment();
                 PrefUtilS.clear(context);
                 showFragment(SettingFragment.this,loginFragment);
-
                 break;
             case R.id.app_shouye:
                 Intent intent=new Intent();
                 intent.setClass(mActivity,MainActivity.class);
                 mActivity.startActivity(intent);
+                break;
+            case R.id.about_app:
+                DiyDialog2();
                 break;
         }
     }
@@ -128,5 +130,12 @@ public class SettingFragment extends BaseFragment implements View.OnClickListene
                     // 提交事务
                     .commitAllowingStateLoss();
         }
+    }
+    private void DiyDialog2() {
+        AlertDialog.Builder alterDiaglog = new AlertDialog.Builder(getContext(),R.style.aboutDialog);
+        alterDiaglog.setView(R.layout.dialog_about);//加载进去
+        AlertDialog dialog = alterDiaglog.create();
+        //显示
+        dialog.show();
     }
 }
