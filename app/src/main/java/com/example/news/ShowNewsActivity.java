@@ -23,8 +23,6 @@ import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-
-import com.example.news.utils.LoadingDialog;
 import com.example.news.utils.MyDatabaseHelper;
 import com.example.news.utils.NewsInfoDao;
 import com.example.news.utils.ThemeUtil;
