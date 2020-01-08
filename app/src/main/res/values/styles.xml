@@ -74,11 +74,11 @@
 
     <style name="AppThemeNoAction" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="mainBgColor">#BBDEFB</item>
-        <item name="mainColor">#2196F3</item>
+        <item name="colorPrimary">#550000</item>
+        <item name="colorPrimaryDark">#F32020</item>
+        <item name="colorAccent">#F3F5F3</item>
+        <item name="mainBgColor">#DB3A3A</item>
+        <item name="mainColor">#F32020</item>
     </style>
     <!--换肤-->
     <style name="AppThemeNoAction.Green">
