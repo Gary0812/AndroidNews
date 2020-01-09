@@ -41,7 +41,40 @@
                 android:layout_marginRight="10dp" />
         </LinearLayout>
 
+
     </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/collection_empty_view"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:visibility="gone"
+
+        >
+
+        <ImageView
+            android:id="@+id/imagew"
+            android:layout_width="match_parent"
+            android:layout_height="150dp"
+            android:src="@mipmap/mine"
+            android:layout_centerInParent="true"
+            android:layout_marginEnd="200dp"
+
+            />
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/imagew"
+            android:layout_marginTop="80dp"
+            android:layout_marginRight="300dp"
+            android:layout_centerHorizontal="true"
+            android:text="您还没有收藏哦!">
+
+        </TextView>
+
+    </RelativeLayout>
+
 
     <ListView
         android:id="@+id/listview_collection"

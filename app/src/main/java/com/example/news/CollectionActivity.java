@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -49,6 +50,7 @@ public class CollectionActivity  extends AppCompatActivity implements NewsAdapte
     private MyDatabaseHelper helper;
     private CollectionActivity mContext;
     private PopupWindow popupWindow;
+    private RelativeLayout mEmptyView;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -57,6 +59,8 @@ public class CollectionActivity  extends AppCompatActivity implements NewsAdapte
         setContentView(R.layout.activity_collection);
         helper = new MyDatabaseHelper(this, "TaiDB.db", null, 1);
 
+
+        mEmptyView =(RelativeLayout)findViewById(R.id.collection_empty_view);
 
 //        tm =(TextView) findViewById(R.id.news_item_date);
         image_drawer_home =(ImageView) findViewById(R.id.image_drawer_home);
@@ -114,6 +118,7 @@ public class CollectionActivity  extends AppCompatActivity implements NewsAdapte
                         @Override
                         public void run() {
                             Toast.makeText(getApplicationContext(), "收藏夹为空！", Toast.LENGTH_SHORT).show();
+                            mEmptyView.setVisibility(View.VISIBLE);
                         }
                     });
                 }
