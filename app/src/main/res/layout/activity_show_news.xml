@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="20"
             android:layout_gravity="center_horizontal"
-            android:text="融视频"
+            android:text="融视频-详情"
             android:textColor="@color/colorWhite"
             android:textSize="20sp" />
 
