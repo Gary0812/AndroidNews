@@ -56,7 +56,7 @@
         <ImageView
             android:id="@+id/imagew"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="100dp"
             android:src="@mipmap/mine"
             android:layout_centerInParent="true"
             android:layout_marginEnd="200dp"
@@ -67,7 +67,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/imagew"
             android:layout_marginTop="80dp"
-            android:layout_marginRight="300dp"
+            android:layout_marginRight="150dp"
+            android:layout_marginLeft="100dp"
             android:layout_centerHorizontal="true"
             android:text="您还没有收藏哦!">
 
