@@ -16,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,7 +62,7 @@ public class UpdatePswFragment extends BaseFragment implements View.OnClickListe
     private EditText register_yzm;
     private EditText newPassword;
     private String mobile;
-
+ private ImageView image_drawer_home;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -79,9 +80,10 @@ public class UpdatePswFragment extends BaseFragment implements View.OnClickListe
         register_phone = view.findViewById(R.id.register_phone);
         btn_code.setOnClickListener(this);
         save_user.setOnClickListener(this);
+        image_drawer_home = (ImageView) view.findViewById(R.id.image_drawer_home);
+        image_drawer_home.setOnClickListener(this);
         return null;
     }
-
 
     @Override
     public void onClick(View v) {
@@ -98,6 +100,9 @@ public class UpdatePswFragment extends BaseFragment implements View.OnClickListe
                 break;
             case R.id.save_user:
                 updatePsw();
+                break;
+            case R.id.image_drawer_home:
+                getFragmentManager().popBackStack();
                 break;
         }
 

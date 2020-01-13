@@ -13,12 +13,14 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             + "news_title text,"
             + "news_date text,"
             + "news_url text,"
+            + "news_type text,"
             + "news_docid text)";
     public static final String CREATE_COLLECTION_NEWS = "create table Collection_News ("
             + "id integer primary key autoincrement,"
             + "news_title text,"
             + "news_date text,"
             + "news_url text,"
+            + "news_type text,"
             + "news_docid text)";
 
     public MyDatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {

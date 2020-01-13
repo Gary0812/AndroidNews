@@ -31,7 +31,7 @@ import com.example.news.utils.MyDatabaseHelper;
 
 
 
-public class ShowNewsActivity extends AppCompatActivity implements View.OnClickListener {
+public class ShowNewsActivity extends BaseActivity implements View.OnClickListener {
     private WebView show_news;
     private Intent data;
     private String share_url;
@@ -186,12 +186,7 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
     {
         @JavascriptInterface
         public void showSource(String html) {
-//            Document document = Jsoup.parse(html);
-//            String elements = document.getElementsByTag("video").attr("src");
-//            Log.d("LOGCAT","description:"+elements);
-//            Intent intent = new Intent(ShowNewsActivity.this,vitamio.class);
-//            intent.putExtra("url",elements);
-//            startActivity(intent);
+
 
         }
 
@@ -226,20 +221,13 @@ public class ShowNewsActivity extends AppCompatActivity implements View.OnClickL
              }
 
         editor.putString(share_url, share_url);
-//              List<NewsInfo> list = new ArrayList<>();
-//              NewsInfo newsInfo;
-//              newsInfo = new NewsInfo();
-//              newsInfo.setId(share_docid);
-//              newsInfo.setTitle(share_title);
-//              newsInfo.setTime(share_time);
-//              newsInfo.setType(share_url);
-//              list.add(newsInfo);
-//        mNewsInfoDao.addData(list);
+
               SQLiteDatabase db = helper.getWritableDatabase();
 
               ContentValues values = new ContentValues();
               //组装数据
               values.put("news_url", share_url);
+              values.put("news_type", "news");
               values.put("news_title", share_title);
               values.put("news_date", share_time);
               values.put("news_docid", share_docid);

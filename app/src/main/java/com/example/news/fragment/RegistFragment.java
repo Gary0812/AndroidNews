@@ -14,7 +14,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -37,6 +39,7 @@ public class RegistFragment extends BaseFragment implements View.OnClickListener
     private EditText register_yzm;
     private EditText register_phone;
     private Button myButton;
+    private ImageView  image_drawer_home;
     private int countSeconds = 120;//倒计时秒数
     private Handler mCountHandler = new Handler() {
         @Override
@@ -52,6 +55,8 @@ public class RegistFragment extends BaseFragment implements View.OnClickListener
             }
         }
     };
+    private CheckBox checkbox_tiaokuan;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -75,6 +80,10 @@ initView();
         myButton.setOnClickListener(this);
         save_user.setOnClickListener(this);
         register_phone = view.findViewById(R.id.register_phone);
+        checkbox_tiaokuan = view.findViewById(R.id.checkbox_tiaokuan);
+        image_drawer_home = (ImageView) view.findViewById(R.id.image_drawer_home);
+        image_drawer_home.setOnClickListener(this);
+
         return view;
     }
 
@@ -97,18 +106,37 @@ initView();
                 String moblie = register_phone.getText().toString().trim();
                 String password = register_password.getText().toString().trim();
                 String username = register_username.getText().toString().trim();
+                String repassword  = register_repassword.getText().toString().trim();
                 String code = register_yzm.getText().toString().trim();
-                //String IMEI=getIMEI(context);
-                String IMEI = XmlParserUtils.getMacFromHardware();
-                XUtilsDate xUtils = new XUtilsDate();
-                xUtils.setmList(RegistFragment.this);
-                UserVo userVo = new UserVo();
-                userVo.setCode(code);
-                userVo.setIMEI(IMEI);
-                userVo.setUsername(username);
-                userVo.setMoblie(moblie);
-                userVo.setPassword(AESUtil.encrypt(password));
-                xUtils.onUserPost(view, userVo);
+
+                if (!checkbox_tiaokuan.isChecked()) {
+                    Toast.makeText(mActivity, "请同意融视频条款", Toast.LENGTH_SHORT).show();
+                }
+             else   if (!repassword.equals(password)) {
+                    Toast.makeText(mActivity, "密码输入不一致", Toast.LENGTH_SHORT).show();
+                }
+               else if (!moblie.equals("")&&!password.equals("")&&!username.equals("")&&!code.equals("")) {
+                    //String IMEI=getIMEI(context);
+                    String IMEI = XmlParserUtils.getMacFromHardware();
+                    XUtilsDate xUtils = new XUtilsDate();
+                    xUtils.setmList(RegistFragment.this);
+                    UserVo userVo = new UserVo();
+                    userVo.setCode(code);
+                    userVo.setIMEI(IMEI);
+                    userVo.setUsername(username);
+                    userVo.setMoblie(moblie);
+                    userVo.setPassword(AESUtil.encrypt(password));
+                    xUtils.onUserPost(view, userVo);
+                }else
+                {
+                    Toast.makeText(mActivity, "请填写注册信息", Toast.LENGTH_SHORT).show();
+                }
+
+                break;
+
+
+            case R.id.image_drawer_home:
+                getFragmentManager().popBackStack();
                 break;
             default:
                 throw new IllegalStateException("Unexpected value: " + id);

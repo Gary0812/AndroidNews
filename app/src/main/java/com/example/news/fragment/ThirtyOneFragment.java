@@ -22,8 +22,10 @@ import com.example.news.adapter.CommonRecyclerAdapter;
 import com.example.news.adapter.MyAdapter;
 import com.example.news.model.NewsVo;
 import com.example.news.utils.GsonUtil;
+import com.scwang.smartrefresh.header.StoreHouseHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.header.TwoLevelHeader;
+
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
@@ -45,6 +47,8 @@ public class ThirtyOneFragment extends BaseFragment {
     private View view;
     private MyAdapter adapter;
     private boolean isFirstLoad = true; // 是否第一次加载
+    private List list;
+
     public ThirtyOneFragment() {
 
     }
@@ -107,13 +111,13 @@ public class ThirtyOneFragment extends BaseFragment {
         x.http().request(HttpMethod.POST, params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                List list=new ArrayList();
-                list= GsonUtil.jsonToList(result, NewsVo.class);
+                list = new ArrayList();
+                list = GsonUtil.jsonToList(result, NewsVo.class);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity);
                 linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerView.setLayoutManager(linearLayoutManager);
                 //设置ReCycleView所需的adapter
-                adapter = new MyAdapter(mActivity,R.layout.taiwan_item,list, type);
+                adapter = new MyAdapter(mActivity,R.layout.taiwan_item, list, type);
                 adapter.notifyDataSetChanged();
                 recyclerView.setAdapter(adapter);
                 adapter.setOnItemClickListener(new CommonRecyclerAdapter.OnItemClickListener() {
@@ -174,12 +178,13 @@ public class ThirtyOneFragment extends BaseFragment {
 
     private void setRefresh() {
         refreshLayout = view.findViewById(R.id.refreshLayout);
-        refreshLayout.setRefreshHeader(new TwoLevelHeader(getActivity()));
+        refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
                 querynewsItem(CHANNELID);
+                adapter = new MyAdapter(getActivity(),R.layout.taiwan_item, list, type);
                 adapter.notifyDataSetChanged();
                 refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败
             }

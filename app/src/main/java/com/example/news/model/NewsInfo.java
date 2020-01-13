@@ -15,20 +15,6 @@ public class NewsInfo {
     @Column(name = "title")
     private String title;
 
-    @Column(name = "time")
-    private String time;
-
-    @Column(name = "type")
-    private String type;
-
-    public NewsInfo(String news_title, String news_url, String news_date,String news_docid) {
-        this.title=news_title;
-        this.time =news_date;
-        this.type= news_url;
-        this.id= news_docid;
-    }
-
-
     public String getId() {
         return id;
     }
@@ -53,6 +39,14 @@ public class NewsInfo {
         this.time = time;
     }
 
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
     public String getType() {
         return type;
     }
@@ -60,6 +54,24 @@ public class NewsInfo {
     public void setType(String type) {
         this.type = type;
     }
+
+    @Column(name = "time")
+    private String time;
+
+    @Column(name = "url")
+    private String url;
+    @Column(name = "type")
+    private String type;
+
+    public NewsInfo(String news_title, String news_url, String news_date,String news_docid,String news_type) {
+        this.title=news_title;
+        this.time =news_date;
+        this.url= news_url;
+        this.id= news_docid;
+        this.type= news_type;
+    }
+
+
 
 
 }

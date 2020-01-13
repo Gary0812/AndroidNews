@@ -23,8 +23,10 @@ import com.example.news.adapter.CommonRecyclerAdapter;
 import com.example.news.adapter.MyAdapter;
 import com.example.news.model.NewsVo;
 import com.example.news.utils.GsonUtil;
+import com.scwang.smartrefresh.header.StoreHouseHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.header.TwoLevelHeader;
+
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 import com.youth.banner.Banner;
@@ -57,6 +59,8 @@ public class NewsFragment extends BaseFragment implements OnBannerListener {
     private String result;
     private  final  String CHANNELID="59990";
     private boolean isFirstLoad = true; // 是否第一次加载
+    private String share_url;
+
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.fragment_news, container, false);
@@ -87,13 +91,13 @@ public class NewsFragment extends BaseFragment implements OnBannerListener {
         list_title = new ArrayList<>();
 
         list_path.add("http://www.taiwan.cn/xwzx/la/201912/W020191225454951233530.jpg");
-        list_path.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic259ohaj30ci08c74r.jpg");
-        list_path.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2b16zuj30ci08cwf4.jpg");
-        list_path.add("http://ww4.sinaimg.cn/large/006uZZy8jw1faic2e7vsaj30ci08cglz.jpg");
-        list_title.add("好好学习");
-        list_title.add("天天向上");
-        list_title.add("热爱劳动");
-        list_title.add("不搞对象");
+        list_path.add("http://www.taiwan.cn/taiwan/jsxw/201912/W020191225358156846020.jpg");
+        list_path.add("http://www.taiwan.cn/xwzx/la/201906/W020190603630421436630.jpg");
+        list_path.add("http://www.taiwan.cn/local/dfkx/201904/W020190415602878645969.jpg");
+        list_title.add("国台办12月25日举行例行新闻发布会");
+        list_title.add("韩国瑜上脱口秀节目播出9小时逾88万人观看");
+        list_title.add("【融融观粤】台媒报道中的大湾区");
+        list_title.add("【31条在山东】");
         //设置内置样式，共有六种可以点入方法内逐一体验使用。
         banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE_INSIDE);
         //设置图片加载器，图片加载器在下方
@@ -125,19 +129,24 @@ public class NewsFragment extends BaseFragment implements OnBannerListener {
     public void OnBannerClick(int position) {
         switch (position){
             case 0:
-                Intent i = new Intent(getContext(),ShowNewsActivity.class);
-                String share_url ="http://www.taiwan.cn/xwzx/la/201912/t20191225_12227837.htm";
-                i.putExtra("share_url", share_url);
-                startActivity(i);
+
+                share_url = "http://www.taiwan.cn/xwzx/la/201912/t20191225_12227837.htm";
+             intent(share_url);
                 break;
             case 1:
-                Toast.makeText(mActivity, "hhhhh...", Toast.LENGTH_SHORT).show();
+
+            share_url ="http://www.taiwan.cn/taiwan/jsxw/201912/t20191225_12227786.htm";
+                intent(share_url);
                 break;
             case 2:
-                Toast.makeText(mActivity, "333...", Toast.LENGTH_SHORT).show();
+
+                share_url ="http://www.taiwan.cn/xwzx/la/201906/t20190603_12170661.htm";
+                intent(share_url);
                 break;
             case 3:
-                Toast.makeText(mActivity, "44444...", Toast.LENGTH_SHORT).show();
+
+                share_url ="http://www.taiwan.cn/local/dfkx/201904/t20190415_12156601.htm";
+                intent(share_url);
                 break;
 
         }
@@ -152,7 +161,12 @@ public class NewsFragment extends BaseFragment implements OnBannerListener {
         }
     }
 
-
+  private  void intent(String url)
+  {
+      Intent i = new Intent(getContext(),ShowNewsActivity.class);
+      i.putExtra("share_url", url);
+      startActivity(i);
+  }
 
     public void querynewsItem(String channelId) {
 
@@ -229,7 +243,7 @@ public class NewsFragment extends BaseFragment implements OnBannerListener {
 
     private void setRefresh() {
         refreshLayout = view.findViewById(R.id.refreshLayout);
-        refreshLayout.setRefreshHeader(new TwoLevelHeader(getActivity()));
+        refreshLayout.setRefreshHeader(new ClassicsHeader(getActivity()));
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
@@ -242,9 +256,9 @@ public class NewsFragment extends BaseFragment implements OnBannerListener {
         refreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
             @Override
             public void onLoadMore(RefreshLayout refreshlayout) {
+/*
 
-
-                adapter.notifyDataSetChanged();
+                adapter.notifyDataSetChanged();*/
                 refreshlayout.finishLoadMore(2000/*,false*/);//传入false表示加载失败
             }
         });

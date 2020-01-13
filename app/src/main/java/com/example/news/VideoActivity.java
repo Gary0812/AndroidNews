@@ -18,7 +18,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 
-public class VideoActivity extends AppCompatActivity {
+public class VideoActivity extends BaseActivity {
     private WebView show_news;
     private Intent data;
     private String share_url;
@@ -37,12 +37,15 @@ public class VideoActivity extends AppCompatActivity {
             String title = bundle.getString("titles");
             String author = bundle.getString("authors");
             String publishdate = bundle.getString("publishdates");
-            System.out.println("7777"+video);
+            String url = bundle.getString("url");
+            String docid = bundle.getString("docid");
             Intent intent = new Intent(VideoActivity.this, vitamio.class);
             intent.putExtra("videourl",video);
             intent.putExtra("titles",title);
             intent.putExtra("authors",author);
             intent.putExtra("publishdates",publishdate);
+            intent.putExtra("docid",docid);
+            intent.putExtra("url",url);
 
             startActivity(intent);
             finish();
@@ -59,28 +62,6 @@ public class VideoActivity extends AppCompatActivity {
     }
 
 
-//   @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-////
-//       super.onCreate(savedInstanceState);
-//////     setContentView(R.layout.activity_show_news);
-////
-//      data = getIntent();
-//      share_url = data.getStringExtra("share_url");
-////
-//image_drawer_home = (ImageView) findViewById(R.id.image_drawer_home);
-////////        toolbar = (Toolbar) findViewById(R.id.contentToolbar);
-////////        toolbar.setTitle("融视频 - 文章内容");
-//        image_drawer_home.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
-//      initDate(share_url);
-////
-////
-//   }
     public void initDate(final String url) {
 
         //只有主线程才能更新UI
@@ -100,6 +81,7 @@ public class VideoActivity extends AppCompatActivity {
                 String title = doc.select("h1#title").text();
                 String author = doc.select("p.editor").text();
                 String publishdate = doc.select("meta[name=publishdate]").attr("content");
+                String docid = doc.select("meta[name=contentid]").attr("content");
 
                 Message message = new Message();
                 Bundle bundle = new Bundle();
@@ -107,6 +89,8 @@ public class VideoActivity extends AppCompatActivity {
                 bundle.putString("authors", author);
                 bundle.putString("publishdates", publishdate);
                 bundle.putString("videourl", video);
+                bundle.putString("url", url);
+                bundle.putString("docid", docid);
                 message.setData(bundle);
                 handler.sendMessage(message);
 

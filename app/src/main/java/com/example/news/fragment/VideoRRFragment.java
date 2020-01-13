@@ -24,8 +24,10 @@ import com.example.news.fragment.dummy.DummyContent;
 import com.example.news.fragment.dummy.DummyContent.DummyItem;
 import com.example.news.model.NewsVo;
 import com.example.news.utils.GsonUtil;
+import com.scwang.smartrefresh.header.StoreHouseHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.header.TwoLevelHeader;
+
+import com.scwang.smartrefresh.layout.header.ClassicsHeader;
 import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
 import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
 
@@ -47,6 +49,7 @@ public class VideoRRFragment extends BaseFragment {
     private  final  String CHANNELID="59994";
     private View view;
     private MyAdapter adapter;
+    private List list;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -61,7 +64,7 @@ public class VideoRRFragment extends BaseFragment {
         super.onResume();
         if (isFirstLoad) {
             // 将数据加载逻辑放到onResume()方法中
-            initData();
+
             querynewsItem(CHANNELID);
             isFirstLoad = false;
         }
@@ -84,13 +87,13 @@ public class VideoRRFragment extends BaseFragment {
         x.http().request(HttpMethod.POST, params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                List list=new ArrayList();
-                list= GsonUtil.jsonToList(result, NewsVo.class);
+                list = new ArrayList();
+                list = GsonUtil.jsonToList(result, NewsVo.class);
                 LinearLayoutManager linearLayoutManager = new LinearLayoutManager(mActivity);
                 linearLayoutManager.setOrientation(LinearLayoutManager.VERTICAL);
                 recyclerView.setLayoutManager(linearLayoutManager);
                 //设置ReCycleView所需的adapter
-                adapter = new MyAdapter(mActivity,R.layout.item_video,list, type);
+                adapter = new MyAdapter(mActivity,R.layout.item_video, list, type);
                 adapter.notifyDataSetChanged();
                 recyclerView.setAdapter(adapter);
                 adapter.setOnItemClickListener(new CommonRecyclerAdapter.OnItemClickListener() {
@@ -133,11 +136,12 @@ public class VideoRRFragment extends BaseFragment {
 
     private void setRefresh() {
         refreshLayout = view.findViewById(R.id.refreshLayout);
-        refreshLayout.setRefreshHeader(new TwoLevelHeader(mActivity));
+        refreshLayout.setRefreshHeader(new ClassicsHeader(mActivity));
         refreshLayout.setEnableRefresh(true);
         refreshLayout.setOnRefreshListener(new OnRefreshListener() {
             @Override
             public void onRefresh(RefreshLayout refreshlayout) {
+                adapter = new MyAdapter(mActivity,R.layout.item_video, list, type);
                 querynewsItem(CHANNELID);
                 adapter.notifyDataSetChanged();
                 refreshlayout.finishRefresh(2000/*,false*/);//传入false表示刷新失败

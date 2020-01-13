@@ -28,7 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 import org.xutils.x;
 
-public class CollectionActivity  extends AppCompatActivity implements NewsAdapter.CallBack{
+public class CollectionActivity  extends BaseActivity implements NewsAdapter.CallBack{
     private ListView collection;
     private Context context;
     private int type;
@@ -39,6 +39,7 @@ public class CollectionActivity  extends AppCompatActivity implements NewsAdapte
     private ImageView image_drawer_home;
     private NewsAdapter adapter;
     private MyDatabaseHelper helper;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,16 +65,32 @@ public class CollectionActivity  extends AppCompatActivity implements NewsAdapte
         collection.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                String url = newsList.get(i).getType();
-                String docid = newsList.get(i).getId();
-                String title = newsList.get(i).getTitle();
-                String time = newsList.get(i).getTime();
-                Intent intent = new Intent(CollectionActivity.this, ShowNewsActivity.class);
-                intent.putExtra("share_url", url);
-                intent.putExtra("share_docid", docid);
-                intent.putExtra("share_title", title);
-                intent.putExtra("share_time", time);
-                startActivity(intent);
+                String type=newsList.get(i).getType();
+                if (type.equals("news")) {
+                    String url = newsList.get(i).getUrl();
+                    String docid = newsList.get(i).getId();
+                    String title = newsList.get(i).getTitle();
+                    String time = newsList.get(i).getTime();
+                    Intent intent = new Intent(CollectionActivity.this, ShowNewsActivity.class);
+                    intent.putExtra("share_url", url);
+                    intent.putExtra("share_docid", docid);
+                    intent.putExtra("share_title", title);
+                    intent.putExtra("share_time", time);
+                    startActivity(intent);
+                }
+                if (type.equals("vedio")) {
+                    String url = newsList.get(i).getUrl();
+                    String docid = newsList.get(i).getId();
+                    String title = newsList.get(i).getTitle();
+                    String time = newsList.get(i).getTime();
+                    Intent intent = new Intent(CollectionActivity.this, vitamio.class);
+                    intent.putExtra("videourl", url);
+                    intent.putExtra("share_docid", docid);
+                    intent.putExtra("share_title", title);
+                    intent.putExtra("share_time", time);
+                    startActivity(intent);
+                }
+
             }
         });
 
@@ -92,8 +109,9 @@ public class CollectionActivity  extends AppCompatActivity implements NewsAdapte
                             String news_title = cursor.getString(cursor.getColumnIndex("news_title"));
                             String news_date = cursor.getString(cursor.getColumnIndex("news_date"));
                             String news_docid = cursor.getString(cursor.getColumnIndex("news_docid"));
+                            String news_type = cursor.getString(cursor.getColumnIndex("news_type"));
 
-                            NewsInfo news = new NewsInfo(news_title, news_url, news_date,news_docid);
+                            NewsInfo news = new NewsInfo(news_title, news_url, news_date,news_docid,news_type);
                             newsList.add(news);
 
                         } while (cursor.moveToNext());
@@ -121,24 +139,7 @@ public class CollectionActivity  extends AppCompatActivity implements NewsAdapte
 
 
 
-        //查找所有数据
-//        List<NewsInfo> allList = mNewsInfoDao.findAllData(NewsInfo.class);
-//        adapter = new NewsAdapter(this,R.layout.taiwan_item,allList, type);
-//        if (allList != null) {
-//            StringBuilder stringb = new StringBuilder();
-//            for (int i = 0; i < allList.size(); i++) {
-//                NewsInfo info = allList.get(i);
-//                stringb.append(info.getTitle() + ",").append(info.getTime()).append("\n");
-//
-////                tv.setText(info.getTitle());
-////                tm.setText(info.getTime());
-//            }
-//            allList.toString();
-//            System.out.println("666666"+allList);
-//tv.setText(stringb);
 
-//        }
-//        Toast.makeText(getApplicationContext(), "收藏夹为空！", Toast.LENGTH_SHORT).show();
     }
     private void initView() {
         collection = (ListView) findViewById(R.id.listview_collection);
