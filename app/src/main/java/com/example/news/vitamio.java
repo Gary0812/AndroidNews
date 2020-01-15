@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 
 import com.example.news.utils.MyDatabaseHelper;
+import com.example.news.utils.ThemeUtil;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 
@@ -37,7 +38,7 @@ public class vitamio extends BaseActivity {
     private TextView content_title;
     private TextView content_author;
     private ImageView image_drawer_home;
-  private  String share_url;
+    private  String share_url;
 
     private String share_time;
     private String share_docid;
@@ -48,6 +49,7 @@ public class vitamio extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ThemeUtil.setBaseTheme(this);
         setContentView(R.layout.activity_vitamio);
         initView();
     }

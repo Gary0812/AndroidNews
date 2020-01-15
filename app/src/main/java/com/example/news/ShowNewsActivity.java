@@ -28,7 +28,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.news.model.NewsInfo;
 import com.example.news.utils.MyDatabaseHelper;
-
+import com.example.news.utils.ThemeUtil;
 
 
 public class ShowNewsActivity extends BaseActivity implements View.OnClickListener {
@@ -39,7 +39,7 @@ public class ShowNewsActivity extends BaseActivity implements View.OnClickListen
     private String share_time;
     private String share_docid;
     private ImageView collect_news;
-//    private Toolbar toolbar;
+    //    private Toolbar toolbar;
     private ImageView image_drawer_home;
 
     private String pageDescription="";
@@ -53,13 +53,11 @@ public class ShowNewsActivity extends BaseActivity implements View.OnClickListen
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
+        ThemeUtil.setBaseTheme(this);
         setContentView(R.layout.activity_show_news);
 
-
-
-
         initView();
-}
+    }
 
     private void initView() {
         show_news =(WebView) findViewById(R.id.show_news);
@@ -103,13 +101,13 @@ public class ShowNewsActivity extends BaseActivity implements View.OnClickListen
         share_title = data.getStringExtra("share_title");
         share_time = data.getStringExtra("share_time");
         show_news.loadUrl(share_url);
-        image_drawer_home =(ImageView) findViewById(R.id.image_drawer_home);
-        image_drawer_home.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                ShowNewsActivity.this.finish();
-            }
-        });
+//        image_drawer_home =(ImageView) findViewById(R.id.image_drawer_home);
+//        image_drawer_home.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                ShowNewsActivity.this.finish();
+//            }
+//        });
 
         collect_news =(ImageView) findViewById(R.id.collect_news);
         collect_news.setOnClickListener(this);
@@ -125,8 +123,6 @@ public class ShowNewsActivity extends BaseActivity implements View.OnClickListen
             @Override
             public void onPageStarted(WebView view, String url, Bitmap favicon) {
                 // 在开始加载网页时会回调
-
-
                 super.onPageStarted(view, url, favicon);
                 showProgress("页面加载中");//开始加载动画
             }
@@ -204,42 +200,42 @@ public class ShowNewsActivity extends BaseActivity implements View.OnClickListen
         SharedPreferences sp = this.getSharedPreferences("show_news", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sp.edit();
 
-      switch(v.getId()) {
-          case R.id.collect_news:
-               if (sp.getString(share_url,"0").equals(share_url)){
-                   //根据id移除收藏夹对应文章
-                   SQLiteDatabase db = helper.getReadableDatabase();
-                   db.execSQL("delete from Collection_News where news_docid=?",
-                           new String[]{share_docid});
-                   db.close();
+        switch(v.getId()) {
+            case R.id.collect_news:
+                if (sp.getString(share_url,"0").equals(share_url)){
+                    //根据url移除收藏夹对应文章
+                    SQLiteDatabase db = helper.getReadableDatabase();
+                    db.execSQL("delete from Collection_News where news_url=?",
+                            new String[]{share_url});
+                    db.close();
 //                   mNewsInfoDao.deleteDataById(share_docid);
-                  editor.putString(share_url,"0");
-                  editor.commit();
-                   collect_news.setImageResource(R.mipmap.favorite);
-                  Toast.makeText(this,"取消收藏",Toast.LENGTH_SHORT).show();
-                  return;
-             }
+                    editor.putString(share_url,"0");
+                    editor.commit();
+                    collect_news.setImageResource(R.mipmap.favorite);
+                    Toast.makeText(this,"取消收藏",Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
-        editor.putString(share_url, share_url);
+                editor.putString(share_url, share_url);
 
-              SQLiteDatabase db = helper.getWritableDatabase();
+                SQLiteDatabase db = helper.getWritableDatabase();
 
-              ContentValues values = new ContentValues();
-              //组装数据
-              values.put("news_url", share_url);
-              values.put("news_type", "news");
-              values.put("news_title", share_title);
-              values.put("news_date", share_time);
-              values.put("news_docid", share_docid);
-              db.insert("Collection_News", null, values);
-              db.close();
-        editor.commit();
-        collect_news.setImageResource(R.mipmap.favorite_selected);
-           Toast.makeText(ShowNewsActivity.this, "收藏成功！", Toast.LENGTH_SHORT).show();
-               break;
+                ContentValues values = new ContentValues();
+                //组装数据
+                values.put("news_url", share_url);
+                values.put("news_type", "news");
+                values.put("news_title", share_title);
+                values.put("news_date", share_time);
+                values.put("news_docid", share_docid);
+                db.insert("Collection_News", null, values);
+                db.close();
+                editor.commit();
+                collect_news.setImageResource(R.mipmap.favorite_selected);
+                Toast.makeText(ShowNewsActivity.this, "收藏成功！", Toast.LENGTH_SHORT).show();
+                break;
         }
 
-   }
+    }
 
     //-----显示ProgressDialog
     public void showProgress(String message) {

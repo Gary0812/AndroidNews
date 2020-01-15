@@ -20,6 +20,7 @@ import com.example.news.fragment.SettingFragment;
 import com.example.news.fragment.VideoFragment;
 import com.example.news.model.UserVo;
 import com.example.news.utils.PrefUtilS;
+import com.example.news.utils.ThemeUtil;
 import com.example.news.utils.XUtilsDate;
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
@@ -55,56 +56,52 @@ public class MainActivity extends AppCompatActivity  {
     private static NavController navController;
 
 
-/*    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
-            = new BottomNavigationView.OnNavigationItemSelectedListener() {
+    /*    private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
+                = new BottomNavigationView.OnNavigationItemSelectedListener() {
 
-        @Override
-        public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            fragmentManager = getSupportFragmentManager();
-            transaction = fragmentManager.beginTransaction();
-            switch (item.getItemId()) {
-                case R.id.navigation_home:
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                fragmentManager = getSupportFragmentManager();
+                transaction = fragmentManager.beginTransaction();
+                switch (item.getItemId()) {
+                    case R.id.navigation_home:
 
-                    transaction.replace(R.id.container,new MainFragment());
-                    transaction.commit();
+                        transaction.replace(R.id.container,new MainFragment());
+                        transaction.commit();
 
-                    return true;
-                case R.id.navigation_video:
+                        return true;
+                    case R.id.navigation_video:
 
-                    transaction.replace(R.id.container,new VideoFragment());
-                    transaction.commit();
-                    return true;
-                case R.id.navigation_mine:
+                        transaction.replace(R.id.container,new VideoFragment());
+                        transaction.commit();
+                        return true;
+                    case R.id.navigation_mine:
 
-                    transaction.replace(R.id.container,new MineFragment());
-                    transaction.commit();
-                    return true;
+                        transaction.replace(R.id.container,new MineFragment());
+                        transaction.commit();
+                        return true;
+                }
+                return false;
             }
-            return false;
-        }
 
-    };*/
-@Override
-protected void onResume() {
+        };*/
+    @Override
+    protected void onResume() {
 
-    super.onResume();
+        super.onResume();
 
-}
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
-
+        ThemeUtil.setBaseTheme(this);
         setContentView(R.layout.activity_main);
 
 
 
-
-
-
-
-       // setDefaultFragment();
+        // setDefaultFragment();
         BottomNavigationView navView = findViewById(R.id.nav_view);
 //        BottomNavigationViewHelper.disableShiftMode(navView);
         // Passing each menu ID as a set of Ids because each
@@ -114,7 +111,7 @@ protected void onResume() {
                 .build();
 
         NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment);
-     // NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
+        // NavigationUI.setupActionBarWithNavController(this, navController, appBarConfiguration);
         NavigationUI.setupWithNavController(navView, navController);
 
 

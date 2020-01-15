@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -23,6 +24,7 @@ import android.widget.Toast;
 import com.example.news.R;
 import com.example.news.model.UserVo;
 import com.example.news.utils.AESUtil;
+import com.example.news.utils.ThemeUtil;
 import com.example.news.utils.XUtilsDate;
 import com.example.news.utils.XmlParserUtils;
 
@@ -60,9 +62,11 @@ public class RegistFragment extends BaseFragment implements View.OnClickListener
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
+        ThemeUtil.setBaseTheme(getContext());
+
         view = inflater.inflate(R.layout.activity_register, container, false);
 
-initView();
+        initView();
         return view;
     }
 
@@ -112,10 +116,10 @@ initView();
                 if (!checkbox_tiaokuan.isChecked()) {
                     Toast.makeText(mActivity, "请同意融视频条款", Toast.LENGTH_SHORT).show();
                 }
-             else   if (!repassword.equals(password)) {
+                else   if (!repassword.equals(password)) {
                     Toast.makeText(mActivity, "密码输入不一致", Toast.LENGTH_SHORT).show();
                 }
-               else if (!moblie.equals("")&&!password.equals("")&&!username.equals("")&&!code.equals("")) {
+                else if (!moblie.equals("")&&!password.equals("")&&!username.equals("")&&!code.equals("")) {
                     //String IMEI=getIMEI(context);
                     String IMEI = XmlParserUtils.getMacFromHardware();
                     XUtilsDate xUtils = new XUtilsDate();

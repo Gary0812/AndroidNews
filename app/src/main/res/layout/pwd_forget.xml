@@ -10,7 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
-        android:background="#F44336"
+        android:background="?attr/mainColor"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -80,6 +80,7 @@
             android:id="@+id/btn_code"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="?attr/mainColor"
             android:text="获取验证码"></Button>
 
     </LinearLayout>

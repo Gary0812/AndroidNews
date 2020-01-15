@@ -9,36 +9,29 @@
         android:layout_height="match_parent"
         android:orientation="vertical">
 
-        <LinearLayout
+        <androidx.appcompat.widget.Toolbar
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
-            android:background="#F44336"
-            android:orientation="horizontal">
+            android:layout_height="40dp"
+            android:background="?attr/mainColor">
 
-            <LinearLayout
-                android:layout_width="0dp"
+            <ImageView
+                android:id="@+id/image_drawer_home"
+                android:layout_width="27dp"
                 android:layout_height="match_parent"
-                android:layout_weight="1"
-                android:orientation="horizontal">
+                android:src="@drawable/mine" />
 
-                <ImageView
-                    android:id="@+id/image_drawer_home"
-                    android:layout_width="27dp"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/mine" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="20"
+                android:layout_gravity="center_horizontal"
+                android:text="融视频"
+                android:textColor="@color/colorWhite"
+                android:textSize="20sp" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="45dp"
-                    android:layout_weight="20"
-                    android:gravity="center"
-                    android:text="融视频"
-                    android:textColor="@color/colorWhite"
-                    android:textSize="18sp" />
-            </LinearLayout>
+        </androidx.appcompat.widget.Toolbar>
 
-        </LinearLayout>
+
 
 
         <com.google.android.material.tabs.TabLayout
@@ -47,8 +40,8 @@
             android:layout_height="0dp"
             android:layout_weight="1"
             android:background="#FFFFFF"
-            app:tabIndicatorColor="#FF0000"
-            app:tabSelectedTextColor="#FF0000"
+            app:tabIndicatorColor="?attr/mainBgColor"
+            app:tabSelectedTextColor="?attr/mainBgColor"
             app:tabTextAppearance="@style/tablayoutIcon"
             app:tabTextColor="#5A5959">
 

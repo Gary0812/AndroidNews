@@ -61,6 +61,17 @@
             android:label="视频详情页"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
+            android:name=".ThemeActivity"
+            android:label="更换主题页"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".BaseActivity"
+            android:label="侧滑"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustUnspecified|stateHidden"/>
+
+        <activity
             android:name="io.vov.vitamio.activity.InitActivity"
             android:configChanges="orientation|screenSize|smallestScreenSize|keyboard|keyboardHidden|navigation"
             android:launchMode="singleTop"
@@ -70,6 +81,3 @@
 
 </manifest>
 
-    <!-- android:networkSecurityConfig="@xml/network_security_config"-->
-<!--
-<uses-permission android:name="android.permission.READ_PHONE_STATE"/>-->

@@ -24,6 +24,7 @@ import com.example.news.fragment.dummy.DummyContent;
 import com.example.news.fragment.dummy.DummyContent.DummyItem;
 import com.example.news.model.NewsVo;
 import com.example.news.utils.GsonUtil;
+import com.example.news.utils.ThemeUtil;
 import com.scwang.smartrefresh.header.StoreHouseHeader;
 import com.scwang.smartrefresh.layout.api.RefreshLayout;
 
@@ -54,6 +55,7 @@ public class VideoRRFragment extends BaseFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ThemeUtil.setBaseTheme(getContext());
         view = inflater.inflate(R.layout.fragment_rritem_list, container, false);
         initView();
         return view;

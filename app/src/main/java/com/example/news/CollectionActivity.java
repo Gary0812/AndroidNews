@@ -23,6 +23,7 @@ import com.example.news.model.NewsInfo;
 import com.example.news.model.NewsVo;
 import com.example.news.utils.GsonUtil;
 import com.example.news.utils.MyDatabaseHelper;
+import com.example.news.utils.ThemeUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +45,7 @@ public class CollectionActivity  extends BaseActivity implements NewsAdapter.Cal
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ThemeUtil.setBaseTheme(this);
         setContentView(R.layout.activity_collection);
         helper = new MyDatabaseHelper(this, "TaiDB.db", null, 1);
 
@@ -94,13 +96,14 @@ public class CollectionActivity  extends BaseActivity implements NewsAdapter.Cal
             }
         });
 
-}
+    }
     private void initViews() {
         new Thread(new Runnable() {
             @Override
             public void run() {
                 SQLiteDatabase db = helper.getReadableDatabase();
                 Cursor cursor = db.rawQuery("select * from Collection_News", null);
+
                 if (cursor.getCount() != 0) {
                     if (cursor.moveToFirst()) {
                         do {
@@ -110,7 +113,7 @@ public class CollectionActivity  extends BaseActivity implements NewsAdapter.Cal
                             String news_date = cursor.getString(cursor.getColumnIndex("news_date"));
                             String news_docid = cursor.getString(cursor.getColumnIndex("news_docid"));
                             String news_type = cursor.getString(cursor.getColumnIndex("news_type"));
-
+//                            System.out.println("666666"+cursor.getString(cursor.getColumnIndex("news_docid")));
                             NewsInfo news = new NewsInfo(news_title, news_url, news_date,news_docid,news_type);
                             newsList.add(news);
 

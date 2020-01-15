@@ -23,6 +23,7 @@ import com.example.news.model.UserVo;
 import com.example.news.utils.AESUtil;
 import com.example.news.utils.GsonUtil;
 import com.example.news.utils.PrefUtilS;
+import com.example.news.utils.ThemeUtil;
 import com.example.news.utils.XUtilsDate;
 import com.example.news.utils.XmlParserUtils;
 
@@ -47,6 +48,8 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+        ThemeUtil.setBaseTheme(getContext());
+
         view = inflater.inflate(R.layout.activity_login, container, false);
         initView();
         return view;
@@ -100,7 +103,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
                 showFragment(LoginFragment.this, registFragment);
                 break;
             case R.id.user_forget:
-               UpdatePswFragment updatePswFragment=new UpdatePswFragment();
+                UpdatePswFragment updatePswFragment=new UpdatePswFragment();
                 showFragment(LoginFragment.this, updatePswFragment);
                 break;
             default:

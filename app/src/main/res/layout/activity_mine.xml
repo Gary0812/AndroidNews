@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="5"
-        android:background="@mipmap/bgmine"
+        android:background="?attr/mainColor"
         android:orientation="vertical">
 
         <LinearLayout
@@ -99,8 +99,6 @@
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:background="@color/colorGrey" />
-
-
 
     <View
         android:layout_width="match_parent"

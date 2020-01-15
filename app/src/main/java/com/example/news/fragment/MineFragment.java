@@ -33,6 +33,7 @@ import com.example.news.ShowNewsActivity;
 import com.example.news.model.UserVo;
 import com.example.news.utils.AESUtil;
 import com.example.news.utils.PrefUtilS;
+import com.example.news.utils.ThemeUtil;
 import com.example.news.utils.XUtilsDate;
 import com.example.news.utils.XmlParserUtils;
 
@@ -66,7 +67,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,X
         }
     };
     private UserVo userVo;
-     int a;
+    int a;
     private View view;
     private Button myButton;
     private EditText register_phone;
@@ -97,13 +98,13 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,X
     private TextView collection;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        ThemeUtil.setBaseTheme(getContext());
         boolean show= PrefUtilS.getUserBoolean(mActivity,"is_user",false);
         view = inflater.inflate(R.layout.activity_mine, container, false);
         String username=PrefUtilS.getUser(mActivity,"username",null);
         mine_user_name = view.findViewById(R.id.mine_user_name);
         mine_user_name.setText(username);
-  initView();
+        initView();
 
 
        /* if (show) {
@@ -169,8 +170,8 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,X
     public View initView() {
         collection = view.findViewById(R.id.collection);
         navigation_setting = view.findViewById(R.id.navigation_setting);
-       navigation_setting.setOnClickListener(this);
-       collection.setOnClickListener(this);
+        navigation_setting.setOnClickListener(this);
+        collection.setOnClickListener(this);
         return view;
     }
 
@@ -283,7 +284,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,X
 
 
     //获取验证码信息，判断是否有手机号码
- public void getMobiile(String mobile) {
+    public void getMobiile(String mobile) {
         if ("".equals(mobile)) {
             Log.e("tag", "mobile=" + mobile);
             new AlertDialog.Builder(getActivity()).setTitle("提示").setMessage("手机号码不能为空").setPositiveButton("确定", null).setCancelable(true).show();
@@ -293,10 +294,10 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,X
             Toast.makeText(mActivity, "发送成功", Toast.LENGTH_SHORT).show();
             //获取验证码信息
             String data = "name=";
-                 //  initListData1(data);
-                  XUtilsDate xUtils = new XUtilsDate();
-                  xUtils.setmList(MineFragment.this);
-                  xUtils.onSmsPost(view, mobile);
+            //  initListData1(data);
+            XUtilsDate xUtils = new XUtilsDate();
+            xUtils.setmList(MineFragment.this);
+            xUtils.onSmsPost(view, mobile);
         }
     }
 
@@ -309,7 +310,7 @@ public class MineFragment extends BaseFragment implements View.OnClickListener,X
     }
 
     //获取验证码信息,进行计时操作
-   public void startCountBack() {
+    public void startCountBack() {
         (getActivity()).runOnUiThread(new Runnable() {
             @Override
             public void run() {

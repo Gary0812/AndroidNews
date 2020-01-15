@@ -13,6 +13,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.widget.Toolbar;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.fragment.app.Fragment;
@@ -20,11 +21,14 @@ import androidx.fragment.app.FragmentPagerAdapter;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.viewpager.widget.ViewPager;
 
+import com.example.news.BaseActivity;
 import com.example.news.CollectionActivity;
 import com.example.news.MainActivity;
+import com.example.news.ThemeActivity;
 import com.example.news.adapter.FragmentAdapter;
 import com.example.news.R;
 import com.example.news.utils.PrefUtilS;
+import com.example.news.utils.ThemeUtil;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.tabs.TabLayout;
 
@@ -54,14 +58,14 @@ public class MainFragment extends BaseFragment {
     private TextView textView;
     boolean isChanged = false;
     DrawerLayout mDrawerLayout;
-private  TextView app_collect_info;
+    private  TextView app_collect_info;
     Toolbar mToolbar;
     private ImageView imageView;
     private  LocalityFragment localityFragment;
-     private  ThirtyOneFragment thirtyOneFragment;
+    private  ThirtyOneFragment thirtyOneFragment;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
+        ThemeUtil.setBaseTheme(getContext());
         if (view == null) {
             view = inflater.inflate(R.layout.fragment_main, container, false);
             initView();
@@ -106,7 +110,7 @@ private  TextView app_collect_info;
         titleList.add("31条");
 
         fragmentAdapter = new FragmentAdapter(getChildFragmentManager(), FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT,fragmentList, titleList);
-       // fragmentAdapter = new FragmentAdapter(mActivity.getSupportFragmentManager(), fragmentList, titleList);
+        // fragmentAdapter = new FragmentAdapter(mActivity.getSupportFragmentManager(), fragmentList, titleList);
         viewPager.setAdapter(fragmentAdapter);
 
         //将tabLayout与viewPager连起来
@@ -156,7 +160,9 @@ private  TextView app_collect_info;
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch (item.getItemId()) {
                     case R.id.nav_home :
+                        getActivity().finish();
                         Intent mainIntent = new Intent(getContext(), MainActivity.class);
+                        mainIntent.addCategory(mainIntent.CATEGORY_HOME);
                         startActivity(mainIntent);
                         break;
                     case R.id.nav_sousiba :
@@ -166,8 +172,15 @@ private  TextView app_collect_info;
                     case R.id.nav_wait :
                         Toast.makeText(mActivity, "敬请期待...", Toast.LENGTH_SHORT).show();
                         break;
+                    case R.id.nav_about :
+                        DiyDialog2();
+                        break;
+                    case R.id.nav_theme :
+                        Intent baseIntent = new Intent(getContext(), ThemeActivity.class);
+                        startActivity(baseIntent);
+                        break;
                 }
-           //获取menu菜单事件
+                //获取menu菜单事件
                 item.getItemId();
                 item.getTitle().toString();
                 return true;
@@ -188,5 +201,11 @@ private  TextView app_collect_info;
             }
         });
     }
-
+    private void DiyDialog2() {
+        AlertDialog.Builder alterDiaglog = new AlertDialog.Builder(getContext(),R.style.aboutDialog);
+        alterDiaglog.setView(R.layout.dialog_about);//加载进去
+        AlertDialog dialog = alterDiaglog.create();
+        //显示
+        dialog.show();
+    }
 }

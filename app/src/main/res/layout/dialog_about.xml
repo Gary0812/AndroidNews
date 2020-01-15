@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/about_dialog_background"
+    android:layout_width="match_parent"
+    android:layout_height="260dp"
+    android:background="?attr/mainColor">
+
+    <ImageView
+        android:id="@+id/about_img"
+        android:layout_width="102dp"
+        android:layout_height="86dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="28dp"
+        android:src="@drawable/mine" />
+
+    <TextView
+        android:id="@+id/about_app_title"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/about_img"
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        android:text="@string/app_name"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/about_app_version"
+        android:layout_width="260dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/about_app_title"
+        android:gravity="center"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="7dp"
+        android:text="version: 0.0.0 beta"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/about_jzm"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/about_app_version"
+        android:layout_centerHorizontal="true"
+        android:textSize="14sp" />
+
+
+</RelativeLayout>
