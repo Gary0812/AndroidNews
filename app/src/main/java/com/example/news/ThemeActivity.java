@@ -9,7 +9,7 @@ import androidx.appcompat.widget.Toolbar;
 
 import com.example.news.utils.ThemeUtil;
 
-public class ThemeActivity extends BaseActivity{
+public class ThemeActivity extends AppCompatActivity {
     private ThemeActivity mContext;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
