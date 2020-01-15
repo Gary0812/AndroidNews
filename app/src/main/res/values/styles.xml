@@ -43,6 +43,60 @@
         <item name="colorControlNormal">#4E4D4D</item>
         <item name="colorControlActivated">@android:color/holo_orange_dark</item>
     </style>
+    <!--换肤-->
+    <style name="AppThemeNoAction" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">#F32020</item>
+        <item name="colorPrimaryDark">#F32020</item>
+        <item name="colorAccent">#F3F5F3</item>
+        <item name="mainBgColor">#DB3A3A</item>
+        <item name="mainColor">#F32020</item>
+    </style>
+    <style name="AppThemeNoAction.Green">
+        <item name="colorPrimary">#005803</item>
+        <item name="colorPrimaryDark">#388E3C</item>
+        <item name="colorAccent">#014601</item>
+        <item name="mainBgColor">#78D87D</item>
+        <item name="mainColor">#4CAF50</item>
+    </style>
+
+    <style name="AppThemeNoAction.Blue">
+        <item name="colorPrimary">#1976D2</item>
+        <item name="colorPrimaryDark">#1976D2</item>
+        <item name="colorAccent">#F3F5F3</item>
+        <item name="mainBgColor">#5094C7</item>
+        <item name="mainColor">#2196F3</item>
+    </style>
+
+    <style name="AppThemeNoAction.Yellow">
+        <item name="colorPrimary">#FFC107</item>
+        <item name="colorPrimaryDark">#FFC107</item>
+        <item name="colorAccent">#631801</item>
+        <item name="mainBgColor">#FFEB3B</item>
+        <item name="mainColor">#FFC107</item>
+    </style>
+
+    <style name="AppThemeNoAction.Grey">
+        <item name="colorPrimary">#455A64</item>
+        <item name="colorPrimaryDark">#455A64</item>
+        <item name="colorAccent">#58575A</item>
+        <item name="mainBgColor">#CFD8DC</item>
+        <item name="mainColor">#607D8B</item>
+    </style>
+    <style name="AppThemeNoAction.Red">
+        <item name="colorPrimary">#F32020</item>
+        <item name="colorPrimaryDark">#F32020</item>
+        <item name="colorAccent">#F3F5F3</item>
+        <item name="mainBgColor">#DB3A3A</item>
+        <item name="mainColor">#F32020</item>
+    </style>
+    <style name="AppThemeNoAction.White">
+        <item name="colorPrimary">#C24141</item>
+        <item name="colorPrimaryDark">#F08080</item>
+        <item name="colorAccent">#070707</item>
+        <item name="mainBgColor">#DFC5C5</item>
+        <item name="mainColor">#F08080</item>
+    </style>
 
 
 
