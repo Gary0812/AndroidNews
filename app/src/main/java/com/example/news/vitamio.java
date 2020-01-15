@@ -85,8 +85,8 @@ public class vitamio extends BaseActivity {
                 if (sp.getString(svideo,"0").equals(svideo)){
                     //根据id移除收藏夹对应文章
                     SQLiteDatabase db = helper.getReadableDatabase();
-                    db.execSQL("delete from Collection_News where news_docid=?",
-                            new String[]{share_docid});
+                    db.execSQL("delete from Collection_News where news_url=?",
+                            new String[]{share_url});
                     db.close();
                     editor.putString(svideo,"0");
                     editor.commit();

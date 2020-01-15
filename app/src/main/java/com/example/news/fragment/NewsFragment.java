@@ -60,6 +60,7 @@ public class NewsFragment extends BaseFragment implements OnBannerListener {
     private  final  String CHANNELID="59990";
     private boolean isFirstLoad = true; // 是否第一次加载
     private String share_url;
+    private String share_title;
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -131,22 +132,28 @@ public class NewsFragment extends BaseFragment implements OnBannerListener {
             case 0:
 
                 share_url = "http://www.taiwan.cn/xwzx/la/201912/t20191225_12227837.htm";
-             intent(share_url);
+                share_title="国台办12月25日举行例行新闻发布会";
+             intent(share_url,share_title);
                 break;
             case 1:
 
             share_url ="http://www.taiwan.cn/taiwan/jsxw/201912/t20191225_12227786.htm";
-                intent(share_url);
+                share_title="韩国瑜上脱口秀节目播出9小时逾88万人观看";
+                intent(share_url,share_title);
+
                 break;
             case 2:
 
                 share_url ="http://www.taiwan.cn/xwzx/la/201906/t20190603_12170661.htm";
-                intent(share_url);
+                share_title="【融融观粤】台媒报道中的大湾区";
+                intent(share_url,share_title);
+
                 break;
             case 3:
 
                 share_url ="http://www.taiwan.cn/local/dfkx/201904/t20190415_12156601.htm";
-                intent(share_url);
+                share_title="【31条在山东】";
+                intent(share_url,share_title);
                 break;
 
         }
@@ -161,13 +168,13 @@ public class NewsFragment extends BaseFragment implements OnBannerListener {
         }
     }
 
-  private  void intent(String url)
+  private  void intent(String url,String title)
   {
       Intent i = new Intent(getContext(),ShowNewsActivity.class);
       i.putExtra("share_url", url);
+      i.putExtra("share_title", title);
       startActivity(i);
   }
-
     public void querynewsItem(String channelId) {
 
         String path = "http://172.16.2.94:8080/wcmInf/querynewsItem";
