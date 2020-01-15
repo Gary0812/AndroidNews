@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.example.news.BaseActivity">
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/main_toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="?attr/mainColor"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?attr/colorAccent"
+            android:text="切换主题" />
+
+        <View
+            android:id="@+id/menu_pop"
+            android:layout_width="1dp"
+            android:layout_height="1dp"
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp" />
+    </androidx.appcompat.widget.Toolbar>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center">
+
+        <LinearLayout
+            android:id="@+id/checkyellow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+            <View
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_weight="0.3"
+                android:background="@color/yellow"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/checkblue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <View
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_weight="0.3"
+                android:background="@color/blue"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/checkgrey"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <View
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_weight="0.3"
+                android:background="@color/grey"/>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/checkgreen"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <View
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_weight="0.3"
+                android:background="@color/green"/>
+
+
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/checkwhite"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <View
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_weight="0.3"
+                android:background="@color/whitec"/>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/checkred"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+
+            <View
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_weight="0.3"
+                android:background="@color/red"/>
+
+
+        </LinearLayout>
+
+
+
+    </LinearLayout>
+</LinearLayout>
