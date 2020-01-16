@@ -98,7 +98,6 @@ public class vitamio extends BaseActivity {
                 editor.putString(share_docid, share_docid);
 
                 SQLiteDatabase db = helper.getWritableDatabase();
-
                 ContentValues values = new ContentValues();
                 //组装数据
                 values.put("news_url", svideo);

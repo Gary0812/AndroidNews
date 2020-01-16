@@ -12,6 +12,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListAdapter;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,7 +41,7 @@ public class CollectionActivity  extends BaseActivity implements NewsAdapter.Cal
     private ImageView image_drawer_home;
     private NewsAdapter adapter;
     private MyDatabaseHelper helper;
-
+    private RelativeLayout mEmptyView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,7 +50,7 @@ public class CollectionActivity  extends BaseActivity implements NewsAdapter.Cal
         setContentView(R.layout.activity_collection);
         helper = new MyDatabaseHelper(this, "TaiDB.db", null, 1);
 
-
+        mEmptyView =(RelativeLayout)findViewById(R.id.collection_empty_view);
 //        tm =(TextView) findViewById(R.id.news_item_date);
         image_drawer_home =(ImageView) findViewById(R.id.image_drawer_home);
         image_drawer_home.setOnClickListener(new View.OnClickListener() {
@@ -126,6 +127,7 @@ public class CollectionActivity  extends BaseActivity implements NewsAdapter.Cal
                         @Override
                         public void run() {
                             Toast.makeText(getApplicationContext(), "收藏夹为空！", Toast.LENGTH_SHORT).show();
+                            mEmptyView.setVisibility(View.VISIBLE);
                         }
                     });
                 }
