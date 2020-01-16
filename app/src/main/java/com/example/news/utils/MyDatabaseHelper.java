@@ -38,6 +38,6 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
         sqLiteDatabase.execSQL("ALTER TABLE Collection_News ADD COLUMN news_authors VARCHAR DEFAULT 0");
-        
+
     }
 }
