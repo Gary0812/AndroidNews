@@ -21,7 +21,8 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
             + "news_date text,"
             + "news_url text,"
             + "news_type text,"
-            + "news_docid text)";
+            + "news_docid text,"
+            + "news_authors varchar)";
 
     public MyDatabaseHelper(Context context, String name, SQLiteDatabase.CursorFactory factory, int version) {
         super(context, name, factory, version);
@@ -36,6 +37,7 @@ public class MyDatabaseHelper extends SQLiteOpenHelper {
 
     @Override
     public void onUpgrade(SQLiteDatabase sqLiteDatabase, int i, int i1) {
-        sqLiteDatabase.execSQL("ALTER TABLE Collection_News ADD COLUMN news_docid INTEGER DEFAULT 0");
+        sqLiteDatabase.execSQL("ALTER TABLE Collection_News ADD COLUMN news_authors VARCHAR DEFAULT 0");
+        
     }
 }

@@ -35,6 +35,7 @@ public class vitamio extends BaseActivity {
     private String svideo;
     private String authors;
     private String share_title;
+
     private TextView content_title;
     private TextView content_author;
     private ImageView image_drawer_home;
@@ -83,10 +84,10 @@ public class vitamio extends BaseActivity {
             @Override
             public void onClick(View view) {
                 if (sp.getString(svideo,"0").equals(svideo)){
-                    //根据id移除收藏夹对应文章
+                    //根据url移除收藏夹对应文章
                     SQLiteDatabase db = helper.getReadableDatabase();
                     db.execSQL("delete from Collection_News where news_url=?",
-                            new String[]{share_url});
+                            new String[]{svideo});
                     db.close();
                     editor.putString(svideo,"0");
                     editor.commit();
@@ -106,6 +107,7 @@ public class vitamio extends BaseActivity {
                 values.put("news_title", share_title);
                 values.put("news_date", share_time);
                 values.put("news_docid", share_docid);
+                values.put("news_authors", authors);
                 db.insert("Collection_News", null, values);
                 db.close();
                 editor.commit();

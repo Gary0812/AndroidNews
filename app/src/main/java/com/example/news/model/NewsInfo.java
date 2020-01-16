@@ -54,6 +54,13 @@ public class NewsInfo {
     public void setType(String type) {
         this.type = type;
     }
+    public String getAuthors() {
+        return authors;
+    }
+
+    public void setAuthors(String authors) {
+        this.authors = authors;
+    }
 
     @Column(name = "time")
     private String time;
@@ -62,13 +69,16 @@ public class NewsInfo {
     private String url;
     @Column(name = "type")
     private String type;
+    @Column(name = "authors")
+    private String authors;
 
-    public NewsInfo(String news_title, String news_url, String news_date,String news_docid,String news_type) {
+    public NewsInfo(String news_title, String news_url, String news_date,String news_docid,String news_type,String news_authors) {
         this.title=news_title;
         this.time =news_date;
         this.url= news_url;
         this.id= news_docid;
         this.type= news_type;
+        this.authors= news_authors;
     }
 
 

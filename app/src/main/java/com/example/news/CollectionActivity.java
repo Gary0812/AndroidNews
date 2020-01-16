@@ -85,11 +85,13 @@ public class CollectionActivity  extends BaseActivity implements NewsAdapter.Cal
                     String docid = newsList.get(i).getId();
                     String title = newsList.get(i).getTitle();
                     String time = newsList.get(i).getTime();
+                    String authors = newsList.get(i).getAuthors();
                     Intent intent = new Intent(CollectionActivity.this, vitamio.class);
                     intent.putExtra("videourl", url);
                     intent.putExtra("share_docid", docid);
-                    intent.putExtra("share_title", title);
+                    intent.putExtra("titles", title);
                     intent.putExtra("share_time", time);
+                    intent.putExtra("authors", authors);
                     startActivity(intent);
                 }
 
@@ -113,8 +115,8 @@ public class CollectionActivity  extends BaseActivity implements NewsAdapter.Cal
                             String news_date = cursor.getString(cursor.getColumnIndex("news_date"));
                             String news_docid = cursor.getString(cursor.getColumnIndex("news_docid"));
                             String news_type = cursor.getString(cursor.getColumnIndex("news_type"));
-//                            System.out.println("666666"+cursor.getString(cursor.getColumnIndex("news_docid")));
-                            NewsInfo news = new NewsInfo(news_title, news_url, news_date,news_docid,news_type);
+                            String news_authors = cursor.getString(cursor.getColumnIndex("news_authors"));
+                            NewsInfo news = new NewsInfo(news_title, news_url, news_date,news_docid,news_type,news_authors);
                             newsList.add(news);
 
                         } while (cursor.moveToNext());
