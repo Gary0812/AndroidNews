@@ -65,7 +65,7 @@ public class vitamio extends BaseActivity {
         svideo = data.getStringExtra("videourl");
         authors = data.getStringExtra("authors");
         share_title = data.getStringExtra("titles");
-        share_docid=data.getStringExtra("docid");
+        share_docid=data.getStringExtra("share_docid");
         share_url=data.getStringExtra("url");
         share_time=data.getStringExtra("publishdates");
         content_title = (TextView) findViewById(R.id.content_title);
