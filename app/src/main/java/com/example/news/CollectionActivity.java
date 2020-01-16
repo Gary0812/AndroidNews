@@ -75,7 +75,7 @@ public class CollectionActivity  extends BaseActivity implements NewsAdapter.Cal
                     String time = newsList.get(i).getTime();
                     Intent intent = new Intent(CollectionActivity.this, ShowNewsActivity.class);
                     intent.putExtra("share_url", url);
-                    intent.putExtra("share_docid", docid);
+                    intent.putExtra("docid", docid);
                     intent.putExtra("share_title", title);
                     intent.putExtra("share_time", time);
                     startActivity(intent);
@@ -88,7 +88,7 @@ public class CollectionActivity  extends BaseActivity implements NewsAdapter.Cal
                     String authors = newsList.get(i).getAuthors();
                     Intent intent = new Intent(CollectionActivity.this, vitamio.class);
                     intent.putExtra("videourl", url);
-                    intent.putExtra("share_docid", docid);
+                    intent.putExtra("docid", docid);
                     intent.putExtra("titles", title);
                     intent.putExtra("share_time", time);
                     intent.putExtra("authors", authors);

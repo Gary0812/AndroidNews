@@ -74,7 +74,7 @@ public class vitamio extends BaseActivity {
         content_title.setText(share_title);
         sp = this.getSharedPreferences("show_news", Context.MODE_PRIVATE);
         editor = sp.edit();
-        if(sp.getString(svideo, "0").equals( svideo)) {
+        if(sp.getString(share_docid, "0").equals( share_docid)) {
             collect_news.setImageResource(R.mipmap.favorite_selected);
         }else {
             collect_news.setImageResource(R.mipmap.favorite);
@@ -83,20 +83,19 @@ public class vitamio extends BaseActivity {
         collect_news.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (sp.getString(svideo,"0").equals(svideo)){
+                if (sp.getString(share_docid,"0").equals(share_docid)){
                     //根据url移除收藏夹对应文章
                     SQLiteDatabase db = helper.getReadableDatabase();
-                    db.execSQL("delete from Collection_News where news_url=?",
-                            new String[]{svideo});
+                    db.execSQL("delete from Collection_News where news_docid=?",new String[]{share_docid});
                     db.close();
-                    editor.putString(svideo,"0");
+                    editor.putString(share_docid,"0");
                     editor.commit();
                     collect_news.setImageResource(R.mipmap.favorite);
                     Toast.makeText(vitamio.this,"取消收藏",Toast.LENGTH_SHORT).show();
                     return;
                 }
 
-                editor.putString(svideo, svideo);
+                editor.putString(share_docid, share_docid);
 
                 SQLiteDatabase db = helper.getWritableDatabase();
 
