@@ -29,6 +29,7 @@ public class ThemeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (ThemeUtil.setNewTheme(mContext, ThemeUtil.ThemeColors.ThEME_BLUE)){
                     recreate();
+                    intent();
                 }
             }
         });
@@ -37,6 +38,7 @@ public class ThemeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (ThemeUtil.setNewTheme(mContext, ThemeUtil.ThemeColors.THEME_GREEN))
                     recreate();
+                intent();
             }
         });
         yellow.setOnClickListener(new View.OnClickListener() {
@@ -44,6 +46,7 @@ public class ThemeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (ThemeUtil.setNewTheme(mContext, ThemeUtil.ThemeColors.THEME_YELLOW))
                     recreate();
+                intent();
             }
         });
         grey.setOnClickListener(new View.OnClickListener() {
@@ -51,6 +54,7 @@ public class ThemeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (ThemeUtil.setNewTheme(mContext, ThemeUtil.ThemeColors.THEME_GREY))
                     recreate();
+                intent();
             }
         });
         red.setOnClickListener(new View.OnClickListener() {
@@ -58,6 +62,7 @@ public class ThemeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (ThemeUtil.setNewTheme(mContext, ThemeUtil.ThemeColors.THEME_RED)){
                     recreate();
+                    intent();
                 }
             }
         });
@@ -66,6 +71,7 @@ public class ThemeActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (ThemeUtil.setNewTheme(mContext, ThemeUtil.ThemeColors.THEME_WHITE)){
                     recreate();
+                    intent();
                 }
             }
         });
@@ -78,11 +84,14 @@ public class ThemeActivity extends AppCompatActivity {
 
     @Override
     public void onBackPressed() {
+       intent();
+
+    }
+    public void intent(){
         ThemeActivity.this.finish();
         Intent mainIntent = new Intent(this, MainActivity.class);
         mainIntent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         startActivity(mainIntent);
-
     }
 
 }
