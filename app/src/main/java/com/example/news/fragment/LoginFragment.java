@@ -1,13 +1,7 @@
 package com.example.news.fragment;
 
-import android.content.Context;
 import android.graphics.Rect;
-import android.net.Uri;
 import android.os.Bundle;
-
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,6 +11,9 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import com.example.news.R;
 import com.example.news.model.UserVo;
@@ -69,7 +66,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
         myButton.setOnClickListener(this);
         check_user.setOnClickListener(this);
         user_forget.setOnClickListener(this);
-        fm_regist = (LinearLayout) view.findViewById(R.id.fm_regist);
+        fm_regist = view.findViewById(R.id.fm_regist);
 
         return view;
     }
@@ -173,7 +170,7 @@ public class LoginFragment extends BaseFragment implements View.OnClickListener,
                     PrefUtilS.putUser(mActivity, "mobile", userVo.getMoblie());
                     PrefUtilS.putUser(mActivity, "password", userVo.getPassword());
                     PrefUtilS.putUser(mActivity, "IMEI", userVo.getIMEI());
-
+                    System.out.println();
                   /*  Handler handler = new Handler();
                     Message msg = Message.obtain();
                     msg.what = SUCESS;
