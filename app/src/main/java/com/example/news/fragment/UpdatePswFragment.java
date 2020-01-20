@@ -37,7 +37,7 @@ import java.util.Map;
 import static com.example.news.fragment.RegistFragment.isMobileNO;
 
 
-public class UpdatePswFragment extends BaseFragment implements View.OnClickListener{
+public class UpdatePswFragment extends BaseFragment implements View.OnClickListener,XUtilsDate.LisData{
 
     private String url = "http://172.16.2.94:8080/wcmInf/";
     private View view;
@@ -123,7 +123,7 @@ public class UpdatePswFragment extends BaseFragment implements View.OnClickListe
             String data = "name=";
             //  initListData1(data);
             XUtilsDate xUtils = new XUtilsDate();
-
+            xUtils.setmList(UpdatePswFragment.this);
             xUtils.onSmsPost(view, mobile);
         }
     }
@@ -209,5 +209,19 @@ public class UpdatePswFragment extends BaseFragment implements View.OnClickListe
                     .commitAllowingStateLoss();
         }
 
+    }
+    //获取验证码信息,进行计时操作
+    public void startCountBack() {
+        (getActivity()).runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                btn_code.setText(countSeconds + "");
+                mCountHandler.sendEmptyMessage(0);
+            }
+        });
+    }
+    @Override
+    public void start() {
+        startCountBack();
     }
 }
